@@ -1,0 +1,128 @@
+// Place all the styles related to the phone controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.attributes-list {
+  padding-top: 20px;
+}
+
+.reviewer {
+  display: inline;
+}
+
+.reviewer span {
+  font-size: 9pt;
+}
+
+.phone-popup-main {
+
+}
+ 
+.comments-list {
+  max-height: 190px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+  .comment-popup-main {
+    background: #EEE;
+    margin-bottom: 2px;
+    padding: 3px;
+    .comment-metas {
+      border-right: 1px solid #CCC;
+    }
+  }
+}
+
+.comment-text {
+  height: 100px;
+  width: 95%;
+}
+
+.brands-wrapper-import {
+  display: inline-block;
+  width: 200px;
+}
+
+.phone-img-main-wrapper {
+  height: 64px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  
+  img {
+    max-height: 64px;
+  }
+}
+
+.phone-img-main-wrapper img {
+  max-width: 64px;
+  max-height: 64px;
+}
+
+.align-center {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.align-center.phone-title-main {
+  height: 40px;
+}
+
+.align-center.catalogue-phone-title {
+  height: 40px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.attr_main {
+  border-bottom: 1px solid #CCC;
+  
+  a:hover {
+    cursor: text;
+  }
+  
+  span {
+    display: inline-block;
+  }
+  
+  .attr_name {
+    width: 150px;
+  }
+}
+
+.attributes_catalogue {
+  .attribute_catalogue {
+    font-size: 8pt;
+    border-bottom: 1px solid #CCC;
+  }
+  dt {
+    width: 100px;
+    text-align: left;
+  }
+  dd {
+    margin-left: 100px;
+    text-align: left;
+  }
+}
+
+.catalogue-item-main {
+  .remove-item {
+    display: block;
+    border: none;
+    float: right;
+    margin: -10px -10px 0 0;
+  }
+  
+  .show-on-hover {
+    visibility: hidden;
+  }
+  
+  ul.prices-history-content > li {
+    font-size : 8pt;
+  }
+}
+
+.typeahead { z-index: 1051; }

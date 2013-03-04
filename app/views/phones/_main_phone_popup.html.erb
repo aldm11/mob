@@ -1,0 +1,30 @@
+<div id="addCommentPopup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="addCommentTitle" aria-hidden="true">
+	<div class="modal-header phone-popup-main">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<%= content_tag("h3", @phone_data.phone.name) %>
+		
+		<ul class="nav nav-tabs" id="tabsPhoneMain">
+			<li><a href="#aboutPhone">Phone</a></li>
+			<li><a href="#phoneComments">Comments</a></li>
+		</ul>
+	</div>
+	<div class="modal-body">
+	  	<div class="tab-content">
+	  		<div class="tab-pane active" id="phoneComments">
+			  	<div class="comments-list">
+			  		<% if @phone_data.comments.empty? %>
+			  		<p class="muted">There are no comments for this phone</p>
+			  		<% else %>
+					<% @phone_data.comments.each do |comment| %>
+					<%= render :partial => 'shared/comment_popup_main', :locals => {:comment => comment} %>
+					<% end %>
+					<% end %>
+				</div>
+				<%= render :partial => "comments/new" %>
+			</div>
+			<div class="tab-pane" id="aboutPhone">
+				<%= render :partial => "shared/phone_details", :locals => {:phone => @phone_data.phone} %>
+			</div>
+		</div>
+	</div>
+</div>

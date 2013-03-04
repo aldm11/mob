@@ -1,0 +1,12 @@
+<div class="row-fluid">
+	<div class="span3">
+		<%= phone.render_image("80") %>
+	</div>
+	<div class="span7">
+		<ul class="nav nav-pills nav-stacked">
+			<% phone.attributes_for_display.each do |attr, value| %>
+			<%= render :partial => "shared/phone_attribute", :locals => {:label => I18n.t("mongoid.attributes.phone."+attr), :value => value} %>
+			<% end %>
+		</ul>
+	</div>
+</div>

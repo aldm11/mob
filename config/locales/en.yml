@@ -1,0 +1,66 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  ##### common
+  price: "$ %{price}"
+  #####
+  hello: "Hello world"
+  sign_up: "Sign up"
+  sign_in: "Have account? Login"
+  forgot_password: "Forgot your password?"
+  didnt_receive_confirmation_ins: "Didn't receive confirmation instructions?"
+  sign_up_provider: "Sign in with %{provider.to_s.titleize}"
+  didnt_receive_unlock_ins: "Didn't receive unlock instructions?"
+  login: "Login"
+  add_phone: "Add"
+  phone_added: "Phone added succesfully"
+  mongoid:
+    errors:
+      models:
+        account:
+          attributes:
+            email:
+              blank: "not specified"
+            password: 
+              blank: "not specified"
+        user:
+          attributes:
+            name:
+              blank: "not specified"
+        store:
+          attributes:
+            name:
+              blank: "not specified"
+    attributes:
+      account:
+        email: "E-mail"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        remember: "Remember me"
+      user:
+        name: "Name"
+        address: "Address"
+        phone: "Phone"
+      store:
+        name: "Name"
+        address: "Address"
+        phone: "Phone"
+      comment:
+        text: "Comment"
+      phone:
+        brand: "Brand"
+        model: "Model"
+        camera: "Camera"
+        display: "Display"
+        os: "Operating system"
+        height: "Height"
+        width: "Width"
+        weight: "Weight"
+        internal_memory: "Internal memory"
+        external_memory: "Enternal memory"
+        created_at: "Created at"
+      
+      
+      
+      

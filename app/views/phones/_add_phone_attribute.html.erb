@@ -1,0 +1,10 @@
+<h3>Add attribute</h3>
+<%= form_tag(url_for(:controller => "phones", :action => "add_attribute")) do %>
+<fieldset>
+<% attribute_fields.each do |field| %>
+<%= label_tag field.downcase.camelize %>
+<%= text_field_tag field %>
+<% end %><br/>
+<%= button_tag "Add", :type => "submit", :class => "btn" %>
+</fieldset>
+<% end %>

@@ -1,0 +1,14 @@
+{
+  "attributes": [
+    {
+      "name": "Baterry",
+      "unit": "mAh"
+    },
+    {
+      "name": "Bluetooth"
+    },
+    {
+      "name": "USB"
+    }
+  ]
+}

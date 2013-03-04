@@ -1,0 +1,29 @@
+<div class='modal hide fade save-catalogue-item'>
+	<div class='modal-header'>
+		<h3>Add new phone</h3>
+	</div>
+	<div class='modal-body'>
+		<div class="span3">
+			<!-- TODO: maybe do this with remote submit -->
+			<%= form_tag url_for(:action => "create"), :class => "form-horizontal", :id => "saveCatalogueItem" do %>
+			<div class="control-group">
+				<%= text_field_tag "phone_name", "", :placeholder => "Type phone name ...", :class => "typeahead", :autocomplete => "off" %>
+			</div>
+			<div class="control-group">
+				<%= hidden_field_tag "phone_id" %>
+			</div>
+			<div class="control-group">
+				<%= text_field_tag "price", "", :placeholder => "Type price ...", :class => "number" %>
+			</div>
+			<div class="control-group">
+				<%= submit_tag "Add", :class => "btn btn-primary" %>
+				<%= button_tag "Cancel", :class => "btn", :type => "reset" %>
+			</div>
+			<% end %>
+		</div>
+		<div class="span3 phone-details">
+		</div>
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>

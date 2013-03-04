@@ -1,0 +1,36 @@
+<% if account_signed_in? %>
+$(".remove-confirm").modal("hide");
+$(".remove-confirm").remove();
+
+row = $("#<%= params[:phone_id] %>").parent();
+
+$("#<%= params[:phone_id] %>").next().remove();
+$("#<%= params[:phone_id] %>").next().remove();
+$("#<%= params[:phone_id] %>").next().remove();
+$("#<%= params[:phone_id] %>").remove();
+
+row.nextAll(".row-catalogue").each(function(){
+	var firstChild = $(this).children(":first");
+	var secondChild = $(this).children(":first").next();
+	var thirdChild = $(this).children(":first").next().next();
+	var fourthChild = $(this).children(":first").next().next().next();
+	
+	$(this).children(":first").remove();
+	$(this).children(":first").remove();
+	$(this).children(":first").remove();
+	$(this).children(":first").remove();
+	
+	$(this).prev().append(firstChild);
+	$(this).prev().append(secondChild);
+	$(this).prev().append(thirdChild);
+	$(this).prev().append(fourthChild);
+	
+	if ($(this).children().length == 0) {
+		$(this).remove();
+	}
+});
+
+<% else %>
+$("<%= escape_javascript(render('shared/not_authorized')) %>").appendTo($("body"));
+$("#notAuthorizedPopup").modal();
+<% end %>

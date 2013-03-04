@@ -1,0 +1,18 @@
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :remote => true, :html => { 'data-type' => "html", :id => "login_form" }) do |f| %>
+	<%= f.label :email %>
+	<%= f.email_field :email %>
+
+	<%= f.label :password %>
+  	<%= f.password_field :password %>
+
+	<label class="checkbox">
+		<%= I18n.t('mongoid.attributes.account.remember') %>
+		<%= f.check_box :remember_me %>
+	</label>
+
+  	<%= f.submit I18n.t('login'), :class => "btn btn-primary" %>
+  
+	<div class="control-group">
+		<div class="controls"><%= render :partial => "accounts/shared/links", :locals => {:resource_name => resource_name, :controller_name => "sessions", :resource_class => resource_name.to_s.downcase.camelize.constantize.new} %></div>
+	</div>
+<% end %>

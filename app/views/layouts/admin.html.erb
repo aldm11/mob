@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mobis</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "javascripts/client.js" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= render "layouts/header" %>
+<% flash.each do |key, message| %>
+<%= content_tag(:div, :class => "alert alert-#{key.to_s}") do %>
+<%= message %>
+<% end %>
+<% end %>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2">
+			Sidebar
+		</div>
+	
+		<div class="span8">
+			<%= yield %>
+		</div>
+	</div>
+</div>
+
+<%= render "layouts/footer" %>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<% if account_signed_in? %>
+$("<%= escape_javascript(render('review_added')) %>").appendTo($("body"));
+$("#reviewAdded").modal();
+<% else %>
+$("<%= escape_javascript(render('shared/not_authorized')) %>").appendTo($("body"));
+$("#notAuthorizedPopup").modal();
+<%end %>

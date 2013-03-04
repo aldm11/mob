@@ -1,0 +1,9 @@
+<% if prices_from_others.empty? %>
+<p class="muted">No prices for this article in other stores</p>
+<% else %>
+<ul>
+	<% prices_from_others.each do |price| %>
+	<li><%= [price["provider_name"], price["price"]].join(" : ") %></li>
+	<% end %>
+</ul>
+<% end %>

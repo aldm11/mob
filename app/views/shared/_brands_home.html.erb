@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs nav-stacked">
+	<% brands.each do |brand| %>
+	<li><%= link_to(brand, brand_path(:brand => brand)) %></li>
+	<% end %>
+</ul>

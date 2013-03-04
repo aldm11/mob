@@ -1,0 +1,33 @@
+<% phone = PhoneDecorator.decorate(catalogue_phone["catalogue_item"].phone) %>
+<% catalogue_item = CatalogueItemDecorator.decorate(catalogue_phone["catalogue_item"]) %>
+<div class="span3 catalogue-item-main text-center well" id="<%= phone.id %>">
+	<% if account_signed_in? && current_account.username == params[:username] %>
+		<%= form_tag url_for(:action => "pre_remove"), :remote => true do %>
+			<%= hidden_field_tag "phone_id", phone.id %>
+			<%= button_tag raw(""), :type => "submit", :class => "icon-remove show-on-hover remove-item" %>
+		<% end %>
+	<% end %>
+	<div class="phone-img-main-wrapper">
+		<%= phone.render_image("64") %>
+	</div>
+	
+	<div class="align-center catalogue-phone-title" data-toggle="popover">
+		<%= phone.name %>
+	</div>
+	
+	<div class="align-center">
+		<abbr class="text-error"><%= t "price", :price => catalogue_item.actual_price %></abbr>
+		<div class="pull-right">
+			<%= link_to "", "#", :class => "prices-from-others show-on-hover icon-info-sign"  %>
+			<% if account_signed_in? && current_account.username == params[:username] %>
+				<%= link_to "", edit_catalogue_path(:phone_name => catalogue_item.phone.name, :price => catalogue_item.actual_price), :class => "change-price icon-edit", :remote => true, :title => "Change price" %>
+				<%= link_to "", "#", :class => "prices-history show-on-hover icon-calendar" %>
+			<% end %>
+		</div>
+	</div>	
+</div>
+<%= render :partial => "phone_details_popover", :locals => {:phone => phone} %>
+<div class="price-history-popover" style="display: none;"><%= catalogue_item.prices_history %></div>
+<div class="prices-others-popover" style="display: none;">
+	<%= render :partial => "prices_from_others", :locals => {:prices_from_others => catalogue_phone["prices_from_others"]} %>
+</div>

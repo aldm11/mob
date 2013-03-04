@@ -1,0 +1,5 @@
+<dl class="dl-horizontal attributes_catalogue">
+	<% phone.attributes_for_display.each do |attr, value| %>
+	<%= render :partial => "phone_attribute_small", :locals => {:label => I18n.t("mongoid.attributes.phone."+attr), :value => value} %>
+	<% end %>
+</dl>

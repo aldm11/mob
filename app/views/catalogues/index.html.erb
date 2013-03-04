@@ -1,0 +1,23 @@
+<div class="row-fluid">
+	<div class="span2">
+		<%= link_to "Add phone", new_catalogue_path, :remote => true, :class => "btn btn-success" %>
+	</div>
+	
+	<div class="span9">
+		<% if @catalogue_phones.empty? %>
+		<p class="muted">
+			You don't have phones in your catalogue.
+			<%= link_to "Click to add new", new_catalogue_path, :remote => true %>
+		</p>
+		<% else %>
+
+		<% divide_in_groups(@catalogue_phones, 4).each do |group, items| %>
+		<div class="row-fluid row-catalogue">
+			<% items.each do |catalogue_phone|  %>
+				<%= render :partial => "catalogue_item", :locals => {:catalogue_phone => catalogue_phone} %>
+			<% end %>
+		</div>
+		<% end %>
+		<% end %>
+	</div>
+</div>

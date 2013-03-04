@@ -1,0 +1,22 @@
+<% if account_signed_in? %>
+$("<%= escape_javascript(render(:partial => 'new')) %>").appendTo($("body"));
+$(".save-catalogue-item").modal();
+$("#phone_name").typeahead({
+    source: <%= raw @phones_names.to_json %>,
+    updater:function(item) {
+    	url = "<%= phone_details_catalogue_path %>";
+    	$.ajax({
+    		type: "POST",
+    		url: url, 
+    		data: {phone_name: item},
+    		success: function(data, textStatus, xhr){
+    		},
+    		error: function(xhr, textStatus, errorThrown){}
+    	});
+    	return item;
+    }
+});
+<% else %>
+$("<%= escape_javascript(render('shared/not_authorized')) %>").appendTo($("body"));
+$("#notAuthorizedPopup").modal();
+<% end %>

@@ -1,0 +1,26 @@
+<%
+	@links = {
+      :admin => [
+        { :name  => "Users", :url => admin_users_path },
+        { :name  => "Phones", :url => admin_phones_path }
+      ],
+      :store => [
+        { :name => "Followings", :url => "#" },
+        { :name => "Followers", :url => "#" },
+        { :name  => "Catalogue", :url => catalogue_path(:username => current_account.username) },
+        { :name => "Messages", :url => "#" }
+      ],
+      :user => [
+        { :name => "Followings", :url => "#" },
+        { :name => "Followers", :url => "#" },
+        { :name  => "Catalogue", :url => "#" },
+        { :name => "Messages", :url => "#" }
+      ]
+    }
+%>
+ 
+<% 		@links[current_account.rolable.class.name.downcase.to_sym].each do |item| %>
+<%=       content_tag(:li) do %>
+<%=          link_to item[:name], item[:url] %>
+<%        end %>
+<%      end %>

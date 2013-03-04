@@ -1,0 +1,26 @@
+<h2>Sign in</h2>
+
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form-horizontal" }) do |f| %>
+  <div class="control-group">
+  	<div class="control-label"><%= f.label :email %></div>
+  	<div class="controls"><%= f.email_field :email %></div>
+  </div>
+
+  <div class="control-group">
+  	<div class="control-label"><%= f.label :password %></div>
+  	<div class="controls"><%= f.password_field :password %></div>
+  </div>
+
+  <div class="control-group">
+	<div class="control-label"><%= f.label :remember_me %></div>
+	<div class="controls"><%= f.check_box :remember_me %></div>
+  </div>
+
+  <div class="control-group">
+  	<div class="controls"><%= f.submit "Sign in", :class => "btn btn-primary" %></div>
+  </div>
+  
+  <div class="control-group">
+  	<div class="controls"><%= render :partial => "accounts/shared/links", :locals => {:resource_name => resource_name, :controller_name => "sessions"} %></div>
+  </div>
+<% end %>

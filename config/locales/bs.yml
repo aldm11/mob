@@ -1,0 +1,45 @@
+bs:
+  ####### common
+  price: "%{price} KM"  
+  ##############
+  hello: "Zdravo"
+  sign_up: "Registruj se"
+  sign_in: "Imate račun? Prijava"
+  forgot_password: "Zaboravili ste šifru?"
+  didnt_receieve_confirmation_ins: "Niste primili instrukcije za potvrdu  registracije?"
+  sign_up_provider: "Registruje se sa %{provider.to_s.titleize}"
+  didnt_receive_unlock_ins: "Niste primili instrukcije za otključavanje računa?"
+  login: "Prijava"
+  add_phone: "Dodaj"
+  phone_added: "Phone added succesfully"
+  mongoid: 
+    errors:
+      models:
+        account:
+          attributes:
+            email:
+              blank: "nije unijet"
+            password: 
+              blank: "nije unijeta"
+        user:
+          attributes:
+            name:
+              blank: "nije unijeto"
+        store:
+          attributes:
+            name: 
+              blank: "nije unijeto"
+    attributes:
+      account:
+        email: "E-mail"
+        password: "Šifra"
+        password_confirmation: "Potvrda šifre"
+        remember: "Zapamti me"
+      user:
+        name: "Ime"
+        address: "Adresa"
+        phone: "Telefon"
+      store:
+        name: "Ime"
+        address: "Adresa"
+        phone: "Telefon"

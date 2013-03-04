@@ -1,0 +1,14 @@
+<div id="notAuthorizedPopup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="addCommentTitle" aria-hidden="true">
+  <div class="modal-body">
+  	<p>
+  		You're not authorized to access this page.
+  		Please&nbsp;
+  		<%= link_to("login", new_account_session_path) %>
+  		&nbsp;or&nbsp;
+  		<%= link_to("register", new_account_registration_path) %>
+  	</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
