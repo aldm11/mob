@@ -40,17 +40,6 @@ class PhoneDecorator < Draper::Base
     h.content_tag(:small, phone.created_at.strftime("%m/%d/%Y %H:%M"), :class => "pull-left")
   end
   
-  def image_path1
-    image_url = if phone.image.path
-      phone.image
-    elsif phone.amazon_image_medium
-      phone.amazon_image_medium
-    else phone.image.path
-      gravatar_id = Digest::MD5::hexdigest("amer.zildzi@gmail.com")
-      "https://secure.gravatar.com/avatar/#{gravatar_id}"
-    end
-  end
-  
   IMAGE_FORMATS = [".jpg", ".jpeg", ".png", ".gif"]
   def image_path
     image_url = if phone.amazon_image_small_full.path && IMAGE_FORMATS.any? { |format| File.extname(phone.amazon_image_small_full.url).include?(format) }

@@ -1,20 +1,18 @@
 $(document).ready(function(){
-	
 	//defaults
 	$.ajaxSetup ({  
         cache: false
     }); 
 	//////////
-	
 	//common
 	$(".number").live("keypress", function(event){
       var charCode = (event.which) ? event.which : event.keyCode;
-      if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+      if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)){
          return false;
-
+      }
       return true;
     });
-	//////////
+    ///////
 	
 	var options = { targetEvent : "click", targetId : "add_phone", values : ["phone_brand", "phone_model"], imagesNumber : 10, fieldId : "phone_flickrimg", fieldName : "phone[flickrimg]" };
 	$("#add_phone").flickrimg(options);
@@ -22,7 +20,6 @@ $(document).ready(function(){
 	$(".add-comment-main").live("mouseover", function(){
 		$(this).tooltip("show");
 	});
-	
 	//reviewer
     $(".reviewer > span").live("mouseover", function () {
         $(this).css({ cursor: "pointer" });
@@ -75,13 +72,12 @@ $(document).ready(function(){
 	$(".modal-backdrop").live("click", function(event){
 		$(".modal").remove();
 	});
-	
 	$(".catalogue-phone-title").each(function(){
 		$(this).attr("data-title", $(this).parent().next().children(".popover-title").html());
 		$(this).attr("data-content", $(this).parent().next().children(".popover-content").html());
 		$(this).popover({html: true, delay: 1000, trigger: "hover"});
 	});
-	
+
 	$(".prices-history").each(function(){
 		$(this).attr("data-title", "Price history");
 		$(this).attr("data-content", $(this).parent().parent().parent().next().next().html());

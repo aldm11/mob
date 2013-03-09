@@ -21,8 +21,9 @@ group :assets do
 end
 
 gem 'bootstrap-sass', '2.2.1.1'
-gem 'jquery-rails'
+gem 'jquery-rails', '2.1.1'
 gem 'mongoid', '~>  2.3'
+#gem 'mongoid', '~>  3.1'
 gem 'bson_ext', '~> 1.4'
 
 gem 'rspec-rails'
@@ -42,7 +43,8 @@ gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem 'delayed_job'
 gem 'sinatra'
 gem 'rails-i18n'
-gem 'draper'
+gem 'draper', '0.18.0'
+gem "tire", "~> 0.5.4"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

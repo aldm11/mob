@@ -13,7 +13,7 @@
 				<%= hidden_field_tag "phone_id" %>
 			</div>
 			<div class="control-group">
-				<%= text_field_tag "price", "", :placeholder => "Type price ...", :class => "number" %>
+				<%= text_field_tag "price", "", :placeholder => "Type price ...", :class => "number", :autocomplete => "off" %>
 			</div>
 			<div class="control-group">
 				<%= submit_tag "Add", :class => "btn btn-primary" %>
