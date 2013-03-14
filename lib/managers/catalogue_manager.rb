@@ -28,6 +28,7 @@ module Managers
       if result[:status]
         phone = catalogue_item.phone
         phone.add_price(catalogue_item.id, catalogue_item.actual_price)
+        phone.save
       end
       Rails.logger.info("Phone added to catalogue")
       return result
@@ -81,6 +82,7 @@ module Managers
         if catalogue_item.save
           phone = catalogue_item.phone
           phone.remove_price(catalogue_item.id, catalogue_item.actual_price)
+          phone.save
           result.merge!(:status => true, :message => "Phone deleted from you catalogue")
           Rails.logger.info "Phone #{phone.inspect} deleted from catalogue #{account.inspect}"
         else

@@ -2,7 +2,9 @@ include DeviseHelper
 
 class Phone
   include Mongoid::Document
-  include Mongoid::Paperclip 
+  include Mongoid::Paperclip
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
   
   NUMBER_OF_LATEST_PRICES = 15
 
@@ -59,6 +61,27 @@ class Phone
     phone.latest_prices_size = phone.latest_prices ? phone.latest_prices.length : 0
   end
   
+  PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", "internal_memory", "external_memory", "amazon_image_small_full", "amazon_image_medium_full", "specifications", "latest_price", "latest_prices_size"]
+  def phone_to_document(phone_hash)
+    document = phone_hash.select { |attribute, value| PHONE_ATTRIBUTES_INDEX.include?(attribute) }
+  end
+  
+  PROVIDER_ATTRIBUTES_INDEX = ["_id", "_type", "avatar", "logo", "name", "address", "phone", "fax", "website"]
+  def provider_to_document(provider_hash)
+    document = provider_hash.select { |attribute, value| PROVIDER_ATTRIBUTES_INDEX.include?(attribute) }
+  end
+  
+  def to_indexed_json
+    document = phone_to_document(JSON.parse(self.to_json).with_indifferent_access)
+    document[:catalogue_items] = []
+    self.catalogue_items.each do |catalogue_item|
+      prepared_catalogue_item = JSON.parse(catalogue_item.to_json).with_indifferent_access
+      prepared_catalogue_item[:provider] = provider_to_document(JSON.parse(catalogue_item.provider.to_json).with_indifferent_access)
+      document[:catalogue_items] << prepared_catalogue_item
+    end
+    document.to_json
+  end
+  
   def overall_review
     count = reviews.empty? ? 0 : reviews.count
     sum = reviews.empty? ? 0 : reviews.sum(:review)
@@ -89,7 +112,6 @@ class Phone
     prices << price
     self.latest_prices = prices
     self.latest_price = latest_prices.last
-    self.save
     self.latest_price
   rescue Exception => e
     Rails.logger.fatal "Error while adding price to phones latest prices #{e.message}"
@@ -101,7 +123,6 @@ class Phone
     prices = prices.delete_if { |prc| prc["catalogue_id"] == catalogue_id }
     self.latest_prices = prices
     self.latest_price = latest_prices.empty? ? nil : latest_prices.last
-    self.save
     self.latest_price
   rescue Exception => e
     Rails.logger.fatal "Error while adding price to phones latest prices #{e.message}"

@@ -1,3 +1,5 @@
+require "mongoid"
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
@@ -6,7 +8,7 @@ class ApplicationController < ActionController::Base
   include SessionHelper
   include CollectionHelper
   include AccountHelper
-  
+    
   def unathorized_access
     respond_to do |format|
       format.js
@@ -36,7 +38,8 @@ class ApplicationController < ActionController::Base
       else
         logger.info "Error while setting username #{current_account.errors.full_messages.join(" ")}"
       end
-    end
+    end    
   end
+  
   
 end

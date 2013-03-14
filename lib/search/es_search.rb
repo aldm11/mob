@@ -4,20 +4,27 @@ module Search
   module ESSearch
  
     #simple search
-    def search(name)
-      query = Tire.search "catalogue_items" do
+    DEFAULT_OPTIONS = {:sort => "latest_price.created_at"}
+    INDEX_NAME = "phones"
+    def search(name, options = {})
+      options = options.with_indifferent_access
+      options = DEFAULT_OPTIONS.merge(options)
+      
+      q = Tire.search INDEX_NAME do
         query do
           if name
             boolean do
-              should { match "phone.brand", name, { "operator" => "or" } }
-              should { match "phone.model", name, { "operator" => "or" } }
+              should { match "brand", name, { "operator" => "or" } }
+              should { match "model", name, { "operator" => "or" } }
+              should  { prefix "brand", name }
+              should { prefix "model", name }
             end
           else
             all
           end
         end
   
-        filter :missing, :field => "deleted_date"
+        sort { by options[:sort], "desc" }
     
         facet "brands", :global => true do
           terms "phone.brand"
@@ -27,8 +34,7 @@ module Search
           terms "provider.name"
         end
       end
-    end
-    query
-    
+      q
+    end 
   end
 end
