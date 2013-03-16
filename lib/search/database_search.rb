@@ -1,5 +1,7 @@
 module Search
   module DatabaseSearch
+    
+    incude CommonSearch
   
     CRITERIA_MAPPINGS = {
       :name => {

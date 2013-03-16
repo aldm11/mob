@@ -99,6 +99,15 @@ Mobis::Application.routes.draw do
     match "phone_details", :action => "phone_details", via: :post
     match "update", :action => "update", via: :post
   end
+  
+  resource :search, :controller => "search" do
+    collection do
+      get "index"
+      post "index"
+      get "advanced_search"
+      post "advanced_search"
+    end
+  end
    
   match ":username/catalogue" => "catalogues#index", :as => "catalogue"
   match "admin/users" => "users#list_users"

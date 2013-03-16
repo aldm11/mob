@@ -3,12 +3,12 @@ require "mongoid"
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_locale, :setup
+  before_filter :set_locale, :setup, :search_setup
   
   include SessionHelper
   include CollectionHelper
   include AccountHelper
-    
+      
   def unathorized_access
     respond_to do |format|
       format.js
@@ -29,7 +29,16 @@ class ApplicationController < ActionController::Base
     I18n.locale = "en"
   end
   
+  def search_setup
+    Search::CommonSearch.reset_criterias
+  end
+  
   def setup
+    # only when user logged in
+    check_and_set_username   
+  end
+  
+  def check_and_set_username
     if account_signed_in? && current_account.username.nil?
       username = form_username(current_account.email)
       current_account.update_attributes(username: username)
@@ -38,7 +47,7 @@ class ApplicationController < ActionController::Base
       else
         logger.info "Error while setting username #{current_account.errors.full_messages.join(" ")}"
       end
-    end    
+    end 
   end
   
   
