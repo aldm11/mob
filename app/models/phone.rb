@@ -74,10 +74,15 @@ class Phone
   def to_indexed_json
     document = phone_to_document(JSON.parse(self.to_json).with_indifferent_access)
     document[:catalogue_items] = []
+    document[:price] = []
     self.catalogue_items.each do |catalogue_item|
-      prepared_catalogue_item = JSON.parse(catalogue_item.to_json).with_indifferent_access
-      prepared_catalogue_item[:provider] = provider_to_document(JSON.parse(catalogue_item.provider.to_json).with_indifferent_access)
-      document[:catalogue_items] << prepared_catalogue_item
+      unless catalogue_item.deleted_date
+        prepared_catalogue_item = JSON.parse(catalogue_item.to_json).with_indifferent_access
+        prepared_catalogue_item[:provider] = provider_to_document(JSON.parse(catalogue_item.provider.to_json).with_indifferent_access)
+        document[:catalogue_items] << prepared_catalogue_item
+        
+        document[:price] << catalogue_item.actual_price
+      end
     end
     document.to_json
   end

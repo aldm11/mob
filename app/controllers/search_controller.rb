@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   before_filter :search_setup
     
   def index
-    response = Search::CommonSearch.get_criterias
+    response = Search::ESSearch.search
     render :json => response.to_json
   end
   
