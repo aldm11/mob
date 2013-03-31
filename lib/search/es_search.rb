@@ -29,12 +29,13 @@ module Search
         s.sort { by "latest_price.created_at", sort_type }
       end,
       "price" => lambda do |s, sort_type|
-        s.sort { by "catalogue_items.actual_price", sort_type, "max" }
+        s.sort { by "catalogue_items.actual_price", sort_type }
       end
     }
  
     INDEX_NAME = "phones"
     
+    #TODO: support for choosing fields in response(performance issue, response should not be to long)
     def self.search(options = nil)
       term = options && options[:search_term] ? options[:search_term] : search_term
       filters = options && options[:search_filters] ? options[:search_filters] : search_filters
@@ -61,7 +62,6 @@ module Search
       end
 
       sorts.each do |key, value|
-        puts "jedan #{key.inspect}"
         SORT_MAPPINGS[key.to_s].call(s, value) if SORT_MAPPINGS[key.to_s]
       end
       
@@ -72,13 +72,16 @@ module Search
         terms "phone.brand"
       end
 
-      s.facet "provider" do
-        terms "provider.name"
-      end
-      
-      
+      s.facet "providers" do
+        terms "catalogue_items.provider.name"
+      end    
       
       s
     end 
+    
+    def es_result_to_hash
+      #TODO: implement this
+    end
+    
   end
 end

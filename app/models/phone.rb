@@ -4,7 +4,6 @@ class Phone
   include Mongoid::Document
   include Mongoid::Paperclip
   include Tire::Model::Search
-  include Tire::Model::Callbacks
   
   NUMBER_OF_LATEST_PRICES = 15
 
@@ -27,6 +26,8 @@ class Phone
   field :latest_prices, :type => Array
   field :latest_prices_size, :type => Integer
   field :latest_price, :type => Hash
+  field :average_review, :type => Float
+  field :comments_count, :type => Integer
   
   has_mongoid_attached_file :image
   has_mongoid_attached_file :amazon_image_small_full
@@ -61,9 +62,26 @@ class Phone
     phone.latest_prices_size = phone.latest_prices ? phone.latest_prices.length : 0
   end
   
-  PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", "internal_memory", "external_memory", "amazon_image_small_full", "amazon_image_medium_full", "specifications", "latest_price", "latest_prices_size"]
+  def save(options = {})
+    #TODO: test this
+    set_average_review 
+    set_comments_count
+    super
+    update_index unless options[:without_index]
+  end
+  
+  def set_average_review
+    self.average_review = self.reviews.map {|review| review.review}.inject{ |sum, rev| sum + rev } / self.reviews.size
+  end
+  
+  def set_comments_count
+    self.comments_count = self.comments.count
+  end
+  
+  PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", "internal_memory", "external_memory", "amazon_image_small_full", "amazon_image_medium_full", "specifications", "latest_price", "latest_prices_size", "average_review", "comments_count"]
   def phone_to_document(phone_hash)
     document = phone_hash.select { |attribute, value| PHONE_ATTRIBUTES_INDEX.include?(attribute) }
+    document = Hash[document.map {|attr, value| attr.to_s.starts_with?("amazon_image") ? [attr, value.to_s] : [attr, value]}]
   end
   
   PROVIDER_ATTRIBUTES_INDEX = ["_id", "_type", "avatar", "logo", "name", "address", "phone", "fax", "website"]
