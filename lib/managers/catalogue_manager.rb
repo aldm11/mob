@@ -63,7 +63,7 @@ module Managers
       result = {:status => true, :catalogue_item => catalogue_item, :message => "Price for phone #{catalogue_item.phone.name} changed"}
       return result
     rescue Exception => e
-      Rails.logger.fatal "Error while adding phone #{catalogue_item.phone.inspect} to catalogue #{account.inspect} : #{e.message} #{e.backtrace}"
+      Rails.logger.fatal "Error while adding phone #{catalogue_item.phone.inspect} to catalogue: #{e.message} #{e.backtrace}"
       result = {:status => false, :catalogue_item => catalogue_item, :message => "Error while changing price for phone : #{e.inspect}"}
     end
     

@@ -71,17 +71,33 @@ class Phone
   end
   
   def set_average_review
-    self.average_review = self.reviews.map {|review| review.review}.inject{ |sum, rev| sum + rev } / self.reviews.size
+    self.average_review = self.reviews.empty? ? 0 : self.reviews.map {|review| review.review}.inject{ |sum, rev| sum + rev } / self.reviews.size
   end
   
   def set_comments_count
     self.comments_count = self.comments.count
   end
   
-  PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", "internal_memory", "external_memory", "amazon_image_small_full", "amazon_image_medium_full", "specifications", "latest_price", "latest_prices_size", "average_review", "comments_count"]
-  def phone_to_document(phone_hash)
-    document = phone_hash.select { |attribute, value| PHONE_ATTRIBUTES_INDEX.include?(attribute) }
-    document = Hash[document.map {|attr, value| attr.to_s.starts_with?("amazon_image") ? [attr, value.to_s] : [attr, value]}]
+  PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", "internal_memory", "external_memory", "specifications", "latest_price", "latest_prices_size", "average_review", "comments_count"]
+  def phone_to_document
+    document = {}.with_indifferent_access
+    self.attributes.each do |attr, value|
+      document.merge!(attr.to_s => value.to_s) if PHONE_ATTRIBUTES_INDEX.include?(attr.to_s)
+    end
+    
+    if self.amazon_image_small_full
+      document.merge!("amazon_image_small_full" => self.amazon_image_small_full.to_s) 
+    elsif self.attributes["amazon_image_small"]
+      document.merge!("amazon_image_small" => self.amazon_image_small.to_s) 
+    end
+
+    if self.amazon_image_medium_full
+      document.merge!("amazon_image_medium_full" => self.amazon_image_medium_full.to_s) 
+    elsif self.attributes["amazon_image_medium"]
+      document.merge!("amazon_image_medium" => self.amazon_image_medium.to_s) 
+    end
+
+    document
   end
   
   PROVIDER_ATTRIBUTES_INDEX = ["_id", "_type", "avatar", "logo", "name", "address", "phone", "fax", "website"]
@@ -90,7 +106,7 @@ class Phone
   end
   
   def to_indexed_json
-    document = phone_to_document(JSON.parse(self.to_json).with_indifferent_access)
+    document = phone_to_document
     document[:catalogue_items] = []
     document[:price] = []
     self.catalogue_items.each do |catalogue_item|
