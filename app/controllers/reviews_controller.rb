@@ -9,6 +9,7 @@ class ReviewsController < ApplicationController
       review.account_id = current_account.id
       
       if review.save
+        phone.save
         @phone = Phone.find(phone_id)
         render :partial => "review_added", :layout => nil
       end

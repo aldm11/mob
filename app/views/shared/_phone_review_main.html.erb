@@ -1,4 +1,4 @@
-<span class="text-success" rel="tooltip" title='<%= pluralize(phone.overall_review[:count], "review") %>'><%= phone.overall_review[:average].to_s %></span>
+<span class="text-success" rel="tooltip" title='<%= pluralize(phone.reviews_count, "review") %>'><%= phone.average_review.to_s %></span>
 
 <div title="Rate phone" class="reviewer" id="<%= phone.id %>">
 <% 5.times.each do |i| %>

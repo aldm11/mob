@@ -42,10 +42,12 @@ class PhoneDecorator < Draper::Base
   
   IMAGE_FORMATS = [".jpg", ".jpeg", ".png", ".gif"]
   def image_path
-    image_url = if phone.amazon_image_small_full.path && IMAGE_FORMATS.any? { |format| File.extname(phone.amazon_image_small_full.url).include?(format) }
-      phone.amazon_image_small_full
-    elsif phone.amazon_image_medium_full.path && IMAGE_FORMATS.any? { |format| File.extname(phone.amazon_image_medium_full.url).include?(format) }
-      phone.amazon_image_medium_full
+    image_small = phone.amazon_image_small_full.is_a?(String) ? phone.amazon_image_small_full : phone.amazon_image_small_full.url
+    image_medium = phone.amazon_image_medium_full.is_a?(String) ? phone.amazon_image_medium_full : phone.amazon_image_medium_full.url
+    image_url = if image_small && !image_small.include?("missing.png") && IMAGE_FORMATS.any? { |format| File.extname(image_medium).include?(format) }
+      image_small
+    elsif image_medium && !image_medium.include?("missing.png") && IMAGE_FORMATS.any? { |format| File.extname(image_medium).include?(format) }
+      image_medium
     else
       "no_image.jpg"
     end

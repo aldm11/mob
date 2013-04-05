@@ -2,8 +2,11 @@ class SearchController < ApplicationController
   before_filter :search_setup
     
   def index
-    response = Search::ESSearch.search
-    render :json => response.to_json
+    Search::ESSearch.search(:search_term => params[:term])
+    @phones = Search::ESSearch.results
+    @brands = Search::ESSearch.facets("brands")
+    
+    render "home/index"
   end
   
   def advanced_search

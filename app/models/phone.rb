@@ -27,6 +27,7 @@ class Phone
   field :latest_prices_size, :type => Integer
   field :latest_price, :type => Hash
   field :average_review, :type => Float
+  field :reviews_count, :type => Integer
   field :comments_count, :type => Integer
   
   has_mongoid_attached_file :image
@@ -50,6 +51,13 @@ class Phone
   
   has_many :catalogue_items
   
+  mapping do
+    indexes :brand, type: "multi_field", fields: { 
+      analyzed: {type: "string", index: "analyzed"},
+      original: {type: "string", index: "not_analyzed"} 
+    }
+  end
+  
   before_create do |phone|
     phone.created_at = Time.new.to_time.to_i
     phone.last_updated = phone.created_at
@@ -63,7 +71,6 @@ class Phone
   end
   
   def save(options = {})
-    #TODO: test this
     set_average_review 
     set_comments_count
     super
@@ -71,6 +78,7 @@ class Phone
   end
   
   def set_average_review
+    self.reviews_count = self.reviews.length
     self.average_review = self.reviews.empty? ? 0 : self.reviews.map {|review| review.review}.inject{ |sum, rev| sum + rev } / self.reviews.size
   end
   
@@ -78,7 +86,7 @@ class Phone
     self.comments_count = self.comments.count
   end
   
-  PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", "internal_memory", "external_memory", "specifications", "latest_price", "latest_prices_size", "average_review", "comments_count"]
+  PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", "internal_memory", "external_memory", "specifications", "latest_price", "latest_prices_size", "reviews_count", "average_review", "comments_count"]
   def phone_to_document
     document = {}.with_indifferent_access
     self.attributes.each do |attr, value|

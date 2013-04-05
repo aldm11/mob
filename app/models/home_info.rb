@@ -1,17 +1,17 @@
 class HomeInfo
   
-  def initialize
-    @all_phones = Phone.all.to_a
+  def initialize(options = {})
+    search_filters = options && options[:brand] ? {"brand" => options[:brand]} : nil
+    Search::ESSearch.search(:search_term => nil, :search_filters => search_filters)
   end
   
   def latest_phones(options = {})
-    @phones = Managers::PhoneManager.get_initial_phones(options)
+    @phones = Search::ESSearch.results
     PhoneDecorator.decorate(@phones)    
   end
   
   def brands
-    brands = @all_phones.map { |phone| phone.brand }
-    brands.uniq!
+    brands = Search::ESSearch.facets("brands").map {|brand| brand["term"]}
   end
 
 end

@@ -3,6 +3,9 @@ module Search
   class ESSearch < CommonSearch
   
     #TODO: test this
+    @@facets = nil
+    @@results = nil
+    
     FILTERS_MAPPINGS = {
       "prices" => lambda  do |s, price_range|
         if s && price_range && price_range["from"] && price_range["to"]
@@ -15,7 +18,7 @@ module Search
       end,
       "brand" => lambda do |s, brand|
         if s && brand
-          s.filter :term, :brand => brand
+          s.filter :term, "brand.original" => brand
         else
           error = "Invalid parameters for brand term filter"
           Rails.logger.error error
@@ -36,9 +39,12 @@ module Search
     INDEX_NAME = "phones"
     
     #TODO: support for choosing fields in response(performance issue, response should not be to long)
+    #TODO: additional optional parameter for response format - array of hashes or array of models
     def self.search(options = nil)
+      options = options.with_indifferent_access if options && options.is_a?(Hash)
       term = options && options[:search_term] ? options[:search_term] : search_term
       filters = options && options[:search_filters] ? options[:search_filters] : search_filters
+      filters = filters.with_indifferent_access
       sorts = options && options[:search_sort] ? options[:search_sort] : search_sort
       from = options && options[:search_from] ? options[:search_from] : search_from
       size = options && options[:search_size] ? options[:search_size] : search_size
@@ -69,15 +75,25 @@ module Search
       s.size(size)
   
       s.facet "brands", :global => true do
-        terms "phone.brand"
+        terms "brand.original"
       end
 
       s.facet "providers" do
         terms "catalogue_items.provider.name"
       end    
       
+      @@results = s.results
+      
       s
-    end 
+    end
+    
+    def self.results
+      @@results
+    end
+    
+    def self.facets(type)
+      @@results.facets[type]["terms"]
+    end
     
     def es_result_to_hash
       #TODO: implement this

@@ -9,9 +9,11 @@ class CommentsController < ApplicationController
   
   def create
     @comment = current_account.comments.build(params[:comment])
-    @comment.context = Phone.find(params[:phone_id])
+    phone = Phone.find(params[:phone_id])
+    @comment.context = phone
     
     @saved = @comment.save
+    phone.save
  
     respond_to do |format|
       format.js
