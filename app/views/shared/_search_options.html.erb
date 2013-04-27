@@ -1,0 +1,31 @@
+<div class="row-fluid options-box">
+	<%= form_tag search_path, :method => "post", :remote => true, :id => "main_search_form" do |f| %>	
+		<div class="pull-left btn-group sort-phones-by">
+			<a id="date" class = "btn disabled" title="Sort by date"><i class="icon-arrow-down"></i>Date</a>
+			<a id="price" class = "btn" title="Sort by price"><i class="icon-arrow-up"></i>Price</a>
+		</div>
+		
+		<span class="span5">
+			<div id = "price-slider"></div>
+			<div class = "pull-left">
+				<span class="price-from-text">0</span>
+				<span>&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+				<span class="price-to-text">0</span>
+				<span>&nbsp;$</span>
+			</div>
+			<div class="pull-right">
+				<a href = "#" id="apply_prices"><small>Apply price range</small></a>
+			</div>
+		</span>
+		
+		<div class="pull-right">
+			<%= text_field_tag "search_term", "", :placeholder => "Search for phones..." %>
+		</div>
+		
+		<%= hidden_field_tag("brand", "") %>
+		<%= hidden_field_tag("price_from", "") %>
+		<%= hidden_field_tag("price_to", "") %>
+		<%= hidden_field_tag("sort_by", "") %>
+	
+	<% end %>
+</div>
