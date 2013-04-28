@@ -3,6 +3,11 @@ $(document).ready(function(){
 	var min_price = 50;
 	var max_price = 1000;
 	
+	search_form.live("submit", function(){
+		$(".phones-grid").html("<img src = 'loading.gif' width = '48px' height = '48px' />");
+		$(".phones-grid").css({"text-align" : "center", "padding-top" : "100px"});
+	});
+	
 	var delay = (function(){
 	  var timer = 0;
 	  return function(callback, ms){

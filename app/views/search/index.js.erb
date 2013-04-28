@@ -1,0 +1,3 @@
+var phones_grid_html = $("<%= escape_javascript(render(:partial => 'shared/phones_grid')) %>");
+$(".phones-grid").css({"text-align" : "left", "padding-top" : 0});
+$(".phones-grid").html(phones_grid_html);

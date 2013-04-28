@@ -14,9 +14,9 @@ class SearchController < ApplicationController
     }
     options[:search_filters].merge!("brand" => params["brand"]) if params[:brand] && !params[:brand].empty?
     #options[:search_filters].merge!("prices" => {"from" => params[:price_from], "to" => params[:price_to]})
-    
     Search::ESSearch.search(options)
     @phones = Search::ESSearch.results
+    @phones = PhoneDecorator.decorate(@phones)
     @brands = Search::ESSearch.facets("brands")
     
     respond_to do |format|

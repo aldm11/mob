@@ -42,7 +42,7 @@ module Search
     #TODO: additional optional parameter for response format - array of hashes or array of models
     def self.search(options = nil)
       options = options.with_indifferent_access if options && options.is_a?(Hash)
-      term = options && options[:search_term] ? options[:search_term] : search_term
+      search_term = options && options[:search_term] ? options[:search_term] : search_term
       filters = options && options[:search_filters] ? options[:search_filters] : search_filters
       filters = filters.with_indifferent_access
       sorts = options && options[:search_sort] ? options[:search_sort] : search_sort
@@ -53,10 +53,10 @@ module Search
       if search_term
         s.query do
           boolean do
-            should { match "brand", term, { "operator" => "or" } }
-            should { match "model", term, { "operator" => "or" } }
-            should  { prefix "brand", term }
-            should { prefix "model", term }
+            should { match "brand", search_term, { "operator" => "or" } }
+            should { match "model", search_term, { "operator" => "or" } }
+            should  { prefix "brand", search_term }
+            should { prefix "model", search_term }
           end
         end
       else
