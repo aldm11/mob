@@ -56,6 +56,11 @@ class Phone
       analyzed: {type: "string", index: "analyzed"},
       original: {type: "string", index: "not_analyzed"} 
     }
+    indexes :model, type: "multi_field", fields: {
+      analyzed: {type: "string", index: "analyzed"},
+      original: {type: "string", index: "not_analyzed"}       
+    }
+    indexes :catalogue_items, type: "nested"
   end
   
   before_create do |phone|
@@ -74,6 +79,7 @@ class Phone
     set_average_review 
     set_comments_count
     super
+    Phone.tire.mapping
     update_index unless options[:without_index]
   end
   
@@ -90,7 +96,7 @@ class Phone
   def phone_to_document
     document = {}.with_indifferent_access
     self.attributes.each do |attr, value|
-      document.merge!(attr.to_s => value.to_s) if PHONE_ATTRIBUTES_INDEX.include?(attr.to_s)
+      document.merge!(attr.to_s => value) if PHONE_ATTRIBUTES_INDEX.include?(attr.to_s)
     end
     
     if self.amazon_image_small_full
@@ -104,6 +110,7 @@ class Phone
     elsif self.attributes["amazon_image_medium"]
       document.merge!("amazon_image_medium" => self.amazon_image_medium.to_s) 
     end
+    document["latest_price"]["catalogue_id"] = document["latest_price"]["catalogue_id"].to_s if document["latest_price"] && document["latest_price"]["catalogue_id"]
 
     document
   end
@@ -126,7 +133,8 @@ class Phone
         document[:price] << catalogue_item.actual_price
       end
     end
-    document.to_json
+    document = document.to_json
+    document
   end
   
   def overall_review

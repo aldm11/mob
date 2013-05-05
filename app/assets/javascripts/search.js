@@ -34,12 +34,13 @@ $(document).ready(function(){
 		slide: function( event, ui ) {
 			$(".price-from-text").html(ui.values[0]);
 			$(".price-to-text").html(ui.values[1]);
-			$("#price_from").html(ui.values[0]);
-			$("#price_to").html(ui.values[1]);
+			$("#price_from").val(ui.values[0]);
+			$("#price_to").val(ui.values[1]);
 		}
 	});
 	
 	$("#search_term").live("keyup", function(){
+		$("#sort_by").val("relevance");
 		submit_search_form();
 	});
 	
@@ -53,8 +54,20 @@ $(document).ready(function(){
 	});
 	
 	$(".sort-phones-by a").live("click", function(){
-		$(".sort-phones-by a").toggleClass("disabled");
+		$(".sort-phones-by a").removeClass("disabled");
+		$(this).addClass("disabled");
 		$("#sort_by").val($(this).attr("id"));
 		submit_search_form();
+	});
+	
+		
+	$(".price-range-wrapper .close").live("click", function(){
+		$(".price-range-wrapper").hide();
+		$(".show-price-range").parent().show();
+	});
+	
+	$(".show-price-range").live("click", function(){
+		$(this).parent().hide();
+		$(".price-range-wrapper").show();
 	});
 });

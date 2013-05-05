@@ -2,14 +2,13 @@ require "tire"
 module Search
   class ESSearch < CommonSearch
   
-    #TODO: test this
     @@facets = nil
     @@results = nil
     
     FILTERS_MAPPINGS = {
       "prices" => lambda  do |s, price_range|
         if s && price_range && price_range["from"] && price_range["to"]
-          s.filter :range, :from => price_range["from"], :to => price_range["to"]
+          s.filter :nested, :path => "catalogue_items", :query => {:range => {"catalogue_items.actual_price" => { :from => price_range["from"], :to => price_range["to"] } } }
         else
           error = "Invalid parameters for price range filter"
           Rails.logger.error error
@@ -33,6 +32,9 @@ module Search
       end,
       "price" => lambda do |s, sort_type|
         s.sort { by "catalogue_items.actual_price", sort_type }
+      end,
+      "relevance" => lambda do |s, sort_type|
+        s.sort { by "_score", sort_type }
       end
     }
  
@@ -42,21 +44,23 @@ module Search
     #TODO: additional optional parameter for response format - array of hashes or array of models
     def self.search(options = nil)
       options = options.with_indifferent_access if options && options.is_a?(Hash)
-      search_term = options && options[:search_term] ? options[:search_term] : search_term
+      term = options && options[:search_term] ? options[:search_term] : search_term
       filters = options && options[:search_filters] ? options[:search_filters] : search_filters
       filters = filters.with_indifferent_access
       sorts = options && options[:search_sort] ? options[:search_sort] : search_sort
       from = options && options[:search_from] ? options[:search_from] : search_from
       size = options && options[:search_size] ? options[:search_size] : search_size
-           
+               
       s = Tire.search(INDEX_NAME)     
-      if search_term
+      if term
         s.query do
           boolean do
-            should { match "brand", search_term, { "operator" => "or" } }
-            should { match "model", search_term, { "operator" => "or" } }
-            should  { prefix "brand", search_term }
-            should { prefix "model", search_term }
+            should { match "brand.analyzed", term, { "operator" => "or" } }
+            should { prefix "brand.analyzed", term }
+            should { term "brand.original", term }
+            should { match "model.analyzed", term, { "operator" => "or" } }
+            should { prefix "model.analyzed", term  }
+            should { prefix "model.original", term }
           end
         end
       else
@@ -82,6 +86,7 @@ module Search
         terms "catalogue_items.provider.name"
       end    
       
+      puts "Elastic search query: #{s.inspect}"
       @@results = s.results
       
       s

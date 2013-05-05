@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 
-  def index
+  def index    
     search_filters = params[:brand] ? {:brand =>  params[:brand]} : nil
     Search::ESSearch.search(:search_term => nil, :search_filters => search_filters)
     @phones = Search::ESSearch.results

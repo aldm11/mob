@@ -1,3 +1,6 @@
+var brands = $("<%= escape_javascript(render(:partial => 'shared/brands_home', :locals => {:brands => @brands})) %>");
+$(".brands-left-sidebar").html(brands);
+
 var phones_grid_html = $("<%= escape_javascript(render(:partial => 'shared/phones_grid')) %>");
 $(".phones-grid").css({"text-align" : "left", "padding-top" : 0});
 $(".phones-grid").html(phones_grid_html);

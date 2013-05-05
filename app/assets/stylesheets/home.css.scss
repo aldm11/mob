@@ -57,6 +57,15 @@ form.lock_user {
   margin-bottom: 20px;
   form {
     margin: 0;
+    
+    .show-price-range:hover {
+      cursor: pointer;
+    }
+   
+    .price-range-wrapper {
+     padding-top: 20px;
+     display: none;
+   }
   }
 }
 
