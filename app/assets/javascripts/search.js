@@ -3,9 +3,16 @@ $(document).ready(function(){
 	var min_price = 50;
 	var max_price = 1000;
 	
+	var from = 0;
+	var size = 16;
+	
 	search_form.live("submit", function(){
-		$(".phones-grid").html("<img src = 'loading.gif' width = '48px' height = '48px' />");
-		$(".phones-grid").css({"text-align" : "center", "padding-top" : "100px"});
+		if(from === 0 && size === 16){
+			$(".phones-grid").html("<img src = 'loading.gif' width = '48px' height = '48px' id = 'main_loading_phones' />");
+		}
+		else {
+			$(".phones-grid").append("<img src = 'loading.gif' width = '48px' height = '48px' id = 'main_loading_phones' />");
+		}
 	});
 	
 	var delay = (function(){
@@ -17,6 +24,8 @@ $(document).ready(function(){
 	})();
 	
 	var submit_search_form = function(){
+		$("#from").val(from);
+		$("#size").val(size);
 		delay(function(){ search_form.submit(); }, 500 );
 	};
 	
@@ -41,15 +50,21 @@ $(document).ready(function(){
 	
 	$("#search_term").live("keyup", function(){
 		$("#sort_by").val("relevance");
+		from = 0;
+		size = 16;
 		submit_search_form();
 	});
 	
 	$(".main-brands-list li a").live("click", function(){
 		$("#brand").val($(this).html());
+		from = 0;
+		size = 16;
 		submit_search_form();
 	});
 	
 	$("#apply_prices").live("click", function(){
+		from = 0;
+		size = 16;
 		submit_search_form();
 	});
 	
@@ -57,6 +72,8 @@ $(document).ready(function(){
 		$(".sort-phones-by a").removeClass("disabled");
 		$(this).addClass("disabled");
 		$("#sort_by").val($(this).attr("id"));
+		from = 0;
+		size = 16;
 		submit_search_form();
 	});
 	
@@ -69,5 +86,14 @@ $(document).ready(function(){
 	$(".show-price-range").live("click", function(){
 		$(this).parent().hide();
 		$(".price-range-wrapper").show();
+	});
+	
+	$(window).scroll(function(){
+		var has_more_elements = $(".no-more-phones").length === 0;
+		if($(window).scrollTop() + $(window).height() == $(document).height() && has_more_elements){
+			from += size;
+			size += size;
+			submit_search_form();
+		}
 	});
 });

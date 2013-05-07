@@ -1,6 +1,11 @@
 var brands = $("<%= escape_javascript(render(:partial => 'shared/brands_home', :locals => {:brands => @brands})) %>");
 $(".brands-left-sidebar").html(brands);
 
+$("#main_loading_phones").remove();
+<% if @phones.length == 0 %>
+$(".phones-grid").append("<div class='row-fluid no-more-phones'>No more phones ...</div>");
+<% else %>
 var phones_grid_html = $("<%= escape_javascript(render(:partial => 'shared/phones_grid')) %>");
 $(".phones-grid").css({"text-align" : "left", "padding-top" : 0});
-$(".phones-grid").html(phones_grid_html);
+$(".phones-grid").append(phones_grid_html);
+<% end %>

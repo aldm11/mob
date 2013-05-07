@@ -6,12 +6,14 @@ class SearchController < ApplicationController
   }
   
   def index
+    @from = params[:from] || 0
+    @size = params[:size] || 0
     options = {
       :search_term => params[:search_term] || nil,
       :search_filters => {},
       :search_sort => params[:sort_by] ? SORT_MAPPINGS[params[:sort_by].to_sym] : nil,
-      :search_from => params[:from] || 0,
-      :search_size => params[:size] || 16
+      :search_from => @from,
+      :search_size => @size
     }
         
     options[:search_filters].merge!("brand" => params["brand"]) if params[:brand] && !params[:brand].empty?
