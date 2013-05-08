@@ -42,10 +42,13 @@ form.lock_user {
   margin: 0;
 }
 
-
-.phones-row-main {
-  margin-bottom: 10px;
-  .phone-main {
+.phones-grid {
+  .phone-main {   
+    width : 23.404255319148934%;
+    float: left;
+    min-height: 30px;
+    box-sizing: border-box;
+    margin: 0 1.59% 1.59% 0;
     padding: 10px 0 20px 0;
     .phone-details {
       text-align: center;
@@ -79,6 +82,13 @@ form.lock_user {
 }
 
 #main_loading_phones {
-  display: inline-block;
+  clear: both;
+  display: block;
   margin-top: 30px;
+}
+
+.no-more-phones {
+  clear: both;
+  display: block;
+  text-align: center;
 }

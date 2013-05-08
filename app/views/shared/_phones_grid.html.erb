@@ -1,7 +1,3 @@
-<% divide_in_groups(@phones, 4).each do |group, items| %>
-	<div class="row-fluid thumbnails phones-row-main">
-	<% items.each do |phone| %>
-	<%= render :partial => "shared/phone_main", :locals => { :phone => phone } %>
-	<% end %>
-	</div>
+<% @phones.each do |phone| %>
+<%= render :partial => "shared/phone_main", :locals => { :phone => phone } %>
 <% end %>
