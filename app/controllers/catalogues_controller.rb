@@ -34,7 +34,6 @@ class CataloguesController < ApplicationController
     phone = params[:phone_name]
     price = params[:price]
     @result = Managers::CatalogueManager.add_phone(current_account, phone, price)   
-    @result[:status] ? flash[:success] = @result[:message] : flash[:error] = @result[:message]
     @catalogue_phone = Catalogue.new(current_account, @result[:catalogue_item]).full_items.first    
     respond_to { |format| format.js }
   end

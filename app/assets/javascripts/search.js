@@ -88,6 +88,7 @@ $(document).ready(function(){
 		$(".price-range-wrapper").show();
 	});
 	
+	
 	$(window).scroll(function(){
 		var has_more_elements = $(".no-more-phones").length === 0;
 		if($(window).scrollTop() + $(window).height() == $(document).height() && has_more_elements){
@@ -96,4 +97,9 @@ $(document).ready(function(){
 			submit_search_form();
 		}
 	});
+	
+	// TEMPORARY HACK, RESOLVE THIS USING PALOMA GEM OR ELSE
+	if(window.location.toString() === "http://localhost:3000/"){
+		submit_search_form();
+	}
 });

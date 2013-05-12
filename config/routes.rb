@@ -103,6 +103,8 @@ Mobis::Application.routes.draw do
     collection do
       get "index"
       post "index"
+      get "search_phones"
+      post "search_phones"
       get "advanced_search"
       post "advanced_search"
     end

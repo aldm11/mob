@@ -5,7 +5,7 @@ class SearchController < ApplicationController
     :price => {"price" => "desc"}
   }
   
-  def index
+  def search_phones
     @from = params[:from] || 0
     @size = params[:size] || 0
     options = {
@@ -33,6 +33,10 @@ class SearchController < ApplicationController
       format.js if request.xhr?
       format.html { render "home/index" }
     end
+  end
+  
+  def index
+    
   end
   
   def advanced_search
