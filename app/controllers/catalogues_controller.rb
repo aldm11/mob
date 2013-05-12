@@ -33,13 +33,13 @@ class CataloguesController < ApplicationController
   def update
     phone = params[:phone_name]
     price = params[:price]
-    result = Managers::CatalogueManager.add_phone(current_account, phone, price)   
-    result[:status] ? flash[:success] = result[:message] : flash[:error] = result[:message]
-    @catalogue_phone = Catalogue.new(current_account, result[:catalogue_item]).full_items.first    
+    @result = Managers::CatalogueManager.add_phone(current_account, phone, price)   
+    @result[:status] ? flash[:success] = @result[:message] : flash[:error] = @result[:message]
+    @catalogue_phone = Catalogue.new(current_account, @result[:catalogue_item]).full_items.first    
     respond_to { |format| format.js }
   end
   
-  def phone_details
+  def phone_details_remote
     @phone = PhoneDecorator.decorate(Phone.asc(:brand).to_a.select { |phone| phone.name == params[:phone_name] }.first)
   end
   

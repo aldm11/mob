@@ -3,7 +3,7 @@ $(".save-catalogue-item").modal();
 $("#phone_name").typeahead({
     source: <%= raw @phones_names.to_json %>,
     updater:function(item) {
-    	url = "<%= phone_details_catalogue_path %>";
+    	url = "<%= phone_details_remote_catalogue_path %>";
     	$.ajax({
     		type: "POST",
     		url: url, 
