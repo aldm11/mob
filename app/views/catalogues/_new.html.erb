@@ -4,8 +4,7 @@
 	</div>
 	<div class='modal-body'>
 		<div class="span3">
-			<!-- TODO: maybe do this with remote submit -->
-			<%= form_tag url_for(:action => "create"), :class => "form-horizontal", :id => "saveCatalogueItem" do %>
+			<%= form_tag url_for(:action => "update"), :method =>:put, :remote => true, :class => "form-horizontal", :id => "saveCatalogueItem" do %>
 			<div class="control-group">
 				<%= text_field_tag "phone_name", "", :placeholder => "Type phone name ...", :class => "typeahead", :autocomplete => "off" %>
 			</div>

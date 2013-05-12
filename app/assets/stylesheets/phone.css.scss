@@ -110,10 +110,9 @@
 
 .catalogue-item-main {
   .remove-item {
-    display: block;
     border: none;
     float: right;
-    margin: -10px -10px 0 0;
+    //margin: -10px -10px 0 0;
   }
   
   .show-on-hover {
@@ -122,6 +121,14 @@
   
   ul.prices-history-content > li {
     font-size : 8pt;
+  }
+  
+  .catalogue-price {
+    margin-left: 10px;
+  }
+  
+  .catalogue-options {
+    margin-right: 10px;
   }
 }
 

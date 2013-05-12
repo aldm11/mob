@@ -9,19 +9,10 @@ class CataloguesController < ApplicationController
     respond_to { |format| format.js }
   end
   
-  def create
-    #TODO: add sanitization dinamically for wanted methods
-    phone = params[:phone_name]
-    price = params[:price]
-    result = Managers::CatalogueManager.add_phone(current_account, phone, price)
-    
-    result[:status] ? flash[:success] = result[:message] : flash[:error] = result[:message]
-    redirect_to :action => "index", :username => current_account.username
-  end
-  
   def index
     username = params[:username]
     account = account_signed_in? ? current_account : Account.where(username: username)
+    @my_item = account_signed_in? && current_account.username == params[:username]
     @catalogue_items = Managers::CatalogueManager.get_catalogue(account)
     @catalogue_phones = Catalogue.new(account, @catalogue_items).full_items
   end
@@ -42,16 +33,10 @@ class CataloguesController < ApplicationController
   def update
     phone = params[:phone_name]
     price = params[:price]
-    puts "parametri #{phone} #{price.inspect}"
-
-    result = Managers::CatalogueManager.add_phone(current_account, phone, price)
-    
-    if result[:status]
-      flash[:success] = result[:message]
-    else
-      flash[:error] = result[:message]
-    end
-    redirect_to :action => "index", :username => current_account.username
+    result = Managers::CatalogueManager.add_phone(current_account, phone, price)   
+    result[:status] ? flash[:success] = result[:message] : flash[:error] = result[:message]
+    @catalogue_phone = Catalogue.new(current_account, result[:catalogue_item]).full_items.first    
+    respond_to { |format| format.js }
   end
   
   def phone_details

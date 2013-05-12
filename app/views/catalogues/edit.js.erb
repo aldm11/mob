@@ -1,7 +1,2 @@
-<% if account_signed_in? %>
 $("<%= escape_javascript(render(:partial => 'edit')) %>").appendTo($("body"));
 $(".save-catalogue-item").modal();
-<% else %>
-$("<%= escape_javascript(render('shared/not_authorized')) %>").appendTo($("body"));
-$("#notAuthorizedPopup").modal();
-<% end %>

@@ -1,4 +1,3 @@
-<% if account_signed_in? %>
 $("<%= escape_javascript(render(:partial => 'new')) %>").appendTo($("body"));
 $(".save-catalogue-item").modal();
 $("#phone_name").typeahead({
@@ -16,7 +15,3 @@ $("#phone_name").typeahead({
     	return item;
     }
 });
-<% else %>
-$("<%= escape_javascript(render('shared/not_authorized')) %>").appendTo($("body"));
-$("#notAuthorizedPopup").modal();
-<% end %>

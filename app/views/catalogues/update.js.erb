@@ -1,0 +1,18 @@
+$(".save-catalogue-item").modal("hide");
+$(".save-catalogue-item").remove();
+
+var catalogue_item = $("#<%= @catalogue_phone[:catalogue_item].id %>");
+if(catalogue_item.length > 0){
+	catalogue_item.remove();
+}
+
+var catalogue_phone = $("<%= escape_javascript(render(:partial => 'catalogue_item', :locals => {:catalogue_phone => @catalogue_phone, :my_item => true})) %>");
+$(".catalogue-items").prepend(catalogue_phone);
+
+var catalogue_item = $("#<%= @catalogue_phone[:catalogue_item].id %>");
+catalogue_item.find(".prices-from-others").popover({html: true, delay: 0, trigger: "click"});
+catalogue_item.find(".prices-history").popover({html: true, delay: 0, trigger: "click"});
+catalogue_item.find(".catalogue-phone-title").popover({html: true, delay: 1000, trigger: "hover"});
+
+
+

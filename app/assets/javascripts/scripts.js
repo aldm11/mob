@@ -72,27 +72,23 @@ $(document).ready(function(){
 	$(".modal-backdrop").live("click", function(event){
 		$(".modal").remove();
 	});
+	
+	//phone popovers in catalogue
 	$(".catalogue-phone-title").each(function(){
-		$(this).attr("data-title", $(this).parent().next().children(".popover-title").html());
-		$(this).attr("data-content", $(this).parent().next().children(".popover-content").html());
 		$(this).popover({html: true, delay: 1000, trigger: "hover"});
 	});
 
 	$(".prices-history").each(function(){
-		$(this).attr("data-title", "Price history");
-		$(this).attr("data-content", $(this).parent().parent().parent().next().next().html());
 		$(this).popover({html: true, delay: 0, trigger: "click"});
 	});
-	
+		
 	$(".prices-from-others").each(function(){
-		$(this).attr("data-title", "Prices from others");
-		$(this).attr("data-content", $(this).parent().parent().parent().next().next().next().html());
 		$(this).popover({html: true, delay: 0, trigger: "click"});
 	});
 	
-	$(".catalogue-phone-title").mouseleave(function(){
+	$(".catalogue-phone-title").live("mouseleave", function(){
 		$(this).popover("hide");
-	})
+	});
 	
 	$(".catalogue-item-main").live("mouseover", function(){
 		$(this).find(".show-on-hover").css({"visibility" : "visible"});	
@@ -101,6 +97,7 @@ $(document).ready(function(){
 	$(".catalogue-item-main").live("mouseleave", function(){
 		$(this).find(".show-on-hover").css({"visibility" : "hidden"});
 	});
+	//end of phone popovers
 	
 	//TODO: find better way to handle this clicks on reset button
 	$("button[type='reset']").live("click", function(){

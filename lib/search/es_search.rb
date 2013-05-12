@@ -66,7 +66,16 @@ module Search
       else
         s.query { all }
       end
-        
+            
+      s.filter :nested, :path => "catalogue_items", :query => {
+        :filtered => {
+          "query" => { "match_all" => {} }, 
+          "filter" => { 
+            "exists" => { "field" => "actual_price" }
+          } 
+        } 
+      }
+
       filters.each do |key, value|
         FILTERS_MAPPINGS[key.to_s].call(s, value) if FILTERS_MAPPINGS[key.to_s]
       end
@@ -86,7 +95,7 @@ module Search
         terms "catalogue_items.provider.name"
       end    
       
-      puts "Elastic search query: #{s.inspect}"
+      puts "Elastic search request #{s.to_curl}"
       @@results = s.results
       
       s

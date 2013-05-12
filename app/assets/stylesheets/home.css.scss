@@ -42,19 +42,19 @@ form.lock_user {
   margin: 0;
 }
 
-.phones-grid {
-  .phone-main {   
-    width : 23.404255319148934%;
-    float: left;
-    min-height: 30px;
-    box-sizing: border-box;
-    margin: 0 1.59% 1.59% 0;
-    padding: 10px 0 20px 0;
-    .phone-details {
-      text-align: center;
-    }
+
+.phone-main {   
+  width : 23.404255319148934%;
+  float: left;
+  min-height: 30px;
+  box-sizing: border-box;
+  margin: 0 1.59% 1.59% 0;
+  padding: 10px 0 20px 0;
+  .phone-details {
+    text-align: center;
   }
 }
+
 
 .options-box {
   margin-bottom: 20px;

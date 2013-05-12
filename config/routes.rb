@@ -93,11 +93,10 @@ Mobis::Application.routes.draw do
     end
   end
   
-  resource :catalogue, :only => [:new, :create, :edit] do
+  resource :catalogue, :only => [:new, :update, :edit] do
     match "pre_remove", :action => "pre_remove"
     match "remove", :action => "remove", via: :post
     match "phone_details", :action => "phone_details", via: :post
-    match "update", :action => "update", via: :post
   end
   
   resource :search, :controller => "search" do
