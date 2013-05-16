@@ -1,9 +1,7 @@
 class CataloguesController < ApplicationController
-  before_filter :only_signed_in_users, :only => [:new, :create, :pre_remove, :remove, :edit, :update]
-  
+  before_filter :only_signed_in_users, :only => [:new, :create, :pre_remove, :remove, :edit, :update, :phone_details_remote]
   #TODO: implement button to see changes for this phone in another suppliers if it's my own and another's catalogue
-  
-  
+    
   def new
     @phones_names = Phone.asc(:brand).map {|phone| phone.name }
     respond_to { |format| format.js }
@@ -11,7 +9,7 @@ class CataloguesController < ApplicationController
   
   def index
     username = params[:username]
-    account = account_signed_in? ? current_account : Account.where(username: username)
+    account = Account.where(username: username).to_a.first
     @my_item = account_signed_in? && current_account.username == params[:username]
     @catalogue_items = Managers::CatalogueManager.get_catalogue(account)
     @catalogue_phones = Catalogue.new(account, @catalogue_items).full_items

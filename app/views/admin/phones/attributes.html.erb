@@ -1,0 +1,16 @@
+<div class="row-fluid">
+	
+	<div class="span4">
+		<%= render :partial => "add_phone_attribute", :locals => { :attribute_fields => @attribute_fields } %>
+	</div>
+
+	<div class="span5 attributes-list">
+		<% if @attributes.empty? %>
+			<span>No attributes. Add some</span>
+		<% else %>
+			<%= render :partial => "attributes_list", :locals => { :attribute_fields => @attribute_fields, :attributes => @attributes } %>
+		<% end %>
+	</div>
+
+</div>
+

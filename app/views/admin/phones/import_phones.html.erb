@@ -1,0 +1,13 @@
+<h3>Import phones</h3>
+<%= form_tag(url_for(:controller => "phones", :action => "import"), :class => "form-inline") do %>
+<%= hidden_field_tag("brand", "") %>
+<%= select_tag("brand", options_for_select(@brands)) %>
+<%= button_tag("Import brand", :class => "btn btn-primary", :type => "submit") %>
+<% end %>
+
+<h3>Import images</h3>
+<%= form_tag(url_for(:controller => "phones", :action => "import_images"), :class => "form-inline") do %>
+<%= hidden_field_tag("brand", "") %>
+<%= select_tag("brand", options_for_select(@brands)) %>
+<%= button_tag("Import brand", :class => "btn btn-info", :type => "submit") %>
+<% end %>

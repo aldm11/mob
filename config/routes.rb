@@ -1,5 +1,4 @@
 Mobis::Application.routes.draw do
-  get "phone/new"
   get "home/new"
   get "home/index"
   get "home/about"
@@ -76,7 +75,7 @@ Mobis::Application.routes.draw do
     end
   end
   
-  resources :phones, :only => [:new, :create, :show]
+  resources :phones, :only => [:show]
   resources :comments do
     member do
       post "", :action => "create"
@@ -109,16 +108,21 @@ Mobis::Application.routes.draw do
       post "advanced_search"
     end
   end
+  
+  namespace :admin do
+    match "users" => "users#list_users"
+    match "users/lock" => "users#lock_user", via: :post
+    match "phones" => "phones#list_phones"
+    match "phones/attributes" => "phones#attributes", via: :get
+    match "phones_add_attribute" => "phones#add_attribute", via: :post
+    match "phones/import_phones" => "phones#import_phones", via: :get
+    match "phones/import" => "phones#import", via: :post
+    match "phones/import_images" => "phones#import_images", via: :post
+    
+    resource :phones, :only => [:create, :new] 
+  end
    
-  match ":username/catalogue" => "catalogues#index", :as => "catalogue"
-  match "admin/users" => "users#list_users"
-  match "admin/users/lock" => "users#lock_user", via: :post
-  match "admin/phones" => "phones#list_phones"
-  match "admin/phones/attributes" => "phones#attributes", via: :get
-  match "admin/phones_add_attribute" => "phones#add_attribute", via: :post
-  match "admin/phones/import_phones" => "phones#import_phones", via: :get
-  match "admin/phones/import" => "phones#import", via: :post
-  match "admin/phones/import_images" => "phones#import_images", via: :post   
+  match ":username/catalogue" => "catalogues#index", :as => "catalogue"  
   match "unathorized_access" => "application#unathorized_access"
   match "/:brand" => "home#index", :as => "brand"
 end

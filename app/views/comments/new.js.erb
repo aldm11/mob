@@ -1,7 +1,2 @@
-<% if account_signed_in? %>
-$("<%= escape_javascript(render('phones/main_phone_popup')) %>").appendTo($("body"));
+$("<%= escape_javascript(render('phones/phone')) %>").appendTo($("body"));
 $("#addCommentPopup").modal();
-<% else %>
-$("<%= escape_javascript(render('shared/not_authorized')) %>").appendTo($("body"));
-$("#notAuthorizedPopup").modal();
-<%end %>

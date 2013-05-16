@@ -11,19 +11,10 @@
 	<div class="modal-body">
 	  	<div class="tab-content">
 	  		<div class="tab-pane active" id="phoneComments">
-			  	<div class="comments-list">
-			  		<% if @phone_data.comments.empty? %>
-			  		<p class="muted">There are no comments for this phone</p>
-			  		<% else %>
-					<% @phone_data.comments.each do |comment| %>
-					<%= render :partial => 'shared/comment_popup_main', :locals => {:comment => comment} %>
-					<% end %>
-					<% end %>
-				</div>
-				<%= render :partial => "comments/new" %>
+				<%= render :partial => "phones/phone_comments_preview_tab", :locals => {:phone_data => @phone_data} %>
 			</div>
 			<div class="tab-pane" id="aboutPhone">
-				<%= render :partial => "shared/phone_details", :locals => {:phone => @phone_data.phone} %>
+				<%= render :partial => "phones/phone_preview_tab", :locals => {:phone => @phone_data.phone} %>
 			</div>
 		</div>
 	</div>

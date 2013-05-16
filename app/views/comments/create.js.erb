@@ -1,5 +1,5 @@
 <% if @saved %>
-var comment_html = $("<%= escape_javascript(render(:partial => 'shared/comment_popup_main', :locals => {:comment => @comment})) %>");
+var comment_html = $("<%= escape_javascript(render(:partial => 'comment_item', :locals => {:comment => @comment})) %>");
 if($(".comments-list").children("p").size() > 0){
 	$(".comments-list").children("p").remove();
 }

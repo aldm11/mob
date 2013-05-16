@@ -1,0 +1,25 @@
+<% catalogue_items = (defined?(@min_price) && defined?(@max_price)) ? phone.catalogue_items.select { |ci| ci.actual_price.between?(@min_price, @max_price) } : phone.catalogue_items %>
+<% prices = catalogue_items.map { |ci| ci.actual_price }.sort %>
+<div class="thumbnail phone-main">
+	<div class="phone-img-main-wrapper">
+		<%= phone.render_image("64") %>
+	</div>
+	<div class="caption phone-details">
+		<div class="align-center phone-title-main">
+			<%= link_to(phone.name, phone_path(phone)) %>
+		</div>
+		
+		<small class="align-center text-error">
+			<%= [I18n.t("price", :price => prices.first), (I18n.t "price", :price => prices.last)].join(" - ") %>
+		</small>
+		
+		<div class="pull-left">
+			<%= render :partial => "shared/phone_review_main", :locals => {:phone => phone} %>
+		</div>
+					
+		<div class="pull-right">
+			<%= link_to "", "comments/new/#{phone.id}", :remote => true, :class => "icon-comment icon-orange add-comment-main", :rel => "tooltip", :title => "Add comment", "data-placement" => "bottom", "data-toggle" => "modal", "data-target" => "#addCommentPopup" %>
+			<a href="#"><small><%= "(" + phone.comments_count.to_s + ")" %></small></a>
+		</div>
+	</div>		
+</div>

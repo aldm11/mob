@@ -5,7 +5,7 @@ $("#main_loading_phones").remove();
 <% if @phones.length == 0 %>
 $(".phones-grid").append("<div class='no-more-phones'>No more phones ...</div>");
 <% else %>
-var phones_grid_html = $("<%= escape_javascript(render(:partial => 'shared/phones_grid')) %>");
+var phones_grid_html = $("<%= escape_javascript(render(:partial => 'phones/phones_grid')) %>");
 $(".phones-grid").css({"text-align" : "left", "padding-top" : 0});
 $(".phones-grid").append(phones_grid_html);
 <% end %>

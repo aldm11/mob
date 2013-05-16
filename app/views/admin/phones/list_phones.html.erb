@@ -1,0 +1,16 @@
+<table class="table table-striped table-hover">
+	<tr>
+		<th>Name</th><th>Camera</th><th>Display</th><th>Created at</th><th>Created by</th><th>Action</th>
+	</tr>
+	<% @phones.each do |phone| %>
+	<% created_by = phone.account_id ? Account.find(phone.account_id).email : "" %>
+	<tr>
+		<td><%= phone.display_name %></td>
+		<td><%= phone.camera %></td>
+		<td><%= phone.display %></td>
+		<td><%= phone.created_at.to_s %></td>
+		<td><%= created_by %></td>
+		<td>Some action</td>
+	</tr>
+	<% end %>
+</table>

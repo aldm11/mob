@@ -1,13 +1,5 @@
-<% if account_signed_in? %>
 $(".remove-confirm").modal("hide");
 $(".remove-confirm").remove();
 
 catalogue_item = $("#<%= params[:catalogue_id] %>");
-/*catalogue_item.next().remove();
-catalogue_item.next().remove();
-catalogue_item.next().remove();*/
 catalogue_item.remove();
-<% else %>
-$("<%= escape_javascript(render('shared/not_authorized')) %>").appendTo($("body"));
-$("#notAuthorizedPopup").modal();
-<% end %>

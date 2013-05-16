@@ -1,0 +1,46 @@
+<h1>Phone#new</h1>
+<%= form_for(@phone, :url => { :action => "create" }, :html => { :class => "form-horizontal", :multipart => "true" }) do |f| %>
+<div class="control-group">
+	<div class="control-label"><%= f.label :brand %></div>
+	<div class="controls"><%= f.text_field :brand %></div>
+</div>
+
+<div class="control-group">
+	<div class="control-label"><%= f.label :model %></div>
+	<div class="controls"><%= f.text_field :model %></div>
+</div>
+
+<div class="control-group">
+	<div class="control-label"><%= f.label :weight %></div>
+	<div class="controls"><%= f.text_field :weight %></div>
+</div>
+
+<div class="control-group">
+	<div class="control-label"><%= f.label :height %></div>
+	<div class="controls"><%= f.text_field :height %></div>
+</div>
+
+<div class="control-group">
+	<div class="control-label"><%= f.label :display %></div>
+	<div class="controls"><%= f.text_field :display %></div>
+</div>
+
+<div class="control-group">
+	<div class="control-label"><%= f.label :camera %></div>
+	<div class="controls"><%= f.text_field :camera %></div>
+</div>
+
+<div class="control-group">
+	<div class="control-label"><%= f.label :os %></div>
+	<div class="controls"><%= f.text_field :os %></div>
+</div>
+
+<div>
+	<div class="control-label"><%= f.label :image %></div>
+	<div class="controls"><%= f.file_field :image, :id => "add_phone" %></div>
+</div> 
+
+<div class="control-group">
+	<div class="controls"><%= f.submit I18n.t(:add_phone), :class => "btn btn-primary" %></div>
+</div>
+<% end %>

@@ -120,7 +120,7 @@ module Managers
       phones_ids = phones.map { |phone| phone.is_a?(Phone) ? phone.id.to_s : phone }
       
       catalogue_items = Phone.asc.in(_id: phones_ids).to_a
-      catalogue_items = catalogue_items.map { |phone| [phone.id, phone.catalogue_items.select {|ci| ci.provider.id != provider.id }.map { |ci| {"provider_id" => ci.provider.id, "provider_name" => provider.name, "provider_address" => provider.address, "provider_website" => provider.website, "price" => ci.actual_price}}.take(number_of_prices) ]}
+      catalogue_items = catalogue_items.map { |phone| [phone.id, phone.catalogue_items.select {|ci| ci.deleted_date.nil? && ci.provider.id != provider.id }.map { |ci| {"provider_id" => ci.provider.id, "provider_name" => ci.provider.name, "provider_address" => ci.provider.address, "provider_website" => ci.provider.website, "price" => ci.actual_price}}.take(number_of_prices) ]}
       catalogue_items = Hash[catalogue_items]
     rescue Exception => e
       Rails.logger.fatal "Error while getting prices from other for account #{account.inspect} : #{e.message}"

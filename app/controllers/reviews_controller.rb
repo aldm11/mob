@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  
+  before_filter :only_signed_in_users => [:create_phone_review]
   def create_phone_review
     if account_signed_in?
       phone_id = params[:phone_id]
