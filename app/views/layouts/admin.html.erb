@@ -3,9 +3,7 @@
 <head>
   <title>Mobis</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "javascripts/client.js" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -18,7 +16,11 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span2">
-			Sidebar
+			<ul class="nav nav-pills nav-stacked">
+			<li><%= link_to("Add phone", new_admin_phones_path) %></li>
+			<li><%= link_to("Phone attributes", admin_phones_attributes_path) %></li>
+			<li><%= link_to("Import phones and images", admin_phones_import_phones_path) %></li>
+			</ul>
 		</div>
 	
 		<div class="span8">

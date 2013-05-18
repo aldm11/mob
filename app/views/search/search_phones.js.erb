@@ -1,4 +1,4 @@
-var brands = $("<%= escape_javascript(render(:partial => 'shared/brands_home', :locals => {:brands => @brands})) %>");
+var brands = $("<%= escape_javascript(render(:partial => 'shared/brands_sidebar', :locals => {:brands => @brands})) %>");
 $(".brands-left-sidebar").html(brands);
 
 $("#main_loading_phones").remove();

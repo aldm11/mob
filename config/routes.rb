@@ -62,6 +62,10 @@ Mobis::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
   root :to => "home#index"
   
+  match ":username/catalogue" => "catalogues#index", :as => "catalogue"  
+  match "unauthorized_access" => "application#unauthorized_access"
+  match "show_error" => "application#show_error"
+  
   devise_for :accounts, :controllers => { :registrations => "accounts/registrations", :sessions => "accounts/sessions" }
   devise_scope :account do
     match "registration" => "accounts/registrations#index", :as => "register"
@@ -72,40 +76,6 @@ Mobis::Application.routes.draw do
   namespace :api do
     namespace :V1 do
       resources :phones
-    end
-  end
-  
-  resources :phones, :only => [:show]
-  resources :comments do
-    member do
-      post "", :action => "create"
-    end
-    
-    collection do
-      get "new/:phone_id", :action => "new"
-    end
-  end
-  
-  resource :reviews do
-    member do
-      post "create_phone_review", :action => "create_phone_review"
-    end
-  end
-  
-  resource :catalogue, :only => [:new, :update, :edit] do
-    match "pre_remove", :action => "pre_remove"
-    match "remove", :action => "remove", via: :post
-    match "phone_details_remote", :action => "phone_details_remote", via: :post
-  end
-  
-  resource :search, :controller => "search" do
-    collection do
-      get "index"
-      post "index"
-      get "search_phones"
-      post "search_phones"
-      get "advanced_search"
-      post "advanced_search"
     end
   end
   
@@ -121,8 +91,40 @@ Mobis::Application.routes.draw do
     
     resource :phones, :only => [:create, :new] 
   end
+  
+  resources :phones, :only => [:show]
+  resources :comments, :only => [:create] do
+    member do
+      post "", :action => "create"
+    end
+    
+    collection do
+      get "new/:phone_id", :action => "new"
+    end
+  end
+  
+  resource :reviews, :only => [] do
+    member do
+      post "create_phone_review", :action => "create_phone_review"
+    end
+  end
+  
+  resource :catalogue, :only => [:new, :update, :edit] do
+    match "pre_remove", :action => "pre_remove"
+    match "remove", :action => "remove", via: :post
+    match "phone_details_remote", :action => "phone_details_remote", via: :post
+  end
+  
+  resource :search, :only => [:index], :controller => "search" do
+    collection do
+      get "index"
+      post "index"
+      get "search_phones"
+      post "search_phones"
+      get "advanced_search"
+      post "advanced_search"
+    end
+  end
    
-  match ":username/catalogue" => "catalogues#index", :as => "catalogue"  
-  match "unathorized_access" => "application#unathorized_access"
   match "/:brand" => "home#index", :as => "brand"
 end

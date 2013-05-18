@@ -1,18 +1,6 @@
 <%= devise_error_messages! %>
 
 <% resource.rolable = params[:account][:type].downcase.camelize.constantize.new %>
-
-<!--
-<div class="herro-unit span5 offset1">
-	<h2>Enter into new business world</h2>
-	<p class="lead">
-		Cras justo odio, dapibus ac facilisis in,<br/> 
-		egestas eget quam.<br/> 
-		Fusce dapibus, tellus ac cursus commodo,<br/>
-		tortor mauris condimentum nibh,<br/>
-		ut fermentum massa justo sit amet risus.
-	</p>
-</div>-->
 <div class="container" style="width: 800px; margin: 50px auto 0 auto;">
 	<div class="span4">
 		<% if params[:account][:type] == "user" %>
@@ -41,7 +29,7 @@
 		  </div>
 	
 		  <%= fields_for resource.rolable do |rf| %>
-		  <%= render :partial => "shared/" + ["new", params[:account][:type], "fields"].join("_"), :locals => {:f => rf} %>
+		  <%= render :partial => "accounts/registrations/" + ["new", params[:account][:type], "fields"].join("_"), :locals => {:f => rf} %>
 		  <% end %>
 		
 		  <div class="control-group">

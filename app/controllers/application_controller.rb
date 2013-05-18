@@ -9,19 +9,22 @@ class ApplicationController < ActionController::Base
   include CollectionHelper
   include AccountHelper
       
-  def unathorized_access
+  def unauthorized_access
     respond_to do |format|
       format.js
     end
   end
   
+  def show_error
+  end
+  
   protected
   def only_signed_in_users
-    redirect_to(:action => "unathorized_access") unless account_signed_in?
+    redirect_to(:controller => "application", :action => "unauthorized_access") unless account_signed_in?
   end
   
   def admin_only
-    redirect_to(:action => "unathorized_access") unless account_signed_in? && current_account.rolable.class.name.downcase == "admin"
+    redirect_to(:action => "unauthorized_access") unless account_signed_in? && current_account.rolable.class.name.downcase == "admin"
   end
   
   private

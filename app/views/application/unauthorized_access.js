@@ -1,2 +1,0 @@
-$("<%= escape_javascript(render('shared/not_authorized')) %>").appendTo("body");
-$("notAuthorizedPopup").modal("show");

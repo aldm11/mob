@@ -51,12 +51,7 @@ $(document).ready(function(){
             url: '/reviews/create_phone_review',
             type: 'POST',
             data: { phone_id : id, review : feedback },
-            success: function (data, textStatus, xhr) {
-            	wrapper.html(data);
-            	$("#reviewAdded").modal();
-            	
-            	
-            },
+            success: function (data, textStatus, xhr) {},
             error: function (xhr, textStatus, errorThrown) { console.log(errorThrown.toString()) },
             complete: function (xhr, textStatus) {}
         });

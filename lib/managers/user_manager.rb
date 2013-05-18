@@ -2,11 +2,14 @@ module Managers
   module UserManager
     
     def self.get_all_users
-      users = []
+      accounts = []
       User.find(:all).each do |user|
-        users << user
+        accounts << user
       end
-      users
+      Store.find(:all).each do |store|
+        accounts << store
+      end
+      accounts
     end
     
   end

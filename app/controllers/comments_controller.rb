@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-
+  before_filter :only_signed_in_users, :only => ["new", "create"]
   def new
     @phone_data = PhoneData.new(current_account, params[:phone_id])
     respond_to do |format|

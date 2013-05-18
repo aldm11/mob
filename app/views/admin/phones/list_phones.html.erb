@@ -5,12 +5,11 @@
 	<% @phones.each do |phone| %>
 	<% created_by = phone.account_id ? Account.find(phone.account_id).email : "" %>
 	<tr>
-		<td><%= phone.display_name %></td>
-		<td><%= phone.camera %></td>
-		<td><%= phone.display %></td>
-		<td><%= phone.created_at.to_s %></td>
+		<td><%= phone.name %></td>
+		<td><%= phone.created_at.strftime('%m/%d/%Y %H:%M') %></td>
 		<td><%= created_by %></td>
-		<td>Some action</td>
+		<td>Show offers</td>
+		<td>Delete</td>
 	</tr>
 	<% end %>
 </table>
