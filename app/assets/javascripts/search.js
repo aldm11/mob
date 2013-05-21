@@ -37,7 +37,7 @@ var search = function(){
 		
 		var url = urls[search_type];
 						
-		//delay(function(){
+		delay(function(){
 			$.ajax({
 				url : url,
 				type : "POST",
@@ -56,6 +56,6 @@ var search = function(){
 	            error: function (xhr, textStatus, errorThrown) { console.log("Error during search for " + search_type + " " + errorThrown.toString()) },
 	            complete: function (xhr, textStatus) {}
 			});
-		//}, 500);
+		}, 500);
 	};
 }();

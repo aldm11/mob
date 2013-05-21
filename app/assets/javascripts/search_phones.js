@@ -12,14 +12,16 @@ $(document).ready(function(){
 	
 	$(".price-from-text").html(min_price);
 	$(".price-to-text").html(max_price);
+	$("#price_from").val(min_price);
+	$("#price_to").val(max_price);
 	
 	var get_params =  function(){
 	   var params = {
 			"search_term" : search_term,
 			"sort_by" : sort_by,
 			"brand" : brand,
-			"price_from" : price_from,
-			"price_to" : price_to,
+			"price_from" : $("#price_from").val(),
+			"price_to" : $("#price_to").val(),
 			"from" : from,
 			"size" : size
 		}
@@ -34,8 +36,8 @@ $(document).ready(function(){
 		slide: function( event, ui ) {
 			$(".price-from-text").html(ui.values[0]);
 			$(".price-to-text").html(ui.values[1]);
-			price_from = ui.values[0];
-			price_to = ui.values[1];
+			$("#price_from").val(ui.values[0]);
+			$("#price_to").val(ui.values[1]);
 		}
 	});
 	
@@ -59,10 +61,14 @@ $(document).ready(function(){
 	$(".main-brands-list li a").live("click", function(){
 		brand = $(this).html();
 		search_term = "";
+		from = 0;
+		size = 16;
 		search("phones", get_params());
 	});
 	
 	$("#apply_prices").live("click", function(){
+		from = 0;
+		size = 16;
 		search("phones", get_params());
 	});
 	
