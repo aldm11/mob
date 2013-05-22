@@ -4,16 +4,20 @@ $(document).ready(function(){
 	
 	var search_term = "", 
 	    brand = "", 
-	    price_from = min_price, 
-	    price_to = max_price, 
 	    sort_by = "date",
 	    from = 0,
 	    size = 16;
 	
-	$(".price-from-text").html(min_price);
-	$(".price-to-text").html(max_price);
-	$("#price_from").val(min_price);
-	$("#price_to").val(max_price);
+	var reset_price_range = function(){
+		$(".price-from-text").html(min_price);
+		$(".price-to-text").html(max_price);
+		$("#price_from").val(min_price);
+		$("#price_to").val(max_price);
+		price_from = min_price;
+		price_to = max_price;
+		$("#price-slider").slider("option", "min", min_price);
+		$("#price-slider").slider("option", "max", max_price);
+	}
 	
 	var get_params =  function(){
 	   var params = {
@@ -51,8 +55,10 @@ $(document).ready(function(){
 		$(".price-range-wrapper").show();
 	});
 	
+	reset_price_range();
+	
 	$("#search_term").live("keyup", function(){
-		sort_by = "relevance";
+		search_term = $(this).val();
 		from = 0;
 		size = 16;
 		search("phones", get_params())
@@ -61,6 +67,7 @@ $(document).ready(function(){
 	$(".main-brands-list li a").live("click", function(){
 		brand = $(this).html();
 		search_term = "";
+		reset_price_range();
 		from = 0;
 		size = 16;
 		search("phones", get_params());
@@ -76,7 +83,8 @@ $(document).ready(function(){
 		$(".sort-phones-by a").removeClass("disabled");
 		$(this).addClass("disabled");
 		sort_by = $(this).attr("id");
-		
+		from = 0;
+		size = 16;
 		search("phones", get_params());
 	});
 	

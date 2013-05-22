@@ -29,7 +29,6 @@ class SearchController < ApplicationController
     @phones = PhoneDecorator.decorate(@phones)
     @brands = Search::ESSearch.facets("brands").map { |facet| facet["term"] }
         
-    puts "rez #{@phones.size.to_s}"
     respond_to do |format|
       format.js if request.xhr?
       format.html { render "home/index" }

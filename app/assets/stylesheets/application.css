@@ -9,5 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require jquery-ui-1.10.2.custom
+ *= require_tree ./bootstrap
+ *= require_tree ./admin
+ *= require home
+ *= require phone
+ *= require flickrimg.jquery
  */
