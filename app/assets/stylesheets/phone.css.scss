@@ -133,3 +133,40 @@
 }
 
 .typeahead { z-index: 1051; }
+
+
+///phone#show
+
+.phone.show {
+  padding-top: 0;
+  .phone-details {
+    margin-top: 0;
+    padding-top: 0;
+    .phone-info {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #CCC;
+    }
+    .phone-image {
+      float: left;
+      display: inline-block;
+      width: 30%;
+      height: 100%;      
+      img {
+        vertical-align: text-top;
+      }
+    }
+    
+    .phone-attributes {
+      display: inline-block;
+      width: 65%;
+      height: 100%;
+      
+      .phone-attribute {
+        padding: 2px 0 2px 0;
+      }
+      .phone-attribute:hover {
+        background: #EEE;
+      }
+    }
+  }
+}

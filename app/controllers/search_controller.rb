@@ -27,7 +27,7 @@ class SearchController < ApplicationController
     Search::ESSearch.search(options)
     @phones = Search::ESSearch.results
     @phones = PhoneDecorator.decorate(@phones)
-    @brands = Search::ESSearch.facets("brands").map { |facet| facet["term"] }
+    @brands = Search::ESSearch.facets("brands")
         
     respond_to do |format|
       format.js if request.xhr?

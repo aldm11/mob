@@ -105,8 +105,8 @@ module Search
       @@results
     end
     
-    def self.facets(type)
-      @@results.facets[type]["terms"]
+    def self.facets(type, facet_type = "term")
+      @@results.facets[type]["terms"].map { |facet| facet[facet_type] }
     end
     
     def es_result_to_hash

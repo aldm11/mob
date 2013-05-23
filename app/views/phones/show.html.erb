@@ -1,0 +1,55 @@
+<% if @phone %>
+<div class="row-fluid">
+	<div class="span2 brands-left-sidebar">
+		<%= render :partial => 'shared/brands_sidebar', :locals => {:brands => @brands} %>
+	</div>
+	
+	<div class="span7 phone show">
+		<div class="row-fluid well phone-details">
+			<h3><%= @phone.name %></h3>
+			<div class = "row-fluid phone-info">
+				<div class="pull-left">
+					<span class="muted">Last offer added on <%= @catalogue_items.first.date_from.strftime('%m/%d/%Y') %></span>
+				</div>
+				<div class="pull-right">
+					<span class="text-error"><%= [I18n.t("price", :price => @min_price), (I18n.t "price", :price => @max_price)].join(" - ") %></span>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="phone-image">
+					<%= @phone.render_image("128") %>
+				</div>
+				
+				<div class="phone-attributes">
+					<ul class="nav nav-pills nav-stacked">
+						<% @phone.attributes_for_display.each do |attr, value| %>
+						<%= render :partial => "phones/phone_attribute_item", :locals => {:label => I18n.t("mongoid.attributes.phone."+attr), :value => value} %>
+						<% end %>
+					</ul>
+				</div>
+			</div>			
+		</div>
+		
+		<div class="row-fluid phone-comments">
+			<% if @comments.nil? || @comments.empty? %>
+			<div class = "muted">No comments for this phone</div>
+			<% else %>
+			<% @comments.each do |comment| %>
+			<%= render :partial => "phones/comment_item", :locals => {:comment => comment} %>
+			<% end %>
+			<% end %>
+		</div>
+	</div>
+	
+	<div class="span2">
+		Preporuke
+	</div>
+</div>
+<% else %>
+<div class = "row-fluid well">
+	<p class = "text-error">
+		Phone does not exists!
+		<%= link_to "Go back to home", root_path %>
+	</p>
+</div>
+<% end %>

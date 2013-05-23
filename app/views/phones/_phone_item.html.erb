@@ -1,6 +1,6 @@
 <% catalogue_items = (defined?(@min_price) && defined?(@max_price)) ? phone.catalogue_items.select { |ci| ci.actual_price.between?(@min_price, @max_price) } : phone.catalogue_items %>
 <% prices = catalogue_items.map { |ci| ci.actual_price }.sort %>
-<div class="thumbnail phone-main">
+<div class="thumbnail phone-main" id="<%= phone.id %>">
 	<div class="phone-img-main-wrapper">
 		<%= phone.render_image("64") %>
 	</div>
