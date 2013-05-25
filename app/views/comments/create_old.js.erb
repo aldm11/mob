@@ -1,0 +1,10 @@
+<% if @saved %>
+var comment_html = $("<%= escape_javascript(render(:partial => 'comment_item', :locals => {:comment => @comment})) %>");
+if($(".comments-list").children("p").size() > 0){
+	$(".comments-list").children("p").remove();
+}
+$(".comments-list").append(comment_html);
+$(".comments-list").scrollTop($(".comments-list").get(0).scrollHeight);
+<% else %>
+$("#comment_text").css({"border" : "1px solid red"});
+<% end %>

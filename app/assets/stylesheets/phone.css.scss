@@ -177,7 +177,23 @@
     }
   }
   .comment-text {
-    height: 40px;
+    height: 50px;
     font-size: 9pt;
+  }
+  .comment-item {
+    border-bottom: 1px solid #CCC;
+    .comment-meta {
+      img {
+        vertical-align: text-top;
+      }
+    }
+    .comment-message {
+      padding-left: 10px;
+      background: #EEE;
+      min-height: 40px;
+    }
+  }
+  .comment-item:nth-child(1){
+    border-top: 1px solid #CCC;
   }
 }

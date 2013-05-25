@@ -8,12 +8,16 @@ class CommentsController < ApplicationController
   end
   
   def create
-    @comment = current_account.comments.build(params[:comment])
-    phone = Phone.find(params[:phone_id])
-    @comment.context = phone
-    
-    @saved = @comment.save
-    phone.save
+    if params[:comment][:text].blank?
+      @saved = false
+    else
+      @comment = current_account.comments.build(params[:comment])
+      phone = Phone.find(params[:phone_id])
+      @comment.context = phone
+      
+      @saved = @comment.save
+      phone.save
+    end
  
     respond_to do |format|
       format.js

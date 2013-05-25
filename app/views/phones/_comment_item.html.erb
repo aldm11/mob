@@ -1,11 +1,15 @@
+<% avatar = comment.account.rolable.avatar.exists? ? comment.account.rolable.avatar : "/images/no_image.jpg" %>
 <div class="row-fluid comment-item">
-	<div class="span3 comment-metas">
-		<%= link_to(comment.account.rolable.name, "/") %>
-		<br/>
-		<i class="icon-calendar"></i>
-		<%= content_tag(:small, comment.created_at.strftime('%m/%d/%Y %H:%M')) %>
+	<div class="span4 comment-meta">
+		<div class="span4">
+			<%= image_tag avatar, :size => "32x32" %>
+		</div>
+		<div class="span8">
+			<%= link_to(comment.account.rolable.name, "/") %>
+			<%= content_tag(:small, comment.created_at.strftime('%m/%d/%Y %H:%M')) %>
+		</div>
 	</div>
-	<div class="span7">
+	<div class="span8 comment-message">
 		<small><%= comment.text %></small>
 	</div>
 </div>
