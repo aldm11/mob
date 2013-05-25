@@ -145,28 +145,39 @@
     .phone-info {
       margin-bottom: 20px;
       border-bottom: 1px solid #CCC;
+      
+      .last-phone-offer:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      
+      .last-offer small {
+        font-size: 9pt;
+      }
     }
-    .phone-image {
-      float: left;
-      display: inline-block;
-      width: 30%;
-      height: 100%;      
+    .phone-image {     
       img {
         vertical-align: text-top;
+        min-width: 80px;
+        min-height: 80px;
       }
     }
     
     .phone-attributes {
-      display: inline-block;
-      width: 65%;
-      height: 100%;
-      
       .phone-attribute {
         padding: 2px 0 2px 0;
+        border-bottom: 1px solid #CCC;
+        span {
+          min-height: 0;
+        }
       }
       .phone-attribute:hover {
         background: #EEE;
       }
     }
+  }
+  .comment-text {
+    height: 40px;
+    font-size: 9pt;
   }
 }

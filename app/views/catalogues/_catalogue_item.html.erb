@@ -16,7 +16,7 @@
 	:class => "align-center catalogue-phone-title",
 	"data-toggle" => "popover",
 	"data-original-title" => phone.name,
-	"data-content" => "#{render :partial => "phone_details", :locals => {:phone => phone}}") %>
+	"data-content" => "#{render :partial => "catalogues/phone_details", :locals => {:phone => phone}}") %>
 	
 	<div class="align-center">
 		<abbr class="pull-left text-error catalogue-price"><%= t "price", :price => catalogue_item.actual_price %></abbr>

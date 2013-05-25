@@ -1,0 +1,24 @@
+<% avatar = catalogue_item.provider.avatar.exists? ? catalogue_item.provider.avatar : "/images/no_image.jpg" %>
+<div class="row-fluid">
+	<div class="span3">
+		<%= image_tag avatar, :size => "40x40" %>
+	</div>
+	
+	<div class="span9">
+		<div class="text-error"><%= I18n.t("price", :price => catalogue_item.actual_price) %></div>
+		<div>
+			<small class="text-left">Email:</small>
+			<small class="text-right text-success"><%= catalogue_item.provider.account.email %></small>
+		</div>
+		
+		<div>
+			<small class="text-left">Phone:</small>
+			<small class="text-right text-success"><%= catalogue_item.provider.phone[0].blank? ? " / " : catalogue_item.provider.phone[0] %></small>
+		</div>
+		
+		<div>
+			<small class="text-left">Website:</small>
+			<small class="text-right text-success"><%= catalogue_item.provider.website.blank? ? " / " : catalogue_item.provider.website %></small>
+		</div>
+	</div>
+</div>

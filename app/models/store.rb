@@ -1,7 +1,7 @@
 class Store
   include Mongoid::Document
   include Mongoid::Paperclip
-    
+      
   field :name, :type => String
   field :address, :type => Hash #{ street, city }
   field :phone, :type => Array #[{type, number}] type optional
@@ -11,7 +11,7 @@ class Store
   field :created_at, :type => DateTime #check if exists by default in mongo or in devise
   field :followers, :type => Array # [{name, id, type}]
   field :followings, :type => Array #[{name, id, type}]
-  
+    
   validates :name, :presence => true
   
   has_mongoid_attached_file :logo
@@ -20,4 +20,16 @@ class Store
 
   has_one :account, as: :rolable
   has_many :catalogue_items, as: :provider
+  
+  #TODO: remove aliases and try to use alias_method if possible
+  ALIASES =  {:avatar => "logo"}
+  def method_missing(method_name, *args, &block)
+    if defined?(ALIASES) && ALIASES.keys.map {|k| k.to_s}.include?(method_name.to_s)
+      self.send(ALIASES[method_name.to_sym])
+    elsif defined?(EMPTY) && EMPTY.include?(method_name)
+      nil
+    else
+      super
+    end  
+  end
 end

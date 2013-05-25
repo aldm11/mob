@@ -12,8 +12,8 @@ class PhonesController < ApplicationController
         @prices = @catalogue_items.map { |ci| ci.actual_price }.sort
         @min_price = @prices.first
         @max_price = @prices.last
-      end 
-      
+        @last_offer = @catalogue_items.first
+      end      
       @comments = @phone.comments.sort {|a, b| b.created_at <=> a.created_at} unless @phone.comments.empty?
     end 
   end

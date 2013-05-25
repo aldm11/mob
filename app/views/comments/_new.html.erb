@@ -1,9 +1,7 @@
-<%= form_for(@phone_data.comment, :url => {:action => "create"}, :remote  => true) do |f| %>
+<%= form_for(Comment.new, :url => {:controller => "comments",:action => "create"}, :remote  => true) do |f| %>
   	<div class="control-group">
   		<div class="control-label"><%= f.label :text %></div>
   		<div class="controls"><%= f.text_area :text, :class => "comment-text" %></div>
   	</div>
-	<%= hidden_field_tag :phone_id, @phone_data.phone.id.to_s %>
-  	<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	<button class="btn btn-primary" type="submit">Add</button>
+	<%= hidden_field_tag :phone_id, phone.id.to_s %>
 <% end %>

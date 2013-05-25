@@ -2,7 +2,7 @@
 <% prices = catalogue_items.map { |ci| ci.actual_price }.sort %>
 <div class="thumbnail phone-main" id="<%= phone.id %>">
 	<div class="phone-img-main-wrapper">
-		<%= phone.render_image("64") %>
+		<%= link_to phone.render_image("64"),phone_path(phone) %>
 	</div>
 	<div class="caption phone-details">
 		<div class="align-center phone-title-main">
