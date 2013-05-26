@@ -2,7 +2,7 @@ $(document).ready(function(){
 	$(".last-phone-offer").popover({html: true, delay: 500, trigger: "hover"});
 	
 	var KEY_ENTER = 13;
-	$('#comment_text').keydown(function (event) {
+	$('#comment_text').live("keydown", function (event) {
     	if (event.keyCode === KEY_ENTER){
 	    	if (event.ctrlKey){
 				$(this).val($(this).val()+"\n");
@@ -12,6 +12,23 @@ $(document).ready(function(){
 	    		$("form#new_comment").submit();	
 	    	}
 	    }
+	});
+	
+	var COMMENTS_PER_PAGE = 10;
+	var from = 0;
+	var size = COMMENTS_PER_PAGE;
+	
+	var get_params_comments =  function(){
+	   var params = {
+			"from" : from,
+			"size" : size
+		}
+		return params;
+	}
+	
+	$("#load_more_comments").live("click", function(){
+		from += size;
+		search("comments", get_params_comments());
 	});
 	
 });

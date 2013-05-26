@@ -101,6 +101,7 @@ Mobis::Application.routes.draw do
     collection do
       get "new/:phone_id", :action => "new"
     end
+    match "show_next_page", :action => "show_next_page", :via => :post
   end
   
   resource :reviews, :only => [] do

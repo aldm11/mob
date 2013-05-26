@@ -1,0 +1,11 @@
+$("#loading_big").remove();
+$("#load_more_comments").remove();
+$(".no-more-comments").remove();
+<% if @comments.length == 0 %>
+$(".comments").append("<div class='no-more-comments'>No more comments ...</div>");
+<% else %>
+<% @comments.each do |comment| %>
+var comment = $("<%= escape_javascript(render(:partial => 'comments/comment_item', :locals => {:comment => comment})) %>");
+$(".comments").append(comment);
+<% end %>
+<% end %>

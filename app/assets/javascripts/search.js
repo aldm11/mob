@@ -1,23 +1,42 @@
 var search = function(){
-	var paging = {
-		"phones" : {
-			"from" : 0,
-			"size" : 16
+	var properties = {
+		phones : {
+			paging : {
+				from : 0,
+				size : 16
+			},
+			url : "search/search_phones",
+			before_send : function(parameters){
+				if(parameters["from"] === this.paging["from"] && parameters["size"] === this.paging["size"]){
+					$(".phones-grid").html("<div id = 'main_loading_phones'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
+				}
+				else {
+					$(".phones-grid").append("<div id = 'loading_big'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
+				}
+			}
 		},
-		"messages" : {
-			"from" : 0,
-			"size" : 10
+		comments : {
+			paging : {
+				from : 0,
+				size : 10
+			},
+			url : "search/show_comments",
+			before_send: function(){
+				$(".comments_list").append("<div id = 'loading_big'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
+			}
 		},
-		"phone_offers" : {
-			"from" : 0,
-			"size" : 10
-		}	
-	}
-	
-	var urls = {
-		"phones" : "search/search_phones",
-		"messages" : "",
-		"phone_offers" : ""
+		messages : {
+			paging : {
+				from : 0,
+				size : 10
+			}
+		},
+		phone_offers : {
+			paging : {
+				from : 0,
+				size : 10
+			}
+		}
 	}
 	
 	var delay = (function(){
@@ -31,24 +50,17 @@ var search = function(){
 	return function(search_type, params){
 		var parameters = params;
 		if (parameters["from"] === undefined){
-			parameters["from"] = paging[search_type]["from"];
-			parameters["size"] = paging[search_type]["size"];
+			parameters["from"] = properites[search_type]["paging"]["from"];
+			parameters["size"] = properties[search_type]["paging"]["size"];
 		}
-		
-		var url = urls[search_type];
-						
+		var url = properties[search_type]["url"];
 		delay(function(){
 			$.ajax({
 				url : url,
 				type : "POST",
 				data : parameters,
 				beforeSend: function(xhr){
-					if(parameters["from"] === 0 && parameters["size"] === 16){
-						$(".phones-grid").html("<div id = 'main_loading_phones'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
-					}
-					else {
-						$(".phones-grid").append("<div id = 'main_loading_phones'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
-					}
+					properties[search_type].before_send(parameters);
 				},
 	            success: function (data, textStatus, xhr) {
 	            	console.log("Search for " + search_type + " executed");

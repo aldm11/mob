@@ -14,7 +14,7 @@ class PhonesController < ApplicationController
         @max_price = @prices.last
         @last_offer = @catalogue_items.first
       end      
-      @comments = @phone.comments.sort {|a, b| b.created_at <=> a.created_at} unless @phone.comments.empty?
+      @comments = @phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at}[0..10] unless @phone.comments.empty?
     end 
   end
   

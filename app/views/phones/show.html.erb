@@ -46,6 +46,10 @@
 				<%= render :partial => "phones/comment_item", :locals => {:comment => comment} %>
 				<% end %>
 			</div>
+			
+			<% if @comments.length > 10 %>
+			<%= link_to "Load more ...", "#", :id => "load_more_comments" %>
+			<% end %>
 			<% end %>
 		</div>
 	</div>

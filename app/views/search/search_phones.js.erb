@@ -1,7 +1,7 @@
 var brands = $("<%= escape_javascript(render(:partial => 'shared/brands_sidebar', :locals => {:brands => @brands})) %>");
 $(".brands-left-sidebar").html(brands);
 
-$("#main_loading_phones").remove();
+$("#loading_big").remove();
 $(".no-more-phones").remove();
 <% if @phones.length == 0 %>
 $(".phones-grid").append("<div class='no-more-phones'>No more phones ...</div>");

@@ -24,4 +24,13 @@ class CommentsController < ApplicationController
     end
   end
   
+  def show_next_page
+    from = params[:from] || 0
+    size = params[:size] || 10
+    
+    phone = @comments = @phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at} unless @phone.comments.empty?
+    @comments = phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at} unless @phone.comments.empty?
+    @comments = @comments[from..size]
+  end
+  
 end
