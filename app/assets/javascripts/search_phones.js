@@ -90,10 +90,12 @@ $(document).ready(function(){
 	
 	
 	$(window).scroll(function(){
-		var has_more_elements = $(".no-more-phones").length === 0;
-		if($(window).scrollTop() + $(window).height() == $(document).height() && has_more_elements){
-			from += size;
-			search("phones", get_params());
+		if(window.location.toString() === "http://localhost:3000/"){
+			var has_more_elements = $(".no-more-phones").length === 0;
+			if($(window).scrollTop() + $(window).height() == $(document).height() && has_more_elements){
+				from += size;
+				search("phones", get_params());
+			}
 		}
 	});
 	

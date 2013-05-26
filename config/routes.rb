@@ -94,14 +94,13 @@ Mobis::Application.routes.draw do
   
   resources :phones, :only => [:show]
   resources :comments, :only => [:create] do
+    collection do
+      match "show_next_page", :action => "show_next_page", :via => :post
+      get "new/:phone_id", :action => "new"
+    end
     member do
       post "", :action => "create"
     end
-    
-    collection do
-      get "new/:phone_id", :action => "new"
-    end
-    match "show_next_page", :action => "show_next_page", :via => :post
   end
   
   resource :reviews, :only => [] do

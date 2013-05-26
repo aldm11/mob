@@ -5,10 +5,10 @@ var search = function(){
 				from : 0,
 				size : 16
 			},
-			url : "search/search_phones",
+			url : "/search/search_phones",
 			before_send : function(parameters){
 				if(parameters["from"] === this.paging["from"] && parameters["size"] === this.paging["size"]){
-					$(".phones-grid").html("<div id = 'main_loading_phones'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
+					$(".phones-grid").html("<div id = 'loading_big'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
 				}
 				else {
 					$(".phones-grid").append("<div id = 'loading_big'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
@@ -20,9 +20,9 @@ var search = function(){
 				from : 0,
 				size : 10
 			},
-			url : "search/show_comments",
+			url : "/comments/show_next_page",
 			before_send: function(){
-				$(".comments_list").append("<div id = 'loading_big'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
+				$(".comments").append("<div id = 'loading_big'><img src = 'loading.gif' width = '48px' height = '48px' /></div>");
 			}
 		},
 		messages : {

@@ -21,7 +21,8 @@ $(document).ready(function(){
 	var get_params_comments =  function(){
 	   var params = {
 			"from" : from,
-			"size" : size
+			"size" : size,
+			"phone_id" : $("#phone_id").val()
 		}
 		return params;
 	}

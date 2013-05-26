@@ -7,6 +7,7 @@
 	<div class="span6 phone show">
 		<div class="well phone-details">
 			<h3><%= @phone.name %></h3>
+			<%= hidden_field_tag("phone_id", @phone.id) %>
 			<div class = "row-fluid phone-info">
 				<div class="pull-left">
 					<%= content_tag(:span, "Last offer added on #{@catalogue_items.first.date_from.strftime('%m/%d/%Y')}",
@@ -47,7 +48,7 @@
 				<% end %>
 			</div>
 			
-			<% if @comments.length > 10 %>
+			<% if @all_comments.length > 10 %>
 			<%= link_to "Load more ...", "#", :id => "load_more_comments" %>
 			<% end %>
 			<% end %>

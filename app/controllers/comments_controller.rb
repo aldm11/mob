@@ -25,12 +25,13 @@ class CommentsController < ApplicationController
   end
   
   def show_next_page
-    from = params[:from] || 0
-    size = params[:size] || 10
+    from = params[:from].to_i || 0
+    size = params[:size].to_i || 10
     
-    phone = @comments = @phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at} unless @phone.comments.empty?
-    @comments = phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at} unless @phone.comments.empty?
-    @comments = @comments[from..size]
+    phone = Phone.find(params[:phone_id])
+    @comments = phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at} unless phone.comments.empty?
+    @comments = @comments[from..from + size - 1] if @comments
+    puts "broj #{@comments.size.inspect}"
   end
   
 end
