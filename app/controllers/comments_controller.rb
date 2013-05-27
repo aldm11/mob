@@ -29,9 +29,10 @@ class CommentsController < ApplicationController
     size = params[:size].to_i || 10
     
     phone = Phone.find(params[:phone_id])
-    @comments = phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at} unless phone.comments.empty?
-    @comments = @comments[from..from + size - 1] if @comments
-    puts "broj #{@comments.size.inspect}"
+    @all_comments = phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at}
+    @to = from + size - 1
+    @to = @all_comments.length-1 if @to > @all_comments.length - 1
+    @comments = @all_comments[from..@to]
   end
   
 end

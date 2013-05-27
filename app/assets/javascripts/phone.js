@@ -14,6 +14,8 @@ $(document).ready(function(){
 	    }
 	});
 	
+	$("#comment_text").tooltip({title: "Press Ctrl + Enter for new line"});
+	
 	var COMMENTS_PER_PAGE = 10;
 	var from = 0;
 	var size = COMMENTS_PER_PAGE;
@@ -30,6 +32,7 @@ $(document).ready(function(){
 	$("#load_more_comments").live("click", function(){
 		from += size;
 		search("comments", get_params_comments());
+		return false;
 	});
 	
 });

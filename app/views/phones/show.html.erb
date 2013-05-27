@@ -49,7 +49,7 @@
 			</div>
 			
 			<% if @all_comments.length > 10 %>
-			<%= link_to "Load more ...", "#", :id => "load_more_comments" %>
+			<%= render :partial => "comments/load_more_comments" %>
 			<% end %>
 			<% end %>
 		</div>

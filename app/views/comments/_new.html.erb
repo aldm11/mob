@@ -1,7 +1,6 @@
 <%= form_for(Comment.new, :url => {:controller => "comments",:action => "create"}, :remote  => true) do |f| %>
   	<div class="control-group">
-  		<div class="control-label"><%= f.label :text %></div>
-  		<div class="controls"><%= f.text_area :text, :class => "comment-text" %></div>
+  		<div class="controls"><%= f.text_area :text, :placeholder => "Add new comment and press enter to submit", :class => "comment-text" %></div>
   	</div>
 	<%= hidden_field_tag :phone_id, phone.id.to_s %>
 <% end %>
