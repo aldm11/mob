@@ -1,9 +1,26 @@
 <% if @saved %>
-var comment_html = $("<%= escape_javascript(render(:partial => 'phones/comment_item', :locals => {:comment => @comment})) %>");
-if($(".comments").children("p").size() > 0){
-	$(".comments").children("p").remove();
+if($(".no-comments").length > 0){
+	$(".no-comments").remove();
+	var comments_count = $("<%= escape_javascript(render(:partial => "comments/comment_count", :locals => {:comment_count => @all_comments_count})) %>");
+	$(".phone-comments").append(comments_count);
+	var comments = $("<div class='comments'></div>");
+	$(".phone-comments").append(comments);
 }
+
+$(".comment-count").html("<%= pluralize(@all_comments_count, "comment") %>");
+
+var comment_html = $("<%= escape_javascript(render(:partial => 'phones/comment_item', :locals => {:comment => @comment})) %>");
+comment_html.css({border : "2px solid green"});
 $(".comments").prepend(comment_html);
+$(".comments").children(":first").animate({
+	borderTopColor: "#CCC",
+	borderBottomColor: "#CCC",
+	borderTopWidth: "1px",
+	borderBottomWidth: "1px",
+	borderLeftWidth: "0px",
+	borderRightWidth: "0px"
+}, 2000, function(){});
+
 <% else %>
 $("#comment_text").css({"border" : "1px solid red"});
 <% end %>

@@ -14,7 +14,7 @@ $(document).ready(function(){
 	    }
 	});
 	
-	$("#comment_text").tooltip({title: "Press Ctrl + Enter for new line"});
+	$("#comment_text").tooltip({title: "Press Ctrl + Enter for new line", trigger: ["focus", "hover"]});
 	
 	var COMMENTS_PER_PAGE = 10;
 	var from = 0;

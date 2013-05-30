@@ -176,6 +176,13 @@
       }
     }
   }
+  .comment-count {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .added-comment {
+    border: "2px solid green";
+  }
   .comment-text {
     height: 50px;
     font-size: 9pt;

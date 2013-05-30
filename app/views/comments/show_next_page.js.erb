@@ -3,6 +3,10 @@ $("#loading_big").remove();
 var comment = $("<%= escape_javascript(render(:partial => 'phones/comment_item', :locals => {:comment => comment})) %>");
 $(".comments").append(comment);
 <% end %>
-<% escape_javascript(render(:partial => "comments/load_more_comments")) unless @to == @all_comments.length - 1 %>
+
+<% if @to < @all_comments.length - 1 %>
+var load_more = $("<%= escape_javascript(render(:partial => "comments/load_more_comments")) %>");
+$(".phone-comments").append(load_more);
+<% end %>
 
 $(document).scrollTop($(".comments").position().top + $(".comments").height());

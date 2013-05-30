@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
       
       @saved = @comment.save
       phone.save
+      @all_comments_count = phone.comments.select {|comm| comm.active}.length unless phone.comments.empty?
     end
  
     respond_to do |format|

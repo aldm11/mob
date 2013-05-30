@@ -40,8 +40,9 @@
 				<%= render :partial => "comments/new", :locals => {:phone => @phone} %>
 			</div>
 			<% if @comments.nil? || @comments.empty? %>
-			<div class = "muted">No comments for this phone</div>
+			<div class = "muted no-comments">No comments for this phone</div>
 			<% else %>
+			<%= render :partial => "comments/comment_count", :locals => {:comment_count => @all_comments.length} %>
 			<div class="comments">
 				<% @comments.each do |comment| %>
 				<%= render :partial => "phones/comment_item", :locals => {:comment => comment} %>
