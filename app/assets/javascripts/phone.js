@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	$(".last-phone-offer").popover({html: true, delay: 500, trigger: "hover"});
+	$(".provider-details").popover({html: true, delay: 500, trigger: "hover"});
 	
 	var KEY_ENTER = 13;
 	$('#comment_text').live("keydown", function (event) {
@@ -17,21 +18,39 @@ $(document).ready(function(){
 	$("#comment_text").tooltip({title: "Press Ctrl + Enter for new line", trigger: ["focus", "hover"]});
 	
 	var COMMENTS_PER_PAGE = 10;
-	var from = 0;
-	var size = COMMENTS_PER_PAGE;
+	var OFFERS_PER_PAGE = 1;
+	var comment_from = 0;
+	var comment_size = COMMENTS_PER_PAGE;
+	var offer_from = 0;
+	var offer_size = OFFERS_PER_PAGE;
 	
 	var get_params_comments =  function(){
 	   var params = {
-			"from" : from,
-			"size" : size,
+			"from" : comment_from,
+			"size" : comment_size,
+			"phone_id" : $("#phone_id").val()
+		}
+		return params;
+	}
+	
+	var get_params_offers =  function(){
+	   var params = {
+			"from" : offer_from,
+			"size" : offer_size,
 			"phone_id" : $("#phone_id").val()
 		}
 		return params;
 	}
 	
 	$("#load_more_comments").live("click", function(){
-		from += size;
+		comment_from += comment_size;
 		search("comments", get_params_comments());
+		return false;
+	});
+	
+	$("#load_more_offers").live("click", function(){
+		offer_from += offer_size;
+		search("offers", get_params_offers());
 		return false;
 	});
 	

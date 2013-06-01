@@ -10,11 +10,11 @@
 			<%= hidden_field_tag("phone_id", @phone.id) %>
 			<div class = "row-fluid phone-info">
 				<div class="pull-left">
-					<%= content_tag(:span, "Last offer added on #{@catalogue_items.first.date_from.strftime('%m/%d/%Y')}",
+					<%= content_tag(:span, "Last offer added on #{@last_offer.date_from.strftime('%m/%d/%Y')}",
 					:class => "muted last-phone-offer",
 					"data-toggle" => "popover",
 					"data-original-title" => @last_offer.provider.name,
-					"data-content" => "#{render :partial => "phones/phone_last_offer", :locals => {:catalogue_item => @last_offer}}") %>
+					"data-content" => "#{render :partial => "phones/offer_provider", :locals => {:catalogue_item => @last_offer}}") %>
 				</div>
 				<div class="pull-right">
 					<span class="text-error"><%= [I18n.t("price", :price => @min_price), (I18n.t "price", :price => @max_price)].join(" - ") %></span>
@@ -39,7 +39,7 @@
 			<div class="add-comment">
 				<%= render :partial => "comments/new", :locals => {:phone => @phone} %>
 			</div>
-			<% if @comments.nil? || @comments.empty? %>
+			<% if @comments.empty? %>
 			<div class = "muted no-comments">No comments for this phone</div>
 			<% else %>
 			<%= render :partial => "comments/comment_count", :locals => {:comment_count => @all_comments.length} %>
@@ -50,14 +50,27 @@
 			</div>
 			
 			<% if @all_comments.length > 10 %>
-			<%= render :partial => "comments/load_more_comments" %>
+			<%= render :partial => "phones/load_more_comments" %>
 			<% end %>
 			<% end %>
 		</div>
 	</div>
 	
-	<div class="span3">
-		Preporuke
+	<div class="span3 phone-right-sidebar">
+		<% if @offers.empty? %>
+		<div class="muted no-offers">No offers for this phone</div>
+		<% else %>
+		<strong class="text-info offer-count"><%= pluralize(@all_offers.length, "offer") %></strong>
+		<div class="offers">
+			<% @offers.each do |offer| %>
+			<%= render :partial => "phones/offer_item", :locals => {:offer => offer} %>
+			<% end %>
+		</div>
+		
+		<% if @all_offers.length > 1 %>
+		<%= render :partial => "phones/load_more_offers" %>
+		<% end %>
+		<% end %>
 	</div>
 </div>
 <% else %>

@@ -26,6 +26,17 @@ var search = function(){
 				$(".comments").append("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
 			}
 		},
+		offers: {
+			paging: {
+				from : 0,
+				size: 1
+			},
+			url: "/catalogue/show_next_page",
+			before_send: function(){
+				$("#load_more_offers").remove();
+				$(".offers").append("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+			}
+		},
 		messages : {
 			paging : {
 				from : 0,
@@ -55,6 +66,7 @@ var search = function(){
 			parameters["size"] = properties[search_type]["paging"]["size"];
 		}
 		var url = properties[search_type]["url"];
+		
 		delay(function(){
 			$.ajax({
 				url : url,

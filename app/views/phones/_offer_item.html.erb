@@ -1,0 +1,12 @@
+<% avatar = offer.provider.avatar.exists? ? catalogue_item.provider.avatar : "/images/no_image.jpg" %>
+<div class="thumbnail offer-item">
+	<div class="pull-left provider">
+		<%= link_to image_tag(avatar, :size => "32x32"), "#" %>
+		<%= link_to offer.provider.name, "#", :class => "provider-details",
+		"data-toggle" => "popover", 
+		"data-title" => offer.provider.name, 
+		"data-content" => "#{render :partial => "phones/offer_provider", :locals => {:catalogue_item => offer}}" %>
+	</div>
+	<div class="pull-right text-error"><%= I18n.t("price", :price => offer.actual_price) %></div>
+
+</div>

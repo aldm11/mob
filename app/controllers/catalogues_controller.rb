@@ -40,4 +40,15 @@ class CataloguesController < ApplicationController
     @phone = PhoneDecorator.decorate(Phone.asc(:brand).to_a.select { |phone| phone.name == params[:phone_name] }.first)
   end
   
+  def show_next_page
+    from = params[:from].to_i || 0
+    size = params[:size].to_i || 10
+    
+    phone = Phone.find(params[:phone_id])
+    @all_offers = phone.catalogue_items.select {|ci| ci.deleted_date.nil? }.sort {|a,b| b.date_from <=> a.date_from }
+    @to = from + size - 1
+    @to = @all_offers.length-1 if @to > @all_offers.length - 1
+    @offers = @all_offers[from..@to]
+  end
+  
 end

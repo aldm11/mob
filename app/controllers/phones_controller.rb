@@ -8,14 +8,15 @@ class PhonesController < ApplicationController
     
     if @phone
       unless @phone.catalogue_items.empty?
-        @catalogue_items = @phone.catalogue_items.select {|ci| ci.deleted_date.nil? }.sort {|a, b| b.date_from <=> a.date_from}
-        @prices = @catalogue_items.map { |ci| ci.actual_price }.sort
+        @all_offers = @phone.catalogue_items.select {|ci| ci.deleted_date.nil? }.sort {|a, b| b.date_from <=> a.date_from}
+        @offers = @all_offers ? @all_offers[0..0] : []
+        @prices = @offers.map { |ci| ci.actual_price }.sort
         @min_price = @prices.first
         @max_price = @prices.last
-        @last_offer = @catalogue_items.first
+        @last_offer = @offers.first
       end
       @all_comments = @phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at} unless @phone.comments.empty?
-      @comments = @all_comments ? @all_comments[0..9] : nil
+      @comments = @all_comments ? @all_comments[0..9] : []
     end 
   end
   

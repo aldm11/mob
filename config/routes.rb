@@ -110,6 +110,7 @@ Mobis::Application.routes.draw do
   end
   
   resource :catalogue, :only => [:new, :update, :edit] do
+    match "show_next_page", :action => "show_next_page", :via => :post
     match "pre_remove", :action => "pre_remove"
     match "remove", :action => "remove", via: :post
     match "phone_details_remote", :action => "phone_details_remote", via: :post
