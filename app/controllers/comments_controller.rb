@@ -29,11 +29,12 @@ class CommentsController < ApplicationController
     from = params[:from].to_i || 0
     size = params[:size].to_i || 10
     
-    phone = Phone.find(params[:phone_id])
-    @all_comments = phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at}
     @to = from + size - 1
-    @to = @all_comments.length-1 if @to > @all_comments.length - 1
-    @comments = @all_comments[from..@to]
+    
+    comments_details = Managers::PhoneManager.get_comments(params[:phone_id], {:from => from, :to => @to, :sort_by => "date"})
+    @all_comments = comments_details[:all_comments]
+    @comments = comments_details[:related_comments]
+    @to = comments_details[:to]
   end
   
 end

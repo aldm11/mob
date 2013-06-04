@@ -44,11 +44,12 @@ class CataloguesController < ApplicationController
     from = params[:from].to_i || 0
     size = params[:size].to_i || 10
     
-    phone = Phone.find(params[:phone_id])
-    @all_offers = phone.catalogue_items.select {|ci| ci.deleted_date.nil? }.sort {|a,b| b.date_from <=> a.date_from }
     @to = from + size - 1
-    @to = @all_offers.length-1 if @to > @all_offers.length - 1
-    @offers = @all_offers[from..@to]
+    
+    offers_details = Managers::PhoneManager.get_offers(params[:phone_id], {:from => from, :to => @to, :sort_by => "date"})
+    @all_offers = offers_details[:all_offers]
+    @offers = offers_details[:related_offers]
+    @to = offers_details[:to]
   end
   
 end

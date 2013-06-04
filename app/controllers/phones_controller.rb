@@ -8,15 +8,16 @@ class PhonesController < ApplicationController
     
     if @phone
       unless @phone.catalogue_items.empty?
-        @all_offers = @phone.catalogue_items.select {|ci| ci.deleted_date.nil? }.sort {|a, b| b.date_from <=> a.date_from}
-        @offers = @all_offers ? @all_offers[0..0] : []
-        @prices = @offers.map { |ci| ci.actual_price }.sort
-        @min_price = @prices.first
-        @max_price = @prices.last
+        offers_details = Managers::PhoneManager.get_offers(@phone, {:from => 0, :to => 0, :sort_by => "date"})
+        @all_offers = offers_details[:all_offers]
+        @offers = offers_details[:related_offers]
+        @min_price = offers_details[:min_price]
+        @max_price = offers_details[:max_price]
         @last_offer = @offers.first
       end
-      @all_comments = @phone.comments.select {|comm| comm.active}.sort {|a, b| b.created_at <=> a.created_at} unless @phone.comments.empty?
-      @comments = @all_comments ? @all_comments[0..9] : []
+      comments_details = Managers::PhoneManager.get_comments(@phone, {:from => 0, :to => 9, :sort_by => "date"})
+      @all_comments = comments_details[:all_comments]
+      @comments = comments_details[:related_comments]
     end 
   end
   

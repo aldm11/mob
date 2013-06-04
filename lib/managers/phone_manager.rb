@@ -180,5 +180,64 @@ module Managers
       phones_in_sale
     end
     
+    ### ONE PHONE FUNCTIONS
+    DEFAULT_OFFERS = {:all_offers => [], :related_offers => [], :min_price => 0, :max_price => 0, :to => 0}
+    def self.get_offers(phone, options = {})
+      phone = Phone.find(phone) if phone.is_a?(String)
+      return DEFAULT_OFFERS if phone.catalogue_items.empty?
+      
+      all_offers = phone.catalogue_items.select {|ci| ci.deleted_date.nil? }
+      return DEFAULT_OFFERS if all_offers.empty?
+      
+      if options[:sort_by] == "date"
+        all_offers.sort! {|a, b| b.date_from <=> a.date_from} 
+      elsif options[:sort_by] == "price"
+        all_offers.sort! {|a, b| b.actual_price <=> a.actual_price} 
+      end
+      
+      if options[:from] && options[:to]
+        from = options[:from]
+        to = options[:to]
+        to = all_offers.length-1 if to > all_offers.length - 1
+        related_offers = all_offers[from..to]      
+      else
+        to = 0
+        related_offers = all_offers
+      end
+     
+      prices = related_offers.map { |ci| ci.actual_price }.sort
+      min_price = prices.first
+      max_price = prices.last
+      
+      result = DEFAULT_OFFERS.merge({:all_offers => all_offers, :related_offers => related_offers, :min_price => min_price, :max_price => max_price, :to => to})
+      result
+    end
+    
+    DEFAULT_COMMENTS = {:all_comments => [], :related_comments => [], :to => 0}
+    def self.get_comments(phone, options = {})
+      phone = Phone.find(phone) if phone.is_a?(String)
+      return DEFAULT_COMMENTS if phone.comments.empty?
+      
+      all_comments = phone.comments.select {|comm| comm.active}
+      return DEFAULT_COMMENTS if all_comments.empty?
+      
+      if options[:sort_by] == "date"
+        all_comments.sort! {|a, b| b.created_at <=> a.created_at}
+      end
+      
+      if options[:from] && options[:to]
+        from = options[:from]
+        to = options[:to]
+        to = all_comments.length-1 if to > all_comments.length - 1
+        related_comments = all_comments[from..to]      
+      else
+        to  = 0
+        related_comments = all_comments
+      end
+      
+      result = DEFAULT_COMMENTS.merge({:all_comments => all_comments, :related_comments => related_comments, :to => to})
+      result
+    end
+    
   end
 end
