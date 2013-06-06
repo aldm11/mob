@@ -44,9 +44,10 @@ class CataloguesController < ApplicationController
     from = params[:from].to_i || 0
     size = params[:size].to_i || 10
     
+    @sort_by = params[:sort_by] || "date"
     @to = from + size - 1
     
-    offers_details = Managers::PhoneManager.get_offers(params[:phone_id], {:from => from, :to => @to, :sort_by => "date"})
+    offers_details = Managers::PhoneManager.get_offers(params[:phone_id], {:from => from, :to => @to, :sort_by => @sort_by})
     @all_offers = offers_details[:all_offers]
     @offers = offers_details[:related_offers]
     @to = offers_details[:to]

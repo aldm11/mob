@@ -21,8 +21,10 @@ $(document).ready(function(){
 	var OFFERS_PER_PAGE = 1;
 	var comment_from = 0;
 	var comment_size = COMMENTS_PER_PAGE;
+	
 	var offer_from = 0;
 	var offer_size = OFFERS_PER_PAGE;
+	var offer_sort_by = "date";
 	
 	var get_params_comments =  function(){
 	   var params = {
@@ -37,7 +39,8 @@ $(document).ready(function(){
 	   var params = {
 			"from" : offer_from,
 			"size" : offer_size,
-			"phone_id" : $("#phone_id").val()
+			"phone_id" : $("#phone_id").val(),
+			"sort_by" : offer_sort_by
 		}
 		return params;
 	}
@@ -50,6 +53,28 @@ $(document).ready(function(){
 	
 	$("#load_more_offers").live("click", function(){
 		offer_from += offer_size;
+		search("offers", get_params_offers());
+		return false;
+	});
+	
+	$("#sort_by_date").live("click", function(){
+		$("#sort_by_date").toggleClass("disabled");
+		$("#sort_by_price").toggleClass("disabled");
+
+		offer_sort_by = "date";
+		offer_from = 0;
+		offer_size = OFFERS_PER_PAGE;
+		search("offers", get_params_offers());
+		return false;
+	});
+	
+	$("#sort_by_price").live("click", function(){
+		$("#sort_by_date").toggleClass("disabled");
+		$("#sort_by_price").toggleClass("disabled");
+
+		offer_sort_by = "price";
+		offer_from = 0;
+		offer_size = OFFERS_PER_PAGE;
 		search("offers", get_params_offers());
 		return false;
 	});

@@ -17,7 +17,7 @@
 					"data-content" => "#{render :partial => "phones/offer_provider", :locals => {:catalogue_item => @last_offer}}") %>
 				</div>
 				<div class="pull-right">
-					<span class="text-error"><%= [I18n.t("price", :price => @min_price), (I18n.t "price", :price => @max_price)].join(" - ") %></span>
+					<span class="label label-important"><%= [I18n.t("price", :price => @min_price), (I18n.t "price", :price => @max_price)].join(" - ") %></span>
 				</div>
 			</div>
 			<div class="row-fluid">
@@ -60,7 +60,19 @@
 		<% if @offers.empty? %>
 		<div class="muted no-offers">No offers for this phone</div>
 		<% else %>
-		<strong class="text-info offer-count"><%= pluralize(@all_offers.length, "offer") %></strong>
+		<div class="pull-left">
+			<strong class="text-info offer-count"><%= pluralize(@all_offers.length, "offer") %></strong>
+		</div>
+		<div class="pull-right">
+			<%= link_to "#", :id => "sort_by_date", :class => "btn btn-mini disabled", :title => "Sort by date"  do %>
+			<i class="icon-arrow-down"></i> Date
+			<% end %>
+			
+		 	<%= link_to "#", :id => "sort_by_price", :class => "btn btn-mini", :title => "Sort by price" do %>
+			<i class="icon-arrow-up"></i> Price
+			<% end %>
+		</div>
+		
 		<div class="offers">
 			<% @offers.each do |offer| %>
 			<%= render :partial => "phones/offer_item", :locals => {:offer => offer} %>

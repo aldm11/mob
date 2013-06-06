@@ -21,9 +21,15 @@ var search = function(){
 				size : 10
 			},
 			url : "/comments/show_next_page",
-			before_send: function(){
+			before_send: function(parameters){
 				$("#load_more_comments").remove();
-				$(".comments").append("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+				
+				if(parameters["from"] === this.paging["from"] && parameters["size"] === this.paging["size"]){
+					$(".comments").html("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+				}
+				else {
+					$(".comments").append("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+				}
 			}
 		},
 		offers: {
@@ -32,9 +38,15 @@ var search = function(){
 				size: 1
 			},
 			url: "/catalogue/show_next_page",
-			before_send: function(){
+			before_send: function(parameters){
 				$("#load_more_offers").remove();
-				$(".offers").append("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+				
+				if(parameters["from"] === this.paging["from"] && parameters["size"] === this.paging["size"]){
+					$(".offers").html("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+				}
+				else {
+					$(".offers").append("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+				}
 			}
 		},
 		messages : {

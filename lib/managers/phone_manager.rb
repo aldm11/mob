@@ -192,7 +192,7 @@ module Managers
       if options[:sort_by] == "date"
         all_offers.sort! {|a, b| b.date_from <=> a.date_from} 
       elsif options[:sort_by] == "price"
-        all_offers.sort! {|a, b| b.actual_price <=> a.actual_price} 
+        all_offers.sort! {|a, b| a.actual_price <=> b.actual_price} 
       end
       
       if options[:from] && options[:to]
