@@ -75,10 +75,18 @@ class Phone
     phone.latest_prices_size = phone.latest_prices ? phone.latest_prices.length : 0
   end
   
+  before_save do |phone|
+    phone.last_updated = Time.new.to_time.to_i
+    phone.latest_prices_size = phone.latest_prices ? phone.latest_prices.length : 0
+  end
+  
   def save(options = {})
     set_average_review 
     set_comments_count
-    super
+    set_latest_prices
+    
+    opts = options.with_indifferent_access.has_key?("validate") ? {:validate => options[:validate]} : {}
+    super(opts)
     Phone.tire.mapping
     update_index unless options[:without_index]
   end
@@ -152,9 +160,21 @@ class Phone
   INCLUDE_ATTRIBUTES = ["camera", "weight", "width", "height", "camera", "display", "os", "internal memory", "external memory"]
   def attributes_for_display
     attributes = self.attributes.select {|attr, value| INCLUDE_ATTRIBUTES.include?(attr) }
-    attributes["camera"] = attributes["camera"]["all"]
+    attributes["camera"] = attributes["camera"] ? attributes["camera"]["all"] : " / "
     attributes.with_indifferent_access
     return attributes
+  end
+  
+  def set_latest_prices
+    unless self.catalogue_items.empty?
+      from = self.catalogue_items.length >= NUMBER_OF_LATEST_PRICES ? self.catalogue_items.length - NUMBER_OF_LATEST_PRICES : 0
+      to = self.catalogue_items.length - 1
+      
+      self.catalogue_items[from..to].each { |ci| add_price(ci.id, ci.actual_price) }
+      
+      self.latest_prices_size = self.latest_prices.length
+      self.latest_price = self.latest_prices.last
+    end
   end
   
   #TODO: test this function if there are 10 prices when adding new

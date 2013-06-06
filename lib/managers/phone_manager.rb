@@ -6,21 +6,24 @@ module Managers
     ATTRIBUTES_FILENAME = "attributes.json"
     ATTRIBUTES_ROOT = "attributes"
     
-    def self.add_phone(phone)
-      phone = prepare_params(phone)
-      phone = Phone.new(phone)
-      result = {:phone => phone}
+    def self.add_phone(p)
+      pho = prepare_params(p)
+      result = {}
      
-      if phone_exists(phone)
-        result[:status] = false
-        result[:message] = "Phone exists"
+      if phone = phone_exists?(pho)
+        phone.update_attributes(pho) if pho
+        result[:message] = "Phone updated"
       else
-        if phone.save
-          result[:status] = true
-        else
-          result[:status] = false
-          result[:message] = "Phone not valid"
-        end
+        phone = Phone.new(pho)
+        result[:message] = "Phone added"
+      end
+      
+      result[:phone] = phone
+      if phone.save(:validate => false)
+        result[:status] = true
+      else
+        result[:status] = false
+        result[:message] = "Phone not valid"
       end
       result
     end
@@ -34,8 +37,9 @@ module Managers
       phone
     end
 
-    def self.phone_exists(phone)
-      Phone.where(:brand => phone.brand, :model => phone.model).exists?
+    def self.phone_exists?(phone)
+      p = Phone.where(:brand => phone[:brand], :model => phone[:model]).to_a
+      p.empty? ? false : p.first
     end
     
     def self.get_phones(options = {})
