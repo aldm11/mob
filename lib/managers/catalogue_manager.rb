@@ -43,7 +43,7 @@ module Managers
         result.merge!({:status => true, :message => "Phone #{phone.name} added to your catalogue"})
       else
         errors = catalogue_item.errors.full_messages.join(" ")
-        result.merge!({:status => false, :message => errors })        
+        result.merge!({:status => false, :message => errors })     
       end
       return result
     rescue Exception => e
@@ -81,7 +81,6 @@ module Managers
         result = {:catalogue_item => catalogue_item}
         if catalogue_item.save
           phone = catalogue_item.phone
-          phone.remove_price(catalogue_item.id, catalogue_item.actual_price)
           phone.save
           result.merge!(:status => true, :message => "Phone deleted from you catalogue")
           Rails.logger.info "Phone #{phone.inspect} deleted from catalogue #{account.inspect}"
