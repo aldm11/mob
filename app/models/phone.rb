@@ -132,6 +132,7 @@ class Phone
     document = phone_to_document
     document[:catalogue_items] = []
     document[:price] = []
+    
     self.catalogue_items.each do |catalogue_item|
       unless catalogue_item.deleted_date
         prepared_catalogue_item = JSON.parse(catalogue_item.to_json).with_indifferent_access
@@ -170,7 +171,7 @@ class Phone
       from = self.catalogue_items.length >= NUMBER_OF_LATEST_PRICES ? self.catalogue_items.length - NUMBER_OF_LATEST_PRICES : 0
       to = self.catalogue_items.length - 1
       
-      self.catalogue_items[from..to].each { |ci| add_price(ci.id, ci.actual_price) }
+      self.catalogue_items[from..to].each { |ci| add_price(ci.id, ci.actual_price, ci.date_from.to_time.to_i) }
       
       self.latest_prices_size = self.latest_prices.length
       self.latest_price = self.latest_prices.last
@@ -178,12 +179,12 @@ class Phone
   end
   
   #TODO: test this function if there are 10 prices when adding new
-  def add_price(catalogue_id, price)
+  def add_price(catalogue_id, price, timestamp)
     return nil unless catalogue_id && price
     prices = self.latest_prices || []
     prices = prices.delete_if { |prc| prc["catalogue_id"] == catalogue_id }
     prices.delete_at(0) if prices.length == NUMBER_OF_LATEST_PRICES
-    price = { "catalogue_id" => catalogue_id, "price" => price, "created_at" => Time.new.to_time.to_i }
+    price = { "catalogue_id" => catalogue_id, "price" => price, "created_at" => timestamp }
     prices << price
     self.latest_prices = prices
     self.latest_price = latest_prices.last

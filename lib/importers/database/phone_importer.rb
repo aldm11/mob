@@ -23,7 +23,7 @@ module Importers
             return {:all => dimensions} if dimensions.is_a?(String)
             all = dimensions[0]
             all += " " + dimensions[1] if dimensions.length > 1
-            all
+            all = {"all" => all} if all.is_a?(String)
           }
         },
         :height => {
@@ -127,17 +127,15 @@ module Importers
         Rails.logger.debug "Importing images for phone #{phone.name}"
         IMAGES_DIMENSIONS.each do |image|
           begin
-            url = phone.attributes[image.to_s]     
+            url = phone.attributes[image.to_s]
             remote_photo = open(URI.escape(url))
-            def remote_photo.original_filename;base_uri.path.split('/').last; end    
+            def remote_photo.original_filename; base_uri.path.split('/').last; end 
             phone.send(image.to_s + "_full" + "=", remote_photo)
           rescue Exception => e
             Rails.logger.debug "Cant get image for phone #{phone} from url #{url} #{e.message}"
           end
         end
         phone.save
-        rescue Exception => e
-          Rails.logger.info "Problem importing images #{e.message}"
       end 
     end
   end

@@ -27,7 +27,6 @@ module Managers
       
       if result[:status]
         phone = catalogue_item.phone
-        phone.add_price(catalogue_item.id, catalogue_item.actual_price)
         phone.save
       end
       Rails.logger.info("Phone added to catalogue")

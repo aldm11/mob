@@ -55,12 +55,12 @@ class Admin::PhonesController < ApplicationController
   end
   
   def import_images
-    begin
+    #begin
       import_phones_images_from_json(:brand => params[:brand])
       flash[:success] = "Brand #{params[:brand]} images imported"
-    rescue Exception=> e
-      flash[:error] = e.message
-    end
+    # rescue Exception=> e
+      # flash[:error] = e.message
+    # end
     redirect_to :action => "import_phones"
   end
   
