@@ -14,6 +14,9 @@ class Account
   has_and_belongs_to_many :phone_followings, class_name: 'Phone'  
   has_many :comments
   
+  embeds_many :received_messages, class_name:  "Message", inverse_of: :receiver
+  embeds_many :sent_messages, class_name:  "Message", inverse_of: :sender
+  
   validates :username, length: {minimum: 6, maximum: 20}
 end
   
