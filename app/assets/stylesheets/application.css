@@ -14,5 +14,6 @@
  *= require_tree ./admin
  *= require home
  *= require phone
+ *= require messages
  *= require flickrimg.jquery
  */

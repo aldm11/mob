@@ -9,6 +9,7 @@ class Message
   field :context, :type => Hash # not used for now
   field :sender_id, :type => String
   field :receiver_id, :type => String
+  field :mark_deleted, :type => Boolean, :default => false
   
   embedded_in :sender, class_name: "Account", inverse_of: :sent_messages
   embedded_in :receiver, class_name: "Account", inverse_of: :received_messages

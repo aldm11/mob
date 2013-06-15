@@ -1,3 +1,43 @@
-// Place all the styles related to the messages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.messages-container {
+  border-right: 1px solid #EEE;
+  width: 320px;
+
+  .search-sort {
+     padding: 0 0 10px 0;
+     border-bottom: 1px solid #EEE;
+    .search-query {
+      height: 20px;
+      -webkit-border-radius: 10px;
+      padding: 3px 5px 3px 5px;
+      margin-right: 5px;
+    }
+  }
+  
+  .select-delete {
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid #EEE;
+    .delete-messages {
+      margin-right: 5px;
+    }
+  }
+  
+  .nav-tabs > li > a {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    line-height: 15px;
+  }
+  
+  .no-messages {
+    padding: 10px;
+  }
+  
+  .messages {
+    
+  }
+    
+}
+
+textarea {
+  min-width: 280px;
+}
+

@@ -65,6 +65,7 @@ Mobis::Application.routes.draw do
   match ":username/catalogue" => "catalogues#index", :as => "catalogue"  
   match "unauthorized_access" => "application#unauthorized_access"
   match "show_error" => "application#show_error"
+  match "messages" => "messages#index"
   
   devise_for :accounts, :controllers => { :registrations => "accounts/registrations", :sessions => "accounts/sessions" }
   devise_scope :account do
@@ -114,6 +115,12 @@ Mobis::Application.routes.draw do
     match "pre_remove", :action => "pre_remove"
     match "remove", :action => "remove", via: :post
     match "phone_details_remote", :action => "phone_details_remote", via: :post
+  end
+  
+  resource :message do
+    match "show_next_page", :action => "show_next_page", :via => :post
+    match "read", :action => "read", :via => :post
+    match "bulk_delete", :action => "bulk_delete", :via => :post
   end
   
   resource :search, :only => [:index], :controller => "search" do

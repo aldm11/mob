@@ -18,5 +18,9 @@ class Account
   embeds_many :sent_messages, class_name:  "Message", inverse_of: :sender
   
   validates :username, length: {minimum: 6, maximum: 20}
+  
+  def unread_messages
+    received_messages.select {|m| m.date_read.nil? }
+  end
 end
   

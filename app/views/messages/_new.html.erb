@@ -1,0 +1,9 @@
+<%= form_for(Message.new, :remote => true, :class => "send-message") do |f| %>
+TODO: add text box with autocomplete and dropdown to select receiver
+<div>
+	<%= f.text_area :text, :rows => 4, :cols => 50, :placeholder => "Enter your message" %>
+</div>
+<div class="pull-right">
+	<%= f.submit "Send", :class => "btn btn-primary btn-small" %>
+</div>
+<% end %>
