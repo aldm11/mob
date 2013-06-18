@@ -21,10 +21,18 @@ class MessagesController < ApplicationController
     @unread_count = @received[:unread_count]
     @inbox_to = @received[:to]
     @outbox_to = @sent[:to]
+    
+    @receivers_usernames = Account.all.select {|a| a.id.to_s != current_account.id.to_s }.map {|a| a.username}.compact
   end
   
   def create
+    @receiver_id = params[:receiver_id] || nil
+    @text = params[:text] || nil
     
+    @result = nil
+    unless @receiver_id.blank? || @text.blank?
+      @result = Managers::MessageManager.send_message(current_account, @receiver_id, @text)
+    end
   end
   
   def edit
@@ -49,6 +57,10 @@ class MessagesController < ApplicationController
   
   def bulk_delete
     
+  end
+  
+  def receiver_id_remote
+    @account_id = Account.where(username: params[:username]).to_a.first.id.to_s
   end
   
 end

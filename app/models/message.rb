@@ -25,7 +25,7 @@ class Message
   end
   
   before_save do |message|
-    message.date_sent = message.date_sent.to_time.utc.to_i
+    message.date_sent = message.date_sent.to_time.utc.to_i if message.date_sent
     message.date_read = message.date_read.to_time.utc.to_i if message.date_read
   end
 end

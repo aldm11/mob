@@ -1,9 +1,33 @@
-<%= form_for(Message.new, :remote => true, :class => "send-message") do |f| %>
-TODO: add text box with autocomplete and dropdown to select receiver
+<%= form_tag(message_path, :remote => true, :class => "send-message") do |f| %>
+<%= hidden_field_tag "receiver_id", "" %>
+<%= text_field_tag "receiver", "", 
+	:placeholder => "To", 
+	:class => "span4", 
+	:id => "receiver", 
+	:autocomplete => "off",
+	"data-provide" => "typeahead"
+%>
+<script type="text/javascript">
+	$("#receiver").typeahead({
+		source: <%= raw @receivers_usernames.to_json %>,
+		updater: function(item){
+			$.ajax({
+	    		type: "POST",
+	    		url: "<%= receiver_id_remote_message_path %>", 
+	    		data: {username: item},
+	    		success: function(data, textStatus, xhr){},
+	    		error: function(xhr, textStatus, errorThrown){}
+	    	});
+			
+			return item;
+		}
+	});
+</script>
+
 <div>
-	<%= f.text_area :text, :rows => 4, :cols => 50, :placeholder => "Enter your message" %>
+	<%= text_area_tag "text", "", :rows => 4, :class=> "span4", :placeholder => "Enter your message" %>
 </div>
 <div class="pull-right">
-	<%= f.submit "Send", :class => "btn btn-primary btn-small" %>
+	<%= submit_tag "Send", :class => "btn btn-primary btn-small" %>
 </div>
 <% end %>

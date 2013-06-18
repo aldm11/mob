@@ -1,0 +1,17 @@
+<% if @receiver_id.blank? || @text.blank? %>
+$("form.send-message").append($('<div class="text-error message"><small>Please fill in receiver and message text</small></div>'));
+<% end %>
+
+<% if @result && @result[:status] %>
+$("form.send-message").append($('<div class="text-success message"><small>Message sent</small></div>'));
+<% else %>
+<% error = @result ? @result[:text] : "There was an error. Try later." %>
+var html = '<div class="text-error message"><small><%= error %></small></div>';
+$("form.send-message").append($(html));
+<% end %>
+
+if($(".message").length > 0){
+	setTimeout(function(){
+		$(".message").fadeOut(2000, function(){});
+	}, 2000);
+}
