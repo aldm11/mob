@@ -1,6 +1,6 @@
 <div class="span4 messages-container">
 	<div class="row-fluid search-sort">
-		<div class="pull-left sort-messages input-append">
+		<div class="pull-left input-append sort-messages">
 			<%= link_to "#", :class => "btn btn-small disabled", :id => "sort_messages_date", :title => "Sort by date" do %>
 			<i class="icon-arrow-down"></i> Date
 			<% end %>
@@ -10,7 +10,7 @@
 			<% end %>
 		</div>
 		<div class="pull-right search">
-			<%= text_field_tag "term", "", :class => "input-medium search-query", :placeholder => "Search messages" %>
+			<%= text_field_tag "messages_term", "", :class => "input-medium search-query", :placeholder => "Search messages" %>
 		</div>
 	</div>
 	
@@ -29,34 +29,17 @@
 	</div>
 	
 	<ul class="nav nav-tabs small">
-		<li class="active"><%= link_to "Received", "#received", "data-toggle" => "tab" %></li>
-		<li><%= link_to "Sent", "#sent", "data-toggle" => "tab" %></li>
+		<li class="active"><%= link_to "Received", "#received", "data-toggle" => "tab", :id => "show-received-messages" %></li>
+		<li><%= link_to "Sent", "#sent", "data-toggle" => "tab", :id  => "show-sent-messages" %></li>
 	</ul>
 	
 	<div class="tab-content">	
-		<div class=" tab-pane active row-fluid messages" id="received">
-			<% if @inbox.empty? %>
-			<div class="muted no-messages">
-				No received messages
-			</div>
-			<% else %>
-			<% @inbox.each do |message| %>
-			<%= render(:partial => "messages/message_item", :locals => {:message => message}) %>
-			<% end %>
-			<% end %>
+		<div class=" tab-pane active row-fluid messages received" id="received">
+			<%= render :partial => "messages/inbox", :locals => {:page_inbox => @inbox, :inbox => @received[:all], :from => 0, :to => @inbox_to} %>
 		</div>
 		
-		<div class=" tab-pane row-fluid messages" id="sent">
-			<% if @outbox.empty? %>
-			<div class="muted no-messages">
-				No sent messages
-				<%= link_to "Send new message", new_message_path %>
-			</div>
-			<% else %>
-			<% @outbox.each do |message| %>
-			<%= render(:partial => "messages/message_item", :locals => {:message => message}) %>
-			<% end %>
-			<% end %>
+		<div class=" tab-pane row-fluid messages sent" id="sent">
+			<%= render :partial => "messages/outbox", :locals => {:page_outbox => @outbox, :outbox => @sent[:all], :from => 0, :to => @outbox_to} %>			
 		</div>
 	</div>
 </div>

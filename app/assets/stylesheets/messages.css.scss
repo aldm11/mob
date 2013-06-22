@@ -32,7 +32,30 @@
   }
   
   .messages {
-    
+    .message {
+      font-size: 9pt;
+      border-bottom: 1px solid #CCC;
+      img {
+        vertical-align: text-top;
+      }
+      .text {
+        a {
+          color: #333;
+        }
+        a:hover {
+          color: #333;
+          text-decoration: none;
+        }
+      }
+    }
+    .message.unread {
+      .text {
+        font-weight: bold;
+      }
+    }
+    .message:hover {
+      background: #dff0d8;
+    }
   }
     
 }

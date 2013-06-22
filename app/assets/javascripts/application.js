@@ -13,4 +13,21 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require angular
+
+//= require jquery.mobis.reviewer
+//= require flickrimg.jquery
+
+//= require scripts
+//= require client
+
+//= require common
+//= require search
+//= require home
+//= require search_phones
+//= require phone
+//= require messages
+
+
+
 //= require_tree .

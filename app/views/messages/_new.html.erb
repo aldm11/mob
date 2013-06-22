@@ -1,4 +1,4 @@
-<%= form_tag(message_path, :remote => true, :class => "send-message") do |f| %>
+<%= form_tag(message_path, :remote => true, :class => "send-message", :method => "post") do |f| %>
 <%= hidden_field_tag "receiver_id", "" %>
 <%= text_field_tag "receiver", "", 
 	:placeholder => "To", 
@@ -28,6 +28,6 @@
 	<%= text_area_tag "text", "", :rows => 4, :class=> "span4", :placeholder => "Enter your message" %>
 </div>
 <div class="pull-right">
-	<%= submit_tag "Send", :class => "btn btn-primary btn-small" %>
+	<%= submit_tag "Send", :class => "btn btn-success btn-small" %>
 </div>
 <% end %>

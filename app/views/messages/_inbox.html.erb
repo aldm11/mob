@@ -1,0 +1,26 @@
+<% if page_inbox.empty? %>
+<div class="muted no-messages">
+	No received messages
+</div>
+<% else %>
+<div class="messages">
+<% page_inbox.each do |message| %>
+<%= render(:partial => "messages/message_item", :locals => {:message => message}) %>
+<% end %>
+</div>
+
+<% unless page_inbox == inbox %>
+<% prev_class = "messages-paging prev btn btn-small" %>
+<% prev_class = [prev_class, "disabled"].join(" ") if from == 0 %>
+<% next_class = "messages-paging next btn btn-small" %>
+<% next_class = [next_class, "disabled"].join(" ") if to == inbox.length - 1  %>
+<div class="pagination">
+	<div class="pull-right">
+		<small class="muted"><%= "Showing #{from} - #{to} from #{inbox.length}" %></small>
+		<%= link_to "«", "#", :class => prev_class %>
+		<%= link_to "»", "#", :class => next_class %>
+	</div>
+</div>
+<% end %>
+
+<% end %>

@@ -95,19 +95,28 @@ module Managers
     ### =>  options - options hash: from, to, sort(date, read)
     DEFAULT_MESSAGES = {:all => [], :related => [], :to => 0, :unread_count => 0}
     def self.get_messages(current_account, type, options = {})
-      return DEFAULT_MESSAGES if current_account.blank? || !type || type.to_s != "received" || type.to_s != "sent"
+      return DEFAULT_MESSAGES if current_account.blank? || !type || (type.to_s != "received" && type.to_s != "sent")
       
       begin
-        account = current_account.is_a?(Account) ? Account : Account.find(current_account.to_s)
+        account = current_account.is_a?(Account) ? current_account : Account.find(current_account.to_s)
       rescue Exception => e
         return DEFAULT_MESSAGES
       end
-      all_messages = type.to_s == "received" ? account.received_messages.select {|m| m.mark_deleted.nil? } : account.sent_messages.select {|m| m.mark_deleted.nil? }
-      
+      all_messages = type.to_s == "received" ? account.received_messages.select {|m| !m.mark_deleted } : account.sent_messages.select {|m| !m.mark_deleted }
+      if options[:search_term]
+        term = options[:search_term]
+        if type.to_s == "received"
+          all_messages = all_messages.select {|m| m.text.include?(term) || m.sender.rolable.name.include?(term)}
+        elsif type.to_s == "sent"
+          #TODO: add receiver hash attribute to each message ({:receiver_name, :receiver_image, :receiver_id, :receiver_username }) - propagation ??
+          all_messages = all_messages.select {|m| m.text.include?(term) || Account.find(m.receiver_id).rolable.name.include?(term) rescue false }
+        end
+      end
+       
       if options[:sort_by] == "date"
         all_messages.sort! {|a,b| b.date_sent <=> a.date_sent }
       elsif options[:sort_by] == "read"
-        all_messages.sort! {|a,b| b.date_read ? 0 : 1 <=> a.date_read ? 0 : 1 }
+        all_messages.sort! {|a,b| b.date_read.nil? ? 0 : 1 <=> a.date_read.nil? ? 0 : 1 }
       end
       
       if options[:from] && options[:to]

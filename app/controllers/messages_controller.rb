@@ -2,8 +2,8 @@ class MessagesController < ApplicationController
   before_filter :only_signed_in_users
   
   def index
-    @received = Managers::MessageManager.get_messages(current_account, :received, {:from => 0, :to => 2, :sort_by => "date"})
-    @sent = Managers::MessageManager.get_messages(current_account, {:from => 0, :to => 2, :sort_by => "date"}, :sent)
+    @received = Managers::MessageManager.get_messages(current_account, :received, {:search_term => nil, :from => 0, :to => 2, :sort_by => "date"})
+    @sent = Managers::MessageManager.get_messages(current_account, :sent, {:search_term => nil, :from => 0, :to => 2, :sort_by => "date"})
     
     @inbox = @received[:related]
     @outbox = @sent[:related]
@@ -13,8 +13,8 @@ class MessagesController < ApplicationController
   end
   
   def new
-    @received = Managers::MessageManager.get_messages(current_account, :received, {:from => 0, :to => 2, :sort_by => "date"})
-    @sent = Managers::MessageManager.get_messages(current_account, {:from => 0, :to => 2, :sort_by => "date"}, :sent)
+    @received = Managers::MessageManager.get_messages(current_account, :received, {:search_term => nil, :from => 0, :to => 2, :sort_by => "date"})
+    @sent = Managers::MessageManager.get_messages(current_account, :sent, {:search_term => nil, :from => 0, :to => 2, :sort_by => "date"})
     
     @inbox = @received[:related]
     @outbox = @sent[:related]
@@ -47,8 +47,27 @@ class MessagesController < ApplicationController
     
   end
   
+  RECEIVED_TYPE = "received"
+  SENT_TYPE = "sent"
   def show_next_page
+    type = params[:type]
+    search_term = params[:search_term] || nil
+    from = params[:from] ? params[:from].to_i : 0
+    size = params[:size] ? params[:size].to_i : 3
+    to = from + size - 1
+    sort_by = params[:sort_by] || "date"
     
+    if type == RECEIVED_TYPE
+      received = Managers::MessageManager.get_messages(current_account, :received, {:search_term => search_term, :from => from, :to => to, :sort_by => sort_by})
+      @view = "messages/inbox"
+      @container = ".messages.received"
+      @params = {:page_inbox => received[:related], :inbox => received[:all], :from => from, :to => to}
+    elsif type == SENT_TYPE
+      sent = Managers::MessageManager.get_messages(current_account, :sent, {:search_term => search_term, :from => from, :to => to, :sort_by => sort_by})
+      @view = "messages/outbox"
+      @container = ".messages.sent"
+      @params = {:page_outbox => sent[:related], :outbox => sent[:all], :from => from, :to => to}
+    end
   end
   
   def read

@@ -50,15 +50,14 @@ var search = function(){
 			}
 		},
 		messages : {
+			url : "/message/show_next_page",
 			paging : {
 				from : 0,
-				size : 10
-			}
-		},
-		phone_offers : {
-			paging : {
-				from : 0,
-				size : 10
+				size : 3
+			},
+			before_send: function(parameters){
+				var type = parameters["type"];
+				$([".messages", type].join(".")).html("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
 			}
 		}
 	}
