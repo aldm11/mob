@@ -6,7 +6,7 @@
 <% else %>
 <div class="messages">
 <% page_outbox.each do |message| %>
-<%= render(:partial => "messages/message_item", :locals => {:message => message}) %>
+<%= render(:partial => "messages/message_item", :locals => {:message => message, :received => false}) %>
 <% end %>
 </div>
 

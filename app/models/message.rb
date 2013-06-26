@@ -2,6 +2,8 @@ class Message
   include Mongoid::Document
   include Mongoid::Paperclip
   
+  include Comparable
+  
   field :text, :type => String
   field :date_sent, :type => DateTime 
   field :date_read, :type => DateTime 
@@ -27,5 +29,11 @@ class Message
   before_save do |message|
     message.date_sent = message.date_sent.to_time.utc.to_i if message.date_sent
     message.date_read = message.date_read.to_time.utc.to_i if message.date_read
+  end
+  
+  def sort_unread(other)
+    return 1 if self.date_read.nil? && !other.date_read.nil?
+    return -1 if !self.date_read.nil? && other.date_read.nil?
+    0
   end
 end

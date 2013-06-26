@@ -1,14 +1,23 @@
-<% css_class = "row-fluid message"; css_class = [css_class, "unread"].join(" ") if message.date_read %>
-<% other_part = message.sender == current_account ? Account.find(message.receiver_id) : message.sender %>
+<% css_class = "row-fluid message"; css_class = [css_class, "unread"].join(" ") if message.date_read.nil? && received %>
+<% sender = message.sender || Account.find(message.sender_id) %>
+<% other_part = sender == current_account ? Account.find(message.receiver_id) : sender %>
 <% other_part_rol = other_part.rolable %>
 <% avatar = other_part_rol.avatar.exists? ? other_part_rol.avatar : "/images/no_image.jpg" %>
 
-<div class="<%= css_class %>">
+<div class="<%= css_class %>" id="<%= message.id.to_s %>">
 	<%= link_to "#", :class => "span2 other_part_avatar" do %>
 	<%= image_tag avatar, :size => "40x40" %>
 	<% end %>
 	
 	<div class="span10">
+		<div class="message-options">
+			<input type="checkbox" name="select" class="select-message">
+			<%= form_tag(url_for(:controller => "messages", :action => "pre_remove"), :remote => true, :class=>"remove-message") do %>
+			<%= hidden_field_tag "message_id", message.id %>
+			<%= hidden_field_tag "type", received ? "received" : "sent" %>
+			<%= button_tag raw(""), :type => "submit", :class => "icon-remove remove-item" %>
+			<% end %>
+		</div>
 		<div class="row-fluid other_part"><%= link_to "#{other_part_rol.name} (#{other_part.username})", "#" %></div>
 		<div class="row-fluid text"><%= link_to message.text, "#" %></div>
 	</div>

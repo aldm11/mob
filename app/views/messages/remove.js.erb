@@ -1,0 +1,7 @@
+$(".remove-confirm").modal("hide");
+$(".remove-confirm").remove();
+
+<% if @result[:status] %>
+$("#<%= @message_id %>").remove();
+<% else %>
+<% end %>

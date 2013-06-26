@@ -122,6 +122,8 @@ Mobis::Application.routes.draw do
     match "read", :action => "read", :via => :post
     match "bulk_delete", :action => "bulk_delete", :via => :post
     match "receiver_id_remote", :action => "receiver_id_remote", :via => :post
+    match "pre_remove", :action => "pre_remove", :via => "post"
+    match "remove", :action => "remove", :via => "post"
   end
   
   resource :search, :only => [:index], :controller => "search" do

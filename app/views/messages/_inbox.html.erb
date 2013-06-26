@@ -5,7 +5,7 @@
 <% else %>
 <div class="messages">
 <% page_inbox.each do |message| %>
-<%= render(:partial => "messages/message_item", :locals => {:message => message}) %>
+<%= render(:partial => "messages/message_item", :locals => {:message => message, :received => true}) %>
 <% end %>
 </div>
 
@@ -16,9 +16,13 @@
 <% next_class = [next_class, "disabled"].join(" ") if to == inbox.length - 1  %>
 <div class="pagination">
 	<div class="pull-right">
-		<small class="muted"><%= "Showing #{from} - #{to} from #{inbox.length}" %></small>
-		<%= link_to "«", "#", :class => prev_class %>
-		<%= link_to "»", "#", :class => next_class %>
+		<small class="muted"><%= "Showing #{from + 1} - #{to + 1} from #{inbox.length}" %></small>
+		<%= link_to "#", :class => prev_class do %>
+		<i class="icon-backward"></i>
+		<% end %>
+		<%= link_to "#", :class => next_class do %>
+		<i class="icon-forward"></i>
+		<% end %>
 	</div>
 </div>
 <% end %>

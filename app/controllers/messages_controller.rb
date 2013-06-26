@@ -43,8 +43,16 @@ class MessagesController < ApplicationController
     
   end
   
-  def destory
+  def pre_remove
+    respond_to {|format| format.js}
+  end
+  
+  def remove
+    @message_id = params[:message_id]
+    @type = params[:type]
+    @result = Managers::MessageManager.delete_message(current_account, @type, @message_id)
     
+    respond_to {|format| format.js}
   end
   
   RECEIVED_TYPE = "received"
@@ -59,6 +67,7 @@ class MessagesController < ApplicationController
     
     if type == RECEIVED_TYPE
       received = Managers::MessageManager.get_messages(current_account, :received, {:search_term => search_term, :from => from, :to => to, :sort_by => sort_by})
+      #raise received[:all].inspect+" "+received[:related].inspect
       @view = "messages/inbox"
       @container = ".messages.received"
       @params = {:page_inbox => received[:related], :inbox => received[:all], :from => from, :to => to}

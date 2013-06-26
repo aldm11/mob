@@ -53,12 +53,21 @@ $(document).ready(function(){
 	
 	var type = "received";
 	
-	$("#show-received-messages").live("click", function(){
+	$("#show-received-messages").live("click", function(e){
 		type = "received";
+		messages.set_term(type, "");
+		messages.reset_paging(type);
+		
+		search("messages", messages.get_params(type));
 	});
 	
-	$("#show-sent-messages").live("click", function(){
+	$("#show-sent-messages").live("click", function(e){
 		type = "sent";
+		
+		messages.set_term(type, "");
+		messages.reset_paging(type);
+		
+		search("messages", messages.get_params(type));
 	});
 	
 	
@@ -96,5 +105,28 @@ $(document).ready(function(){
 		
 		search("messages", messages.get_params(type));
 	});
+    
+    $(".message").live("mouseover", function(){
+    	$(this).find(".select-message").show();
+    	$(this).find(".remove-message").show();
+    	$(this).find(".remove-message").css({"display" : "inline"});
+    });
+    
+    $(".message").live("mouseleave", function(){
+    	$(this).find(".select-message").hide();
+    	$(this).find(".remove-message").hide();
+    });
+    
+    $(".select-message").live("change", function(){
+    	var message_id = $(this).parent().parent().attr("id");
+    	var checked = $(this).checked;
+    	
+    	if(checked){
+    		messages.select(type, message_id);
+    	}
+    	else{
+    		messages.unselect(type, message_id);
+    	}
+    });
     
 });

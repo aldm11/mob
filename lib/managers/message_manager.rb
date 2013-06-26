@@ -53,7 +53,7 @@ module Managers
       return {:status => false, :message => mess, :text => "Message can be edited in #{(edit_enabled/60).to_s} minutes after sent" } if (current_timestamp - old_message.date_sent.utc.to_time.to_i) > edit_enabled
     
       message_receiver = receiver.received_messages.select {|m| m.id.to_s == mess.id }.first
-      message_receiver.text = mess.text
+      message_receiver.text = mess.text unless message_received.mark_deleted?
       if mess.save && message_receiver.save
         return {:status => true, :message => mess, :text => "Message updated"}
       else
@@ -77,9 +77,9 @@ module Managers
         return {:status => false, :message => mess, :text => "Access denied"} 
       end
       
-      message_sender = sender.sent_messages.select {|m| m.id.to_s == mess_id }.first  
-      message.date_read = Time.now.utc.to_time.to_i
-      message_sender.date_read = Time.now.utc.to_time.to_i
+      message_sender = sender.sent_messages.select {|m| m.id.to_s == mess_id }.first
+      message.date_read = Time.now.utc.to_time.to_i unless message.mark_deleted
+      message_sender.date_read = Time.now.utc.to_time.to_i unless message_sender.mark_deleted
       
       if message.save && message_sender.save
         return {:status => true, :message => message, :text => "Message read"}
@@ -106,7 +106,7 @@ module Managers
       if options[:search_term]
         term = options[:search_term]
         if type.to_s == "received"
-          all_messages = all_messages.select {|m| m.text.include?(term) || m.sender.rolable.name.include?(term)}
+          all_messages = all_messages.select {|m| m.text.include?(term) || Account.find(m.sender_id).rolable.name.include?(term)}
         elsif type.to_s == "sent"
           #TODO: add receiver hash attribute to each message ({:receiver_name, :receiver_image, :receiver_id, :receiver_username }) - propagation ??
           all_messages = all_messages.select {|m| m.text.include?(term) || Account.find(m.receiver_id).rolable.name.include?(term) rescue false }
@@ -115,8 +115,8 @@ module Managers
        
       if options[:sort_by] == "date"
         all_messages.sort! {|a,b| b.date_sent <=> a.date_sent }
-      elsif options[:sort_by] == "read"
-        all_messages.sort! {|a,b| b.date_read.nil? ? 0 : 1 <=> a.date_read.nil? ? 0 : 1 }
+      elsif options[:sort_by] == "unread"
+        all_messages.sort! {|a, b| b.sort_unread(a) }
       end
       
       if options[:from] && options[:to]
@@ -141,22 +141,27 @@ module Managers
     ### =>  current_account - id or model of account logged in
     ### =>  mess            - id or model of mess to be deleted
     ### =>  options         - hash of optional arguments, currently not used
-    def self.delete_message(current_account, mess, options = {})
-      return INVALID_PARAMS_RESULT if current_account.blank? || mess.blank?
+    def self.delete_message(current_account, type,  mess, options = {})
+      return INVALID_PARAMS_RESULT if current_account.blank? || mess.blank? || type.blank? || (type.to_s != "received" && type.to_s != "sent")
       
       begin
         account = current_account.is_a?(Account) ? current_account : Account.find(current_account.to_s)
       rescue Exception => e
-        return {:status => false, :message => mess, :text => "Account not find"}
+        return {:status => false, :message => mess, :text => "Account not found"}
       end
       
-      begin
-        message = mess.is_a?(Message) ? mess : Message.find(mess.to_s)
-      rescue Exception => e
-        return {:status => false, :message => mess, :text => "Message not found"}
+      if mess.is_a?(Message)
+        message = mess
+      else
+        messages = type.to_s == "sent" ? account.sent_messages.select {|m| m.id.to_s == mess.to_s } : account.received_messages.select {|m| m.id.to_s == mess.to_s }
+        if messages.empty?
+          return {:status => false, :message => mess, :text => "Message not found"}
+        else
+          message = messages.first
+        end       
       end
       
-      remove_message(account, message)    
+      remove_message(account, type, message)    
     end
     
     def self.bulk_delete(current_account, mess, options = {}) 
@@ -188,18 +193,30 @@ module Managers
       result
     end
     
-    def self.remove_message(account, message)
-      if account.received_messages.include?(message)
-        account.received_messages.delete_if {|m| m == message}
+    def self.remove_message(account, type, message)
+      if type.to_s == "received"
+        received_message = account.received_messages.detect {|m| m == message}
+        received_message.mark_deleted = true
+        received_message.save
         account.save
-        return {:status => true, :message => message, :text => "Message removed"}
-      elsif account.sent_messages.include?(message)
-        account.sent_messages.delete_if {|m| m == message}
+        return {:status => true, :message => message, :text => "Message removed from receiver"}
+      elsif type.to_s == "sent"
+        sent_message = account.sent_messages.detect {|m| m.id.to_s == message.id.to_s }
+        
+        sent_message.mark_deleted = true
+        sent_message.save
         account.save
+        text = "Message removed from sender"
+        
         receiver = Account.find(message.receiver_id) rescue nil
-        receiver.delete_if {|m| m == message}
-        receiver.save
-        return {:status => true, :message => message, :text => "Message removed"}
+        received_message = receiver.received_messages.detect {|m| m.id.to_s == message.id.to_s }
+        if received_message.date_read.nil?
+          received_message.mark_deleted = true
+          received_message.save
+          account.save
+          text = [text, "and receiver"].join(" ")
+        end
+        return {:status => true, :message => message, :text => text}
       else
         return {:status => false, :message => mess, :text => "Access denied"} 
       end

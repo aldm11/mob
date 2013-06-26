@@ -47,6 +47,19 @@
           text-decoration: none;
         }
       }
+      .message-options {
+        float: right;
+        .remove-message {
+          display: inline;
+        }
+        .select-message, .remove-message {
+          display: none;
+        }
+        .icon-remove {
+          border: none;
+          margin: 3px 0 0 5px;
+        }
+      }
     }
     .message.unread {
       .text {
