@@ -13,6 +13,9 @@ class Message
   field :receiver_id, :type => String
   field :mark_deleted, :type => Boolean, :default => false
   
+  field :sender_details, :type => Hash
+  field :receiver_details, :type => Hash
+  
   embedded_in :sender, class_name: "Account", inverse_of: :sent_messages
   embedded_in :receiver, class_name: "Account", inverse_of: :received_messages
   
@@ -22,8 +25,40 @@ class Message
   validates :sender_id, :presence => true
   validates :receiver_id, :presence => true
   
+  SUBJECT_ATTRS = ["id", "logo", "name", "website", "phone", "address"]
+  DEFAULT_LOGO = "/images/no_image.jpg"
   before_create do |message|
     message.date_sent = Time.now.utc.to_time.to_i unless message.date_sent
+    
+    ### Setting source and target attributes
+    puts "Setting source and target"
+    
+    sen_acc = Account.find(self.sender_id)
+    sen = sen_acc.rolable
+    sen_rec = Account.find(self.receiver_id)
+    rec = sen_rec.rolable
+    
+    self.sender_details = {"username" => sen_acc.username}
+    self.receiver_details = {"username" => sen_rec.username}
+    SUBJECT_ATTRS.each do |attr|
+      if sen.respond_to?(attr)      
+        if attr == "logo"
+          val_sen = sen.logo.exists? ? sen.logo.url : DEFAULT_LOGO
+        else
+          val_sen = sen.send(attr)
+        end
+        self.sender_details[attr] = val_sen
+      end
+      
+      if rec.respond_to?(attr) 
+        if attr == "logo"
+          val_rec = rec.logo.exists? ? rec.logo.url : DEFAULT_LOGO
+        else
+          val_rec = rec.send(attr)
+        end
+        self.receiver_details[attr] = val_rec
+      end
+    end
   end
   
   before_save do |message|
