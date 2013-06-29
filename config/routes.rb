@@ -62,6 +62,8 @@ Mobis::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
   root :to => "home#index"
   
+  match "set_js_vars" => "application#set_js_vars", :as => "set_js_vars", :via => :post
+  match "get_js_var" => "application#get_js_var", :as => "get_js_var", :via => :post 
   match ":username/catalogue" => "catalogues#index", :as => "catalogue"  
   match "unauthorized_access" => "application#unauthorized_access"
   match "show_error" => "application#show_error"

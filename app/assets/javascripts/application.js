@@ -21,8 +21,9 @@
 //= require scripts
 //= require client
 
-//= require common
 //= require search
+//= require js_vars
+//= require common
 //= require home
 //= require search_phones
 //= require phone

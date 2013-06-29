@@ -3,7 +3,7 @@ require "mongoid"
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_locale, :setup, :search_setup
+  before_filter :set_locale, :setup, :search_setup, :js_vars
   
   include SessionHelper
   include CollectionHelper
@@ -18,6 +18,18 @@ class ApplicationController < ActionController::Base
   def show_error
   end
   
+  def set_js_vars
+    params[:vars].each do |name, value|
+      @@js_vars[name.to_sym] = value unless name.nil? || value.nil?
+    end
+    render :json => @@js_vars.select {|name, value| params[:vars].has_key?(name.to_s) }.to_json
+  end
+  
+  def get_js_var
+    var = @@js_vars[params[:name].to_sym] || nil
+    render :json => var.to_json
+  end
+  
   protected
   def only_signed_in_users
     redirect_to(:controller => "application", :action => "unauthorized_access") unless account_signed_in?
@@ -25,6 +37,11 @@ class ApplicationController < ActionController::Base
   
   def admin_only
     redirect_to(:action => "unauthorized_access") unless account_signed_in? && current_account.rolable.class.name.downcase == "admin"
+  end
+  
+  def js_vars
+    @@js_vars ||= {}
+    puts "-------------------------------------- JS vars #{@@js_vars.inspect}"
   end
   
   private
