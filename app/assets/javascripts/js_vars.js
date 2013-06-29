@@ -1,3 +1,8 @@
+//TODO: maybe use memcache or something similar to save vars (google @@ vars in rails)
+//TODO: reflection on parameter type, support for name, value or json object of params on set
+//TODO: sync ?
+//TODO: better module ?
+
 var js_vars = function(){
 	return {
 		set : function(name, value){

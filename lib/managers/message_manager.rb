@@ -7,7 +7,8 @@ module Managers
     ### =>  current_account  - id or model of account logged in
     ### =>  to               - id or model of account to send message to
     ### =>  mess             - message text or
-    ### =>  options          - additional options for extending, currently not used    
+    ### =>  options          - additional options for extending, currently not used  
+    ### => options[:reply_to]- message model or id which represents message to reply to (sent or received)  
     ### TODO: consider if want to forbid spam messages, to restrict sending message with same text sender and reveicer in 30 sec time frame              
     def self.send_message(current_account, to, mess, options = {})
       return INVALID_PARAMS_RESULT if current_account.blank? || to.blank? || mess.blank? || !mess.is_a?(String)
@@ -23,7 +24,54 @@ module Managers
       message1 = sender.sent_messages.build(:text => mess, :sender_id => sender.id, :receiver_id => receiver.id)
       message2 = receiver.received_messages.build(:id => message1.id, :text => mess, :sender_id => sender.id, :receiver_id => receiver.id)
       
+      
+      if options[:reply_to]
+        reply_to = options[:reply_to].is_a?(Message) ? options[:reply_to].id.to_s : options[:reply_to].to_s
+        puts "Replying to #{reply_to.inspect}"
+        
+        sent_message_sender = sender.sent_messages.select {|m| m.id.to_s == reply_to }.to_a.first
+        received_message_sender = sender.received_messages.select {|m| m.id.to_s == reply_to }.to_a.first
+        
+        sent_message_receiver = receiver.sent_messages.select {|m| m.id.to_s == reply_to }.to_a.first
+        received_message_receiver = receiver.received_messages.select {|m| m.id.to_s == reply_to }.to_a.first
+               
+        if !sent_message_sender.nil? && !received_message_receiver.nil?
+          reply_object_sender = sent_message_sender
+          reply_object_receiver = received_message_receiver
+          
+          reply_object_sender.responded_with_type = "sent"
+          reply_object_receiver.responded_with_type = "received"
+          
+          message1.reply_to_type = "sent"
+          message2.reply_to_type = "received"
+        elsif !received_message_sender.nil? && !sent_message_receiver.nil?
+          reply_object_sender = received_message_sender
+          reply_object_receiver = sent_message_receiver
+          
+          reply_object_sender.responded_with_type = "received"
+          reply_object_receiver.responded_with_type = "sent"  
+          
+          message1.reply_to_type = "received"
+          message2.reply_to_type = "sent"     
+        else
+          return {:status => false, :message => message1, :text => "Invalid reply to"}
+        end
+        
+        reply_object_sender.responded_with = message1.id.to_s
+        reply_object_receiver.responded_with = message2.id.to_s
+        
+        message1.reply_to = reply_to
+        message2.reply_to = reply_to
+      end
+      
+      
       if message1.save && message2.save
+        
+        if options[:reply_to]
+          reply_object_sender.save
+          reply_object_receiver.save
+        end
+        
         return {:status => true, :message => message1, :text => "Message sent"}
       else
         return {:status => false, :message => message1, :text => "Message invalid"}
@@ -220,6 +268,35 @@ module Managers
       else
         return {:status => false, :message => mess, :text => "Access denied"} 
       end
+    end
+    
+    def get_message(current_account, type, message_id, options = {})
+      return INVALID_PARAMS_RESULT if current_account.nil? || message_id.blank? || type.blank? || (type.to_s != "sent" && type.to_s != "received")
+      
+      begin
+        account = current_account.is_a?(Account) ? current_account : Account.find(current_account.to_s)
+      rescue Exception => e
+        return {:status => false, :message => message_id, :text => "Account invalid"}
+      end
+      
+      begin
+        message = type.to_s == "sent" ? account.sent_messages.select {|m| m.id.to_s == message_id.to_s} : account.received_messages.select {|m| m.id.to_s == message_id.to_s}
+      rescue Exception => e
+        return {:status => false, :message => message_id, :text => "Message not found"}
+      end
+      
+      conversation = [message]
+      while !message.reply_to.nil?
+        prev = message.reply_to_type.to_s == "sent" ? account.sent_messages.select {|m| m.id.to_s == message.reply_to.to_s }.to_a.first : account.received_messages.select {|m| m.id.to_s == message.reply_to.to_s }.to_a.first
+        conversation.unshift(prev) if prev
+      end
+      
+      while !message.responded_with.nil?
+        nex = message.responded_with_type.to_s == "sent" ? account.sent_messages.select {|m| m.id.to_s == message.responded_with.to_s }.to_a.first : account.received_messages.select {|m| m.id.to_s == message.responded_with.to_s }.to_a.first
+        conversation.shift(nex) if nex
+      end
+      
+      conversation
     end
     
   end

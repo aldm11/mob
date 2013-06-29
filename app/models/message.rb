@@ -16,6 +16,11 @@ class Message
   field :sender_details, :type => Hash
   field :receiver_details, :type => Hash
   
+  field :reply_to, :type => String
+  field :reply_to_type, :type => String
+  field :responded_with, :type => String 
+  field :responded_with_type, :type => String
+  
   embedded_in :sender, class_name: "Account", inverse_of: :sent_messages
   embedded_in :receiver, class_name: "Account", inverse_of: :received_messages
   
