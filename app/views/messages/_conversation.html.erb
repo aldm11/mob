@@ -1,0 +1,11 @@
+<div class="conversation">
+	<% if conversation.empty? %>
+	<div class="muted">
+		No messages in conversation
+	</div>
+	<% else %>
+	<% conversation.each do |message| %>
+	<%= render :partial => "messages/conversation_item", :locals => {:message => message} %>
+	<% end %>
+	<% end %>
+</div>

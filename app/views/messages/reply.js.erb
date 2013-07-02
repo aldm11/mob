@@ -1,0 +1,2 @@
+var message_html = $("<%= escape_javascript(render(:partial => "messages/conversation_item", :locals => {:message => @message})) %>");
+$(".conversation").append(message_html);

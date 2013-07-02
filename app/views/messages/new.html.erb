@@ -2,7 +2,7 @@
 	<%= render :partial => "messages/messages_container" %>
 
 	<div class="span4">
-		<%= render :partial => "messages/new" %>
+		<%= render :partial => "messages/new", :locals => {:receivers_usernames => @receivers_usernames, :to => nil, :reply_to => nil} %>
 	</div>
 	
 	<div class="span2">

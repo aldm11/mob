@@ -1,5 +1,9 @@
-<%= form_tag(message_path, :remote => true, :class => "send-message", :method => "post") do |f| %>
-<%= hidden_field_tag "receiver_id", "" %>
+<% url = to.nil? ? message_path : url_for(:controller => "messages", :action => "reply") %>
+<%= form_tag(url, :remote => true, :class => "send-message", :method => "post") do |f| %>
+<%= hidden_field_tag "receiver_id", to %>
+<%= hidden_field_tag "reply_to", reply_to %>
+
+<% if to.nil? %>
 <%= text_field_tag "receiver", "", 
 	:placeholder => "To", 
 	:class => "span4", 
@@ -7,9 +11,10 @@
 	:autocomplete => "off",
 	"data-provide" => "typeahead"
 %>
+
 <script type="text/javascript">
 	$("#receiver").typeahead({
-		source: <%= raw @receivers_usernames.to_json %>,
+		source: <%= raw receivers_usernames.to_json %>,
 		updater: function(item){
 			$.ajax({
 	    		type: "POST",
@@ -23,6 +28,7 @@
 		}
 	});
 </script>
+<% end %>
 
 <div>
 	<%= text_area_tag "text", "", :rows => 4, :class=> "span4", :placeholder => "Enter your message" %>

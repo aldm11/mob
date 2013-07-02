@@ -129,8 +129,6 @@ $(document).ready(function(){
     	}
     });
     
-    
-    
     // example of using js_data
     // js_vars.set("some", "value");
     // setTimeout(function(){}, 500);

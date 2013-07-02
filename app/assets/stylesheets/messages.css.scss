@@ -77,3 +77,51 @@ textarea {
   min-width: 280px;
 }
 
+.conversation {
+  
+  .conversation-item {
+    font-size: 9pt;
+    .sender-avatar {
+      vertical-align: text-top;
+    }
+    .sender-name {
+      display: block;
+    }
+    .text {
+      display: inline;
+    }
+    .date-sent {
+      font-size: 8pt;
+    }
+    margin-bottom: 10px;
+  }
+  
+  .conversation-item.my {
+    .sender-avatar {
+      float: left;
+      margin-right: 5px;
+    }
+    .text, .sender-name {
+      float: left;
+    }
+    .date-sent {
+      text-align: left;
+    }
+  }
+  
+  .conversation-item.other {
+    .sender-avatar {
+      float: right;
+      margin-left: 5px;
+    }
+    .text, .sender-name {
+      float: right;
+    }
+    .date-sent {
+      text-align: right;
+    }
+  }
+  
+  
+}
+

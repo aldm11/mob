@@ -79,8 +79,29 @@ class MessagesController < ApplicationController
     end
   end
   
-  def read
+  def show
+    @message_id = params[:id] || nil
+    @type = params[:type] || nil
     
+    @conversation = Managers::MessageManager.get_conversation(current_account, @type, @message_id)
+    @target_message = @conversation.select{|m| m.id.to_s == @message_id }.to_a.first
+    @other_part = @type.to_s == "received" ? @target_message.sender_id : @target_message.receiver_id
+    
+    respond_to {|format| format.js }
+  end
+  
+  def reply
+    @receiver_id = params[:receiver_id] || nil
+    @text = params[:text] || nil
+    @reply_to = params[:reply_to] || nil
+    
+    @result = nil
+    unless @receiver_id.blank? || @text.blank?
+      @result = Managers::MessageManager.send_message(current_account, @receiver_id, @text, {:reply_to => @reply_to})
+      @message = @result[:message]
+    end
+    puts "poruka #{@message.inspect}"
+    respond_to {|format| format.js }
   end
   
   def bulk_delete

@@ -119,13 +119,13 @@ Mobis::Application.routes.draw do
     match "phone_details_remote", :action => "phone_details_remote", via: :post
   end
   
-  resource :message do
+  resource :message, :only => [:index, :new, :create, :update, :edit, :show] do
     match "show_next_page", :action => "show_next_page", :via => :post
-    match "read", :action => "read", :via => :post
     match "bulk_delete", :action => "bulk_delete", :via => :post
     match "receiver_id_remote", :action => "receiver_id_remote", :via => :post
     match "pre_remove", :action => "pre_remove", :via => "post"
     match "remove", :action => "remove", :via => "post"
+    match "reply", :action => "reply", :via => "post"
   end
   
   resource :search, :only => [:index], :controller => "search" do
