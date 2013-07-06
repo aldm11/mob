@@ -10,19 +10,20 @@ class MessagesController < ApplicationController
     @unread_count = @received[:unread_count]
     @inbox_to = @received[:to]
     @outbox_to = @sent[:to]
+    
+    if @inbox.empty?
+      @receivers_usernames = Account.all.select {|a| a.id.to_s != current_account.id.to_s }.map {|a| a.username}.compact
+    else
+      @last_message_conversation = Managers::MessageManager.get_conversation(current_account, "received", @inbox.first.id)
+      @active_id = @inbox.first.id
+      @other_part = @inbox.first.sender_id
+    end
   end
   
-  def new
-    @received = Managers::MessageManager.get_messages(current_account, :received, {:search_term => nil, :from => 0, :to => 2, :sort_by => "date"})
-    @sent = Managers::MessageManager.get_messages(current_account, :sent, {:search_term => nil, :from => 0, :to => 2, :sort_by => "date"})
-    
-    @inbox = @received[:related]
-    @outbox = @sent[:related]
-    @unread_count = @received[:unread_count]
-    @inbox_to = @received[:to]
-    @outbox_to = @sent[:to]
-    
+  def new    
     @receivers_usernames = Account.all.select {|a| a.id.to_s != current_account.id.to_s }.map {|a| a.username}.compact
+    
+    respond_to {|format| format.js }
   end
   
   def create
@@ -67,25 +68,40 @@ class MessagesController < ApplicationController
     
     if type == RECEIVED_TYPE
       received = Managers::MessageManager.get_messages(current_account, :received, {:search_term => search_term, :from => from, :to => to, :sort_by => sort_by})
-      #raise received[:all].inspect+" "+received[:related].inspect
       @view = "messages/inbox"
       @container = ".messages.received"
-      @params = {:page_inbox => received[:related], :inbox => received[:all], :from => from, :to => to}
+      @params = {:page_inbox => received[:related], :inbox => received[:all], :from => from, :to => received[:to], :active_id => received[:related].empty? ? nil : received[:related].first.id}
+      
+      if received[:related].empty?
+        @receivers_usernames = Account.all.select {|a| a.id.to_s != current_account.id.to_s }.map {|a| a.username}.compact
+      else
+        @conversation = Managers::MessageManager.get_conversation(current_account, "received", received[:related].empty? ? nil : received[:related].first.id)
+        @other_part = received[:related].first.sender_id
+      end
     elsif type == SENT_TYPE
       sent = Managers::MessageManager.get_messages(current_account, :sent, {:search_term => search_term, :from => from, :to => to, :sort_by => sort_by})
       @view = "messages/outbox"
       @container = ".messages.sent"
-      @params = {:page_outbox => sent[:related], :outbox => sent[:all], :from => from, :to => to}
+      @params = {:page_outbox => sent[:related], :outbox => sent[:all], :from => from, :to => sent[:to], :active_id => sent[:related].empty? ? nil :sent[:related].first.id}
+    
+      if sent[:related].empty?
+        @receivers_usernames = Account.all.select {|a| a.id.to_s != current_account.id.to_s }.map {|a| a.username}.compact
+      else
+        @conversation = Managers::MessageManager.get_conversation(current_account, "sent", sent[:related].empty? ? nil : sent[:related].first.id)
+        @other_part = sent[:related].first.receiver_id
+      end
     end
   end
   
   def show
     @message_id = params[:id] || nil
     @type = params[:type] || nil
-    
+    puts "id #{@message_id} tip #{@type}"
     @conversation = Managers::MessageManager.get_conversation(current_account, @type, @message_id)
     @target_message = @conversation.select{|m| m.id.to_s == @message_id }.to_a.first
     @other_part = @type.to_s == "received" ? @target_message.sender_id : @target_message.receiver_id
+    
+    @read_result = @target_message.date_read.nil? ? Managers::MessageManager.read_message(current_account, @target_message) : nil
     
     respond_to {|format| format.js }
   end
@@ -100,7 +116,6 @@ class MessagesController < ApplicationController
       @result = Managers::MessageManager.send_message(current_account, @receiver_id, @text, {:reply_to => @reply_to})
       @message = @result[:message]
     end
-    puts "poruka #{@message.inspect}"
     respond_to {|format| format.js }
   end
   

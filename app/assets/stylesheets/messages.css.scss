@@ -1,13 +1,19 @@
-.messages-container {
-  border-right: 1px solid #EEE;
-  width: 320px;
+.loading.center {
+  position: relative;
+  top: 40px;
+  left: 25%;
+}
 
+.messages-container {
   .search-sort {
      padding: 0 0 10px 0;
      border-bottom: 1px solid #EEE;
     .search-query {
-      height: 20px;
-      -webkit-border-radius: 10px;
+      height: 16px;
+      width: 120px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
       padding: 3px 5px 3px 5px;
       margin-right: 5px;
     }
@@ -31,8 +37,12 @@
     padding: 10px;
   }
   
+  .pagination div {
+    margin-right: 10px;
+  }
+  
   .messages {
-    .message {
+    .message-item {
       font-size: 9pt;
       border-bottom: 1px solid #CCC;
       img {
@@ -61,12 +71,16 @@
         }
       }
     }
-    .message.unread {
+    .message-item.unread {
       .text {
         font-weight: bold;
       }
     }
-    .message:hover {
+    .message-item.active {
+      border-right: none;
+      background: #F2F2F2;
+    }
+    .message-item:hover {
       background: #dff0d8;
     }
   }
@@ -74,54 +88,61 @@
 }
 
 textarea {
-  min-width: 280px;
+  min-width: 360px;
 }
 
-.conversation {
-  
-  .conversation-item {
-    font-size: 9pt;
-    .sender-avatar {
-      vertical-align: text-top;
+.message-to {
+  width: 360px;
+}
+
+.messages-center {
+  margin-left: 0;
+
+  .conversation {
+     background: #F2F2F2;
+     padding: 10px;
+    .conversation-item {
+      background: #FFF;
+      font-size: 9pt;
+      .sender-avatar {
+        vertical-align: text-top;
+      }
+      .text {
+        display: inline;
+      }
+      .date-sent {
+        font-size: 8pt;
+      }
+      margin-bottom: 10px;
     }
-    .sender-name {
-      display: block;
+    
+    .conversation-item.my {
+      .sender-avatar {
+        float: left;
+        margin-right: 5px;
+      }
+      .date-sent {
+        text-align: left;
+      }
     }
-    .text {
-      display: inline;
+    
+    .conversation-item.other {
+      .sender-avatar {
+        float: right;
+        margin-left: 5px;
+      }
+      .sender-name {
+        float: right;
+      }
+      .text {
+        float: right;
+        text-align: right;
+      }
+      .date-sent {
+        text-align: right;
+      }
     }
-    .date-sent {
-      font-size: 8pt;
-    }
-    margin-bottom: 10px;
+     
   }
-  
-  .conversation-item.my {
-    .sender-avatar {
-      float: left;
-      margin-right: 5px;
-    }
-    .text, .sender-name {
-      float: left;
-    }
-    .date-sent {
-      text-align: left;
-    }
-  }
-  
-  .conversation-item.other {
-    .sender-avatar {
-      float: right;
-      margin-left: 5px;
-    }
-    .text, .sender-name {
-      float: right;
-    }
-    .date-sent {
-      text-align: right;
-    }
-  }
-  
-  
 }
 

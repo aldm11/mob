@@ -1,12 +1,12 @@
 <% if page_outbox.empty? %>
 <div class="muted no-messages">
 	No sent messages
-	<%= link_to "Send new message", new_message_path %>
+	<%= link_to "Send new message", new_message_path, :remote => true %>
 </div>
 <% else %>
 <div class="messages">
 <% page_outbox.each do |message| %>
-<%= render(:partial => "messages/message_item", :locals => {:message => message, :received => false}) %>
+<%= render(:partial => "messages/message_item", :locals => {:message => message, :received => false, :active => !active_id.nil? && active_id.to_s == message.id.to_s}) %>
 <% end %>
 </div>
 

@@ -1,11 +1,11 @@
 <div class="span4 messages-container messages-left">
 	<div class="row-fluid search-sort">
 		<div class="pull-left input-append sort-messages">
-			<%= link_to "#", :class => "btn btn-small disabled", :id => "sort_messages_date", :title => "Sort by date" do %>
+			<%= link_to "#", :class => "btn btn-mini disabled", :id => "sort_messages_date", :title => "Sort by date" do %>
 			<i class="icon-arrow-down"></i> Date
 			<% end %>
 			
-			<%= link_to "#", :class => "btn btn-small", :id => "sort_messages_unread", :title => "Show unread first" do %>
+			<%= link_to "#", :class => "btn btn-mini", :id => "sort_messages_unread", :title => "Show unread first" do %>
 			<i class="icon-arrow-down"></i> Unread
 			<% end %>
 		</div>
@@ -22,7 +22,7 @@
 		</div>
 		
 		<div class="pull-right">
-			<%= link_to "#", :class => "btn btn-small delete-messages" do %>
+			<%= link_to "#", :class => "btn btn-mini delete-messages" do %>
 			<i class="icon-remove-sign"></i> Delete
 			<% end %>
 		</div>
@@ -35,11 +35,11 @@
 	
 	<div class="tab-content">	
 		<div class=" tab-pane active row-fluid messages received" id="received">
-			<%= render :partial => "messages/inbox", :locals => {:page_inbox => @inbox, :inbox => @received[:all], :from => 0, :to => @inbox_to} %>
+			<%= render :partial => "messages/inbox", :locals => {:page_inbox => @inbox, :inbox => @received[:all], :from => 0, :to => @inbox_to, :active_id => @active_id} %>
 		</div>
 		
 		<div class=" tab-pane row-fluid messages sent" id="sent">
-			<%= render :partial => "messages/outbox", :locals => {:page_outbox => @outbox, :outbox => @sent[:all], :from => 0, :to => @outbox_to} %>			
+			<%= render :partial => "messages/outbox", :locals => {:page_outbox => @outbox, :outbox => @sent[:all], :from => 0, :to => @outbox_to, :active_id => @active_id} %>			
 		</div>
 	</div>
 </div>

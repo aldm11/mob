@@ -2,3 +2,7 @@ var conversation_html = $("<%= escape_javascript(render(:partial => "messages/co
 var new_message_html = $("<%= escape_javascript(render(:partial => "messages/new", :locals => {:receivers_usernames => [], :to => @other_part, :reply_to => @conversation.last.id})) %>");
 $(".messages-center").html(conversation_html);
 $(".messages-center").append(new_message_html);
+
+$(".message-item").removeClass("active");
+$("#<%= @target_message.id %>").removeClass("unread").addClass("active");
+

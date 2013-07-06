@@ -39,17 +39,11 @@ module Managers
           reply_object_sender = sent_message_sender
           reply_object_receiver = received_message_receiver
           
-          # reply_object_sender.responded_with_type = "sent"
-          # reply_object_receiver.responded_with_type = "received"
-          
           message1.reply_to_type = "sent"
           message2.reply_to_type = "received"
         elsif !received_message_sender.nil? && !sent_message_receiver.nil?
           reply_object_sender = received_message_sender
           reply_object_receiver = sent_message_receiver
-          
-          # reply_object_sender.responded_with_type = "received"
-          # reply_object_receiver.responded_with_type = "sent"  
           
           message1.reply_to_type = "received"
           message2.reply_to_type = "sent"     
@@ -121,20 +115,20 @@ module Managers
       begin
         receiver = current_account.is_a?(Account) ? current_account : Account.find(current_account)
         mess_id = mess.is_a?(Message) ? mess.id.to_s : mess.to_s
-        message = receiver.received_messages.select {|m| m.id.to_s == mess_id}.first
-        sender = Account.find(message.sender_id.to_s)
+        message_receiver = receiver.received_messages.select {|m| m.id.to_s == mess_id}.first
       rescue Exception
         return {:status => false, :message => mess, :text => "Access denied"} 
       end
-      
+ 
+      sender = Account.find(message_receiver.sender_id.to_s)     
       message_sender = sender.sent_messages.select {|m| m.id.to_s == mess_id }.first
-      message.date_read = Time.now.utc.to_time.to_i unless message.mark_deleted
+      message_receiver.date_read = Time.now.utc.to_time.to_i unless message_receiver.mark_deleted
       message_sender.date_read = Time.now.utc.to_time.to_i unless message_sender.mark_deleted
       
-      if message.save && message_sender.save
-        return {:status => true, :message => message, :text => "Message read"}
+      if message_receiver.save && message_sender.save
+        return {:status => true, :message => message_receiver, :text => "Message read"}
       else
-        return {:status => false, :message => message, :text => "Message invalid"}
+        return {:status => false, :message => message_receiver, :text => "Message invalid"}
       end
     end
     
@@ -156,10 +150,9 @@ module Managers
       if options[:search_term]
         term = options[:search_term]
         if type.to_s == "received"
-          all_messages = all_messages.select {|m| m.text.include?(term) || Account.find(m.sender_id).rolable.name.include?(term)}
+          all_messages = all_messages.select {|m| m.text.downcase.include?(term.downcase) || m.sender_details["name"].downcase.include?(term.downcase) }
         elsif type.to_s == "sent"
-          #TODO: add receiver hash attribute to each message ({:receiver_name, :receiver_image, :receiver_id, :receiver_username }) - propagation ??
-          all_messages = all_messages.select {|m| m.text.include?(term) || Account.find(m.receiver_id).rolable.name.include?(term) rescue false }
+          all_messages = all_messages.select {|m| m.text.downcase.include?(term.downcase) || m.receiver_details["name"].downcase.include?(term.downcase) }
         end
       end
        

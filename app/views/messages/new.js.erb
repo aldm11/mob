@@ -1,0 +1,4 @@
+var new_message_html = $("<%= escape_javascript(render(:partial => "messages/new", :locals => {:receivers_usernames => @receivers_usernames, :to => nil, :reply_to => nil})) %>");
+$(".messages-center").html(new_message_html);
+
+$(".message-item").removeClass("active");

@@ -6,14 +6,12 @@
 		<%= image_tag message.sender_details["logo"], :size => "34x34" %>
 		<% end %>
 		
-		<%= link_to "#{message.sender_details['name']} (#{message.sender_details['username']})", "#", :class => "sender-name" %>
+		<%= link_to "#{message.sender_details['name']} (#{message.sender_details['username']})", "#", :class => "sender-name" %><br/>
 		
-		<div class="text">
-			<%= message.text %>
-		</div>
+		<p class=" text"><%= message.text %></p>
 	</div>
 	
-	<div class="row-fluid date-sent muted">
+	<div class="date-sent muted">
 		<%= [distance_of_time_in_words(message.date_sent.to_time.to_i, Time.now.utc.to_time.to_i, true), "ago"].join(" ") %>
 	</div>
 </div>

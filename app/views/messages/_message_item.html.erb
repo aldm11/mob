@@ -1,6 +1,7 @@
-<% css_class = "row-fluid message" %>
+<% css_class = "row-fluid message-item" %>
+<% css_class = [css_class, "active"].join(" ") if active %>
 <% css_class = [css_class, "unread"].join(" ") if message.date_read.nil? && received %>
-<% other_part = message.sender_id.to_s == current_account.rolable.id.to_s ? message.sender_details : message.receiver_details %>
+<% other_part = message.sender_id.to_s == current_account.id.to_s ? message.receiver_details : message.sender_details %>
 
 <div class="<%= css_class %>" id="<%= message.id.to_s %>">
 	<%= link_to "#", :class => "span2 other_part_avatar" do %>

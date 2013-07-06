@@ -129,6 +129,10 @@ $(document).ready(function(){
     	}
     });
     
+    $("a.read-message").live("click", function(){
+    	$(".messages-center").html("<div id = 'loading_big' class='loading center'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
+    });
+    
     // example of using js_data
     // js_vars.set("some", "value");
     // setTimeout(function(){}, 500);

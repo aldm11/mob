@@ -1,2 +1,7 @@
 var messages_html = $("<%= escape_javascript(render(:partial => @view, :locals => @params)) %>");
 $("<%= @container %>").html(messages_html);
+
+var conversation_html = $("<%= escape_javascript(render(:partial => "messages/conversation", :locals => {:conversation => @conversation})) %>");
+var new_message_html = $("<%= escape_javascript(render(:partial => "messages/new", :locals => {:receivers_usernames => [], :to => @other_part, :reply_to => @conversation.last.id})) %>");
+$(".messages-center").html(conversation_html);
+$(".messages-center").append(new_message_html);

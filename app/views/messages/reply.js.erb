@@ -1,2 +1,14 @@
-var message_html = $("<%= escape_javascript(render(:partial => "messages/conversation_item", :locals => {:message => @message})) %>");
-$(".conversation").append(message_html);
+<% if @receiver_id.blank? || @text.blank? %>
+$("form.send-message").append($('<div class="text-error message"><small>Please fill in receiver and message text</small></div>'));
+<% end %>
+
+<% if @result && @result[:status] %>
+	var message_html = $("<%= escape_javascript(render(:partial => "messages/conversation_item", :locals => {:message => @message})) %>");
+	$(".conversation").append(message_html);
+<% end %>
+
+if($(".message").length > 0){
+	setTimeout(function(){
+		$(".message").fadeOut(2000, function(){});
+	}, 2000);
+}

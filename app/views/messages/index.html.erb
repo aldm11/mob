@@ -1,13 +1,18 @@
 <div class="span12">
 	<%= render :partial => "messages/messages_container" %>
 
-	<div class="span4 messages-center">
-		Forma za slanje nove poruke ili aktuelna konverzacija
+	<div class="span5 messages-center">
+		<% if @last_message_conversation %>
+		<%= render(:partial => "messages/conversation", :locals => {:conversation => @last_message_conversation}) %>
+		<%= render(:partial => "messages/new", :locals => {:receivers_usernames => [], :to => @other_part, :reply_to => @last_message_conversation.last.id}) %>
+		<% else %>
+		<%= render :partial => "messages/new", :locals => {:receivers_usernames => @receivers_usernames, :to => nil, :reply_to => nil} %>
+		<% end %>
 	</div>
 	
 	<div class="span2 messages-right">
 		<div class="row-fluid">
-			<%= link_to new_message_path, :class => "btn btn-small btn-primary" do %>
+			<%= link_to new_message_path, :class => "btn btn-small btn-primary", :remote => true do %>
 			<i class="icon-plus-sign icon-white"></i> New message
 			<% end %>
 		</div>

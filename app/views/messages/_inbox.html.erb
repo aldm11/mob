@@ -5,14 +5,14 @@
 <% else %>
 <div class="messages">
 <% page_inbox.each do |message| %>
-<%= render(:partial => "messages/message_item", :locals => {:message => message, :received => true}) %>
+<%= render(:partial => "messages/message_item", :locals => {:message => message, :received => true, :active => !active_id.nil? && active_id.to_s == message.id.to_s }) %>
 <% end %>
 </div>
 
 <% unless page_inbox == inbox %>
-<% prev_class = "messages-paging prev btn btn-small" %>
+<% prev_class = "messages-paging prev btn btn-mini" %>
 <% prev_class = [prev_class, "disabled"].join(" ") if from == 0 %>
-<% next_class = "messages-paging next btn btn-small" %>
+<% next_class = "messages-paging next btn btn-mini" %>
 <% next_class = [next_class, "disabled"].join(" ") if to == inbox.length - 1  %>
 <div class="pagination">
 	<div class="pull-right">

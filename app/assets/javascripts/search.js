@@ -57,7 +57,7 @@ var search = function(){
 			},
 			before_send: function(parameters){
 				var type = parameters["type"];
-				$([".messages", type].join(".")).html("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+				$([".messages", type].join(".")).html("<div id = 'loading_big'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
 			}
 		}
 	}
