@@ -4,10 +4,25 @@
   <title>Mobis</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application", :media => "all" %>
+  <%= javascript_include_tag "http://localhost:4000/socket.io/socket.io.js" %>
 
   <%= csrf_meta_tags %>
 </head>
 <body>
+<% if account_signed_in? %>
+<script type="text/javascript">
+	var socket = io.connect("http://localhost:4000");
+	socket.emit("login", {"id" : "<%= current_account.id %>", "username" : "<%= current_account.username %>"});
+	
+	socket.on("login_complete", function(){
+		socket.emit("onlineList", "<%= current_account.id %>");
+		
+		socket.on("onlineListReply", function(accounts){
+			alert(JSON.stringify(accounts));
+		});
+	});
+</script>
+<% end %>
 <%= render "layouts/header" %>
 <% flash.each do |key, message| %>
 <%= content_tag(:div, :class => "alert alert-#{key.to_s}") do %>

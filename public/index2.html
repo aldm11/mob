@@ -8,14 +8,21 @@
     <input type="text" name="message" id="message" />
     <script type="text/javascript">
     	var socket = io.connect("http://localhost:4000");
+    	socket.emit("login", {"id" : "1","username" : "sender"});
+    	socket.emit("login", {"id" : "2","username" : "receiver"});
     	//socket.emit("login", "receiver");
     	var input = document.getElementById("message");
 		input.onkeydown = function(event){
 		    if(event.keyCode === 13){
-		        socket.emit("clientMessage", {"sender" : "sender", "receiver" : "receiver", "content" : input.value});
+		        socket.emit("clientMessage", {"sender_id" : "1", "receiver_id" : "2", "content" : input.value});
 			    input.value = "";
 		    }
 		};
+		
+		socket.emit("onlineList", "1");
+		socket.on("onlineListReply", function(accounts){
+			console.log(JSON.stringify(accounts));
+		});
 		
 		socket.on("serverMessage", function(message){
 			alert(message["content"]);
