@@ -9,20 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if account_signed_in? %>
-<script type="text/javascript">
-	var socket = io.connect("http://localhost:4000");
-	socket.emit("login", {"id" : "<%= current_account.id %>", "username" : "<%= current_account.username %>"});
-	
-	socket.on("login_complete", function(){
-		socket.emit("onlineList", "<%= current_account.id %>");
-		
-		socket.on("onlineListReply", function(accounts){
-			alert(JSON.stringify(accounts));
-		});
-	});
-</script>
-<% end %>
+
 <%= render "layouts/header" %>
 <% flash.each do |key, message| %>
 <%= content_tag(:div, :class => "alert alert-#{key.to_s}") do %>
@@ -34,6 +21,91 @@
 		<%= yield %>
 	</div>
 </div>
+
+<% if account_signed_in? %>
+<script type="text/javascript">
+	function ChatController($scope, $timeout){
+		$scope.PROPERTIES = ["account_id", "username", "image", "name", "email"];
+		$scope.contacts = {};
+		$scope.conversations = {};
+		$scope.name = "amer";
+		$scope.socket = io.connect("http://localhost:4000");
+		$scope.account = <%= raw current_account_json.to_json %>;
+		
+		$scope.index = function(){
+			$scope.socket.emit("login", $scope.account);
+			
+			$scope.socket.on("login_complete", function(){
+				$scope.socket.emit("onlineList", $scope.account.account_id);
+				
+				$scope.socket.on("onlineListReply", function(accounts){
+					update_contacts(accounts);
+					console.log($scope.contacts);
+				});
+			});
+			
+			$scope.socket.on("user_logged_in", function(account){
+				$scope.$apply(function(){
+					if($scope.contacts[account.account_id] ===  undefined){
+						for(var i = 0; i < PROPERTIES.length; i++){
+							$scope.contacts[account.account_id] = account;
+						}
+					}
+				});
+			});
+			
+			$scope.socket.on("message", function(message){
+				$scope.$apply(function(){
+					var sender_id = message.sender_id;
+					if($scope.conversations[sender_id] === undefined){
+						$scope.conversations[sender_id] = [];
+					}
+					$scope.conversations[sender_id].push(message["content"]);
+				});
+			});
+			
+		};
+		
+		function update_contacts(accounts){
+			var online_accounts = {};
+			$scope.$apply(function(){
+				for(var i = 0; i < accounts.length; i++){
+					var account = accounts[i];
+					if($scope.contacts[account.account_id] === undefined){
+						$scope.contacts[account.account_id] = account;
+					}
+					else{
+						for(var i = 0; i < $scope.PROPERTIES.length; i++){
+							$scope.contacts[account.account_id][$scope.PROPERTIES[i]] = account[$scope.PROPERTIES[i]];
+						}
+					}
+					online_accounts[account.account_id] = 1;
+				}
+				
+				for(var account_id in $scope.contacts){
+					if(online_accounts[account_id] === undefined){
+						delete $scope.contacts[account_id];
+					}
+				}
+			});
+		}
+	}
+</script>
+
+<style>
+	.contact img {
+		width: 30px;
+		height: 30px;
+	}
+</style>
+
+<div class="span4 pull-right" ng-controller="ChatController" ng-init="index()" style="position: relative; top: 90%; right: 0;">
+	<div class="row-fluid contact" ng-repeat="(key, contact) in contacts">
+		<div class="span2" ><img ng-src="{{contact.image}}" /></div>
+		<div class="span7">{{contact.name}}</div>
+	</div>
+</div>
+<% end %>
 
 <%= render "layouts/footer" %>
 </body>
