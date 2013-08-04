@@ -48,6 +48,8 @@ form.lock_user {
   float: left;
   min-height: 30px;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   margin: 0 1.59% 1.59% 0;
   padding: 10px 0 20px 0;
   .phone-details {
@@ -87,4 +89,13 @@ form.lock_user {
   clear: both;
   display: block;
   text-align: center;
+}
+
+//common
+#user {
+  display: none;
+}
+
+[class*="span"]{
+  -moz-box-sizing: border-box !important;
 }

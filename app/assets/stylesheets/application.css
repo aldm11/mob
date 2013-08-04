@@ -12,6 +12,7 @@
  *= require jquery-ui-1.10.2.custom
  *= require_tree ./bootstrap
  *= require_tree ./admin
+ *= require chat
  *= require home
  *= require phone
  *= require messages

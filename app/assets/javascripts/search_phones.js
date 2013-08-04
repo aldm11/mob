@@ -100,7 +100,7 @@ $(document).ready(function(){
 	});
 	
 	// TEMPORARY HACK, RESOLVE THIS USING PALOMA GEM OR ELSE
-	if(window.location.toString() === "http://localhost:3000/"){
+	if(window.location.toString().indexOf("http://localhost:300") !== -1){
 		search("phones", get_params());
 	}
 });

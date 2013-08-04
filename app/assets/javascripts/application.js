@@ -15,6 +15,7 @@
 //= require bootstrap
 //= require angular
 
+//= require chat
 //= require jquery.mobis.reviewer
 //= require flickrimg.jquery
 
