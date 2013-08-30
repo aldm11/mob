@@ -6,6 +6,7 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 		
 		$scope.contacts = {};
 		$scope.conversations = {};
+		$scope.show_chat = true;
 		
 		var user = $("#user").html();
 		
