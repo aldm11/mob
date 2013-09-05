@@ -33,6 +33,13 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 					$scope.socket.on("onlineListReply", function(accounts){
 						updateContacts(accounts);
 						console.log($scope.contacts);
+						
+						$scope.socket.emit("getConversations", $scope.account.account_id);
+						$scope.socket.on("conversations", function(server_conversations){
+							updateConversations(server_conversations);
+							console.log($scope.conversations);
+
+						});
 					});
 				});
 				
@@ -44,6 +51,7 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 							}
 						}
 					});
+					
 				});
 				
 				$scope.socket.on("message", function(message){
@@ -74,6 +82,7 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 				$scope.conversations[contact_id].messages.push({"sender" : $scope.account.name, "content" : message});
 		    	$scope.socket.emit("clientMessage", {"sender_id" : $scope.account.account_id, "receiver_id" : contact_id, "content" : message});
 			});
+			
 		};
 		
 		$scope.showNoContacts = function(){
@@ -124,7 +133,6 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 				$scope.conversations[contact_id].show ? new_chat_width += CONVERSATION_WIDTH : new_chat_width -= CONVERSATION_WIDTH;
 			}
 			$(".chat-content").width(new_chat_width);
-			console.log($scope.conversations);
 		}
 		
 		function updateContacts(accounts){
@@ -147,6 +155,24 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 					if(online_accounts[account_id] === undefined){
 						delete $scope.contacts[account_id];
 					}
+				}
+			});	
+		}
+		
+		function updateConversations(server_conversations){
+			$scope.$apply(function(){
+				for(var account_id in server_conversations){
+					if($scope.contacts[account_id]){
+						toggleConversation(account_id);
+						
+						for(var i = 0; i < server_conversations[account_id].messages.length; i++){
+							var sender_id = server_conversations[account_id].messages[i].sender_id;
+							var sender_name = sender_id === $scope.account.account_id ? $scope.account.name : $scope.contacts[sender_id].name;
+							var mess = {"sender" : sender_name, "content" : server_conversations[account_id].messages[i].content};									
+							
+							$scope.conversations[account_id].messages.push(mess);									
+						}
+					}		
 				}
 			});
 		}

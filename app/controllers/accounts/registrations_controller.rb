@@ -33,7 +33,6 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords resource
-      puts "iz else #{resource.errors.full_messages}"
       respond_with resource
     end
   end

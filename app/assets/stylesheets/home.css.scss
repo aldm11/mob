@@ -5,6 +5,14 @@
 //@import 'bootstrap/css/bootstrap';
 //@import 'bootstrap/css/bootstrap-responsive';
 
+.brands-left-sidebar, .options-box {
+  background-color: #FFF; 
+}
+
+.options-box {
+  padding: 5px;
+}
+
 .container-narrow {
   width: 700px;
   margin: 20px auto auto auto;
@@ -50,16 +58,19 @@ form.lock_user {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  margin: 0 1.59% 1.59% 0;
+  margin: 0 1.595% 1.595% 0;
   padding: 10px 0 20px 0;
   .phone-details {
     text-align: center;
   }
+  
+  background: #FFF;
 }
 
 
 .options-box {
   margin-bottom: 20px;
+  
   .show-price-range:hover {
     cursor: pointer;
   }
@@ -67,6 +78,12 @@ form.lock_user {
   .price-range-wrapper {
     padding-top: 20px;
     display: none;
+  }
+  
+  .show-all-phones {
+    i {
+      margin-right: 2px;
+    }
   }
 }
 
@@ -79,10 +96,11 @@ form.lock_user {
   background: #CCC;
 }
 
-#main_loading_phones {
+#loading_big {
   clear: both;
   display: block;
-  margin-top: 30px;
+  margin-top: 30%;
+  margin-left: 50%;
 }
 
 .no-more-phones {

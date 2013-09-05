@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
   def js_vars
     @@js_vars ||= {}
     puts "-------------------------------------- JS vars #{@@js_vars.inspect}"
+    puts "--- session #{session.inspect}"
   end
   
   private

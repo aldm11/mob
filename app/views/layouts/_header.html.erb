@@ -1,13 +1,10 @@
 <header class="navbar navbar-inverse">
 	<div class="navbar-inner">
-		<div class="container-fluid">
-			<%= link_to "Mobis", root_path, :class => "brand" %>
-		
-			<form action="http://www.goal.com" method="post" class="navbar-search form-search">
-			<%= text_field_tag "term", "", :class => "input-medium search-query" %>
-			</form>
+		<div class="container-fluid header-content">
+			<%= link_to "Mobis", root_path, :class => "brand logo" %>
+	
 			<nav>
-				<ul class="nav pull-right">
+				<ul class="nav pull-right main-nav">
 					<li>
 					<% unless account_signed_in? %>
 					<%= link_to "Registracija", register_path %>
