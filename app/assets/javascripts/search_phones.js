@@ -102,5 +102,6 @@ $(document).ready(function(){
 	// TEMPORARY HACK, RESOLVE THIS USING PALOMA GEM OR ELSE
 	if(window.location.toString() === "http://localhost:3000/"){
 		search("phones", get_params());
+		
 	}
 });
