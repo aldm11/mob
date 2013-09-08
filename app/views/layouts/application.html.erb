@@ -23,10 +23,16 @@
 </div>
 
 <% if account_signed_in? %>
-<div id="user"><%= current_account_json.to_json %></div>
+	<div id="user"><%= current_account_json.to_json %></div>
+<% else %>
+	<div id="user"></div>
+	<% if current_account_json.nil? && logged_out_user = logout_current_account %>
+		<div id="logged_out_user"><%= logged_out_user.to_json %></div>
+	<% end %>
+<% end %>
 
 <div class="chat" ng-app="Chat" ng-controller="ChatController" ng-init="index()">
-	<div class="chat-content" ng-show="show_chat">
+	<div class="chat-content" ng-show="user_logged_in && show_chat">
 		
 		<div class = "chat-contacts">
 			<div class="row-fluid title">
@@ -45,16 +51,17 @@
 		</div>
 
 		<div class="chat-conversations">
-			<div class="chat-conversation" ng-repeat="(contact_id, conversation) in conversations | orderBy:conversation.started" ng-show="conversation.show">
+			<div class="chat-conversation" data-offline="{{conversation.offline}}" ng-repeat="(contact_id, conversation) in conversations | orderBy:conversation.started" ng-show="conversation.show">
 				<div class="row-fluid title">
 					{{conversation.details.name}}
+					<span ng-show="conversation.offline"> (offline) </span>
 					<a href="#" class="pull-right close icon-white chat-hide" ng-click="toggleConversation(contact_id)">&times;</a>
 				</div>
 				<div class="row-fluid message" ng-repeat="message in conversation.messages">
 					<span class="muted sender">{{message.sender}} says</span><br/>
 					<span class="text">{{message.content}}</span>
 				</div>
-				<input type="text" class="input-medium new-message" ng-model="conversation.new_message" placeholder="Type message and press enter" keydown-handler="sendMessage,{{contact_id}}" />
+				<input type="text" ng-disabled="conversation.offline" class="input-medium new-message" ng-model="conversation.new_message" placeholder="Type message and press enter" keydown-handler="sendMessage,{{contact_id}}" />
 			</div>
 		</div>
 		
@@ -64,9 +71,6 @@
 		Show chat
 	</a>
 </div>
-<% else %>
-<div id="user"></div>
-<% end %>
 
 <%= render "layouts/footer" %>
 </body>

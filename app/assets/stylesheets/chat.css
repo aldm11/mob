@@ -91,6 +91,9 @@
 	border-bottom: 0;
 	margin-right: 1px;
 }
+.chat-conversation[data-offline="true"]{
+	opacity: 0.5;
+}
 .chat-conversation .message {
 	font-size: 9pt !important;
 }
@@ -107,7 +110,11 @@
 }
 
 .no-chat-contacts, .chat-not-available {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	padding: 5px;
+	background: #FFF
 }
 
 .chat-hide {

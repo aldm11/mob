@@ -7,6 +7,7 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 		$scope.contacts = {};
 		$scope.conversations = {};
 		$scope.show_chat = true;
+		$scope.user_logged_in = false;
 		
 		var user = $("#user").html();
 		
@@ -22,8 +23,17 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 			$scope.available = false;
 		}
 		
+		var logged_out_user =  $("#logged_out_user").html();
+		$scope.logged_out_user = logged_out_user ? JSON.parse(logged_out_user) : logged_out_user;
+		
+		if($scope.logged_out_user){
+			console.log("odlogiram");
+			$scope.socket.emit("logout", $scope.logged_out_user.account_id);
+		}
+		
 		$scope.index = function(){
 			if($scope.socket && $scope.account){
+				$scope.user_logged_in = true;
 				console.log("Logging in to server");
 				$scope.socket.emit("login", $scope.account);
 				
@@ -50,8 +60,11 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 								$scope.contacts[account.account_id] = account;
 							}
 						}
-					});
-					
+						
+						if($scope.conversations[account.account_id] !== undefined){
+							$scope.conversations[account.account_id].offline = false;
+						}
+					});					
 				});
 				
 				$scope.socket.on("message", function(message){
@@ -62,8 +75,9 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 					});
 				});
 				
-				$scope.socket.on("disconnect", function(account_id){
+				$scope.socket.on("logout", function(account_id){
 					$scope.$apply(function(){
+						$scope.conversations[account_id].offline = true
 						delete $scope.contacts[account_id];
 					});
 				})
@@ -89,6 +103,9 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 			return angular.equals({}, $scope.contacts, {}) && $scope.available;
 		};
 		
+		$scope.conversationDisabled = function(account_id){
+			$scope.conversations[account_id].offline ? true : false;
+		};
 		
 		function notifyMessageArrived(contact_id){
 			var old_chat_width = $(".chat-content").width();
