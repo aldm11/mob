@@ -4,6 +4,8 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 	function ChatController($scope, $timeout){
 		$scope.PROPERTIES = ["account_id", "username", "image", "name", "email"];
 		
+		
+		//contacts should have size in bytes 130 * number_of_accounts so it should't be overhead for browser, check this out'
 		$scope.contacts = {};
 		$scope.conversations = {};
 		$scope.show_chat = true;
@@ -41,6 +43,7 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 					$scope.socket.emit("onlineList", $scope.account.account_id);
 					
 					$scope.socket.on("onlineListReply", function(accounts){
+						console.log(accounts.length);
 						updateContacts(accounts);
 						console.log($scope.contacts);
 						
