@@ -79,6 +79,8 @@ Mobis::Application.routes.draw do
   namespace :api do
     namespace :V1 do
       resources :phones
+      
+      match "chat/config" => "chat#get_conf", via: :get
     end
   end
   

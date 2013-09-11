@@ -6,14 +6,21 @@ var chat_app = angular.module("Chat", []);
 //			support for configuration parameter which tells if chat turned off/on - this would be handy when maintainance in progress
 //			maybe move chat html from application.html.erb to view file to make app non-dependent 
 //			do all other improvements to make this chat reusable in other web apps with as small changes as it is  possible
-chat_app.controller("ChatController", ["$scope", "$timeout",
-	function ChatController($scope, $timeout){
+chat_app.controller("ChatController", ["$scope", "$timeout", "$http",
+	function ChatController($scope, $timeout, $http){
 		$scope.PROPERTIES = ["account_id", "username", "image", "name", "email"];
 			
 		//contacts should have size in bytes 130 * number_of_accounts so it should't be overhead for browser, check this out'
 		$scope.contacts = {};
 		$scope.conversations = {};
 		$scope.show_chat = true;
+		
+		$scope.enabled = $http.get("/api/V1/chat/config").then(function(response){
+			return response.data["enabled"];
+		}, function(error){
+			return false;
+		});
+		
 		$scope.user_logged_in = false;
 		
 		var user = $("#user").html();
@@ -34,12 +41,11 @@ chat_app.controller("ChatController", ["$scope", "$timeout",
 		$scope.logged_out_user = logged_out_user ? JSON.parse(logged_out_user) : logged_out_user;
 		
 		if($scope.logged_out_user){
-			console.log("odlogiram");
 			$scope.socket.emit("logout", $scope.logged_out_user.account_id);
 		}
 		
 		$scope.index = function(){
-			if($scope.socket && $scope.account){
+			if($scope.enabled && $scope.socket && $scope.account){
 				$scope.user_logged_in = true;
 				console.log("Logging in to server");
 				$scope.socket.emit("login", $scope.account);
