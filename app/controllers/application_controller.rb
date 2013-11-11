@@ -51,7 +51,6 @@ class ApplicationController < ActionController::Base
   end
   
   def search_setup
-    Search::CommonSearch.reset_criterias
   end
   
   def setup

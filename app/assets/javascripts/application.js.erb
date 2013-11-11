@@ -1,0 +1,68 @@
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// the compiled file.
+//
+// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
+// GO AFTER THE REQUIRES BELOW.
+//
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap
+//= require angular
+
+
+
+//= require jquery.mobis.reviewer
+//= require flickrimg.jquery
+
+//= require scripts
+//= require client
+
+//= require search
+//= require js_vars
+//= require common
+//= require home
+//= require search_phones
+//= require phone
+//= require messages
+
+
+
+<%
+	components_dir = [File.expand_path(File.dirname(__FILE__)), "components"].join("/")
+	Dir.entries(components_dir).each do |component|
+		unless component == "." || component == ".."
+			component_path = [components_dir, component].join("/")
+			
+			#require_tree([component_path, "services"].join("/"))
+			#require_tree([component_path, "controllers"].join("/"))
+			#require_tree([component_path, "directives"].join("/"))
+			
+			Dir.entries([component_path, "services"].join("/")).each do |service|
+				unless service == "." || service == ".."
+					require_asset([component_path, "services", service].join("/"))
+				end
+			end
+			
+			Dir.entries([component_path, "directives"].join("/")).each do |directive|
+				unless directive == "." || directive == ".."
+					require_asset([component_path, "directives", directive].join("/"))
+
+				end
+			end
+			
+			Dir.entries([component_path, "controllers"].join("/")).each do |controller|
+				unless controller == "." || controller == ".."
+					require_asset([component_path, "controllers", controller].join("/"))
+				end
+			end
+			
+			require_asset([component_path, component].join("/")+".js")
+		end
+	end
+%>
