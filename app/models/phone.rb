@@ -88,8 +88,8 @@ class Phone
     opts = options.with_indifferent_access.has_key?("validate") ? {:validate => options[:validate]} : {}
     super(opts)
     
-    update_index unless options[:without_index]
     Phone.tire.mapping
+    update_index unless options[:without_index]
   end
   
   def set_average_review

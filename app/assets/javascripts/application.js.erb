@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui-1.10.2.custom
 //= require bootstrap
 //= require angular
 
@@ -31,28 +32,23 @@
 //= require phone
 //= require messages
 
-
-
 <%
 	components_dir = [File.expand_path(File.dirname(__FILE__)), "components"].join("/")
 	Dir.entries(components_dir).each do |component|
 		unless component == "." || component == ".."
 			component_path = [components_dir, component].join("/")
 			
-			#require_tree([component_path, "services"].join("/"))
-			#require_tree([component_path, "controllers"].join("/"))
-			#require_tree([component_path, "directives"].join("/"))
-			
-			Dir.entries([component_path, "services"].join("/")).each do |service|
-				unless service == "." || service == ".."
-					require_asset([component_path, "services", service].join("/"))
-				end
-			end
-			
 			Dir.entries([component_path, "directives"].join("/")).each do |directive|
 				unless directive == "." || directive == ".."
 					require_asset([component_path, "directives", directive].join("/"))
+				end
+			end
+			
+			require_asset([component_path, component].join("/")+".js")
 
+			Dir.entries([component_path, "services"].join("/")).each do |service|
+				unless service == "." || service == ".."
+					require_asset([component_path, "services", service].join("/"))
 				end
 			end
 			
@@ -62,7 +58,6 @@
 				end
 			end
 			
-			require_asset([component_path, component].join("/")+".js")
 		end
 	end
 %>
