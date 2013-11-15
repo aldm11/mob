@@ -44,6 +44,7 @@
 				end
 			end
 			
+			require_asset([component_path, "config"].join("/")+".js")
 			require_asset([component_path, component].join("/")+".js")
 
 			Dir.entries([component_path, "services"].join("/")).each do |service|
