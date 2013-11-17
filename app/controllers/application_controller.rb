@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
   def js_vars
     @@js_vars ||= {}
     puts "-------------------------------------- JS vars #{@@js_vars.inspect}"
+    puts "--- session #{session.inspect}"
   end
   
   private
@@ -50,7 +51,6 @@ class ApplicationController < ActionController::Base
   end
   
   def search_setup
-    Search::CommonSearch.reset_criterias
   end
   
   def setup

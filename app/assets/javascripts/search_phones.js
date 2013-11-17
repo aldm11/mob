@@ -4,7 +4,7 @@ $(document).ready(function(){
 	
 	var search_term = "", 
 	    brand = "", 
-	    sort_by = "date",
+	    sort_by = $(".sort-phones-by a:nth-child(1)").attr("id"),
 	    from = 0,
 	    size = 16;
 	
@@ -15,8 +15,8 @@ $(document).ready(function(){
 		$("#price_to").val(max_price);
 		price_from = min_price;
 		price_to = max_price;
-		$("#price-slider").slider("option", "min", min_price);
-		$("#price-slider").slider("option", "max", max_price);
+		$("#price-slider").slider("values", 0, min_price);
+		$("#price-slider").slider("values", 1, max_price);
 	}
 	
 	var get_params =  function(){
@@ -47,12 +47,28 @@ $(document).ready(function(){
 	
 	$(".price-range-wrapper .close").live("click", function(){
 		$(".price-range-wrapper").hide();
-		$(".show-price-range").parent().show();
+		$(".show-price-range").show();
 	});
 	
 	$(".show-price-range").live("click", function(){
-		$(this).parent().hide();
+		$(this).hide();
 		$(".price-range-wrapper").show();
+	});
+	
+	$(".show-all-phones").live("click", function(){
+		brand = "";
+		search_term = "";
+		$("#search_term").val("");
+		reset_price_range();
+		
+		$(".sort-phones-by a").removeClass("disabled");
+		$(".sort-phones-by a:nth-child(1)").addClass("disabled");
+		sort_by = $(".sort-phones-by a:nth-child(1)").attr("id");
+		
+		from = 0;
+		size = 16;
+		
+		search("phones", get_params());
 	});
 	
 	reset_price_range();
@@ -100,7 +116,7 @@ $(document).ready(function(){
 	});
 	
 	// TEMPORARY HACK, RESOLVE THIS USING PALOMA GEM OR ELSE
-	if(window.location.toString() === "http://localhost:3000/"){
+	if(window.location.toString().indexOf("http://localhost:300") !== -1){
 		search("phones", get_params());
 		
 	}

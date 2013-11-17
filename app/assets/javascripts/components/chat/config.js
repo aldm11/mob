@@ -1,0 +1,3 @@
+var Configuration = {
+	"enabled" : true
+}

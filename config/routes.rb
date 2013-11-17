@@ -79,6 +79,8 @@ Mobis::Application.routes.draw do
   namespace :api do
     namespace :V1 do
       resources :phones
+      
+      match "chat/config" => "chat#get_conf", via: :get
     end
   end
   
@@ -139,6 +141,7 @@ Mobis::Application.routes.draw do
       post "advanced_search"
     end
   end
-   
+  
+  match "/accounts_details" => "accounts#accounts_details", :as => "accounts_details", :via => :post  
   match "/:brand" => "home#index", :as => "brand"
 end
