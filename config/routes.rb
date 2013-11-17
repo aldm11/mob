@@ -1,3 +1,5 @@
+require "heartbeat/application"
+
 Mobis::Application.routes.draw do
   get "home/new"
   get "home/index"
@@ -77,10 +79,12 @@ Mobis::Application.routes.draw do
   end
   
   namespace :api do
-    namespace :V1 do
-      resources :phones
+    namespace :v1 do
+      #resources :phones
       
       match "chat/config" => "chat#get_conf", via: :get
+      
+      mount Api::V1::Phones, :at => "/phones"
     end
   end
   
@@ -144,4 +148,6 @@ Mobis::Application.routes.draw do
   
   match "/accounts_details" => "accounts#accounts_details", :as => "accounts_details", :via => :post  
   match "/:brand" => "home#index", :as => "brand"
+  
+  mount Heartbeat::Application, :at => "/heartbeat"
 end

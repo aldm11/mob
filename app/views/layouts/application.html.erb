@@ -22,16 +22,7 @@
 	</div>
 </div>
 
-<% if account_signed_in? %>
-	<div id="user"><%= current_account_json.to_json %></div>
-<% else %>
-	<div id="user"></div>
-	<% if current_account_json.nil? && logged_out_user = logout_current_account %>
-		<div id="logged_out_user"><%= logged_out_user.to_json %></div>
-	<% end %>
-<% end %>
-
-<div class="chat" ng-app="Chat" ng-controller="ChatController" ng-init="index()">
+<div class="chat" ng-app="Chat" ng-controller="ChatController" ng-init="index(<%= {:user => current_account_json, :logged_out_user => current_account_json ? nil : logout_current_account}.to_json %>)">
 	<div class="chat-content" ng-show="user_logged_in && show_chat">
 		
 		<div class = "chat-contacts">
@@ -39,8 +30,8 @@
 				Chat
 				<a href="#" class="pull-right close chat-hide" ng-click="show_chat = false">&times;</a>
 			</div>
-			<div class="row-fluid muted no-chat-contacts" ng-show="enabled && showNoContacts()">No contacts online</div>
-			<div class="row-fluid muted chat-not-available" ng-hide="!!enabled && available">Chat not available</div>
+			<div class="row-fluid muted no-chat-contacts" ng-show="showNoContacts()">No contacts online</div>
+			<div class="row-fluid muted chat-not-available" ng-hide="available()">Chat not available</div>
 	
 			<div class="row-fluid chat-contact" ng-repeat="(contact_id, contact) in contacts">
 				<a href="#" ng-click="toggleConversation(contact.account_id)">
