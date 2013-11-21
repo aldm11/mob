@@ -11,6 +11,11 @@ class Comment
   
   attr_accessible :text, :created_at, :active
   
+  def to_hash
+    res = self.attributes.with_indifferent_access
+    res
+  end
+  
   before_save do |comment|
     comment.created_at = Time.new.to_time.to_i
     comment.active = true

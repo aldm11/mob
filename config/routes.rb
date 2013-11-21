@@ -79,9 +79,7 @@ Mobis::Application.routes.draw do
   end
   
   namespace :api do
-    namespace :v1 do
-      #resources :phones
-      
+    namespace :v1 do      
       match "chat/config" => "chat#get_conf", via: :get
       
       mount Api::V1::Phones, :at => "/phones"

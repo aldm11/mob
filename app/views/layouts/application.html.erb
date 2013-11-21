@@ -3,8 +3,8 @@
 <head>
   <title>Mobis</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= javascript_include_tag "application", :media => "all" %>
   <%= javascript_include_tag "http://localhost:4000/socket.io/socket.io.js" %>
+  <%= javascript_include_tag "application", :media => "all" %>
 
   <%= csrf_meta_tags %>
 </head>
@@ -22,7 +22,7 @@
 	</div>
 </div>
 
-<div class="chat" ng-app="Chat" ng-controller="ChatController" ng-init="index(<%= {:user => current_account_json, :logged_out_user => current_account_json ? nil : logout_current_account}.to_json %>)">
+<div class="chat" ng-controller="ChatController" ng-init="index(<%= {:user => current_account_json, :logged_out_user => current_account_json ? nil : logout_current_account}.to_json %>)">
 	<div class="chat-content" ng-show="user_logged_in && show_chat">
 		
 		<div class = "chat-contacts">

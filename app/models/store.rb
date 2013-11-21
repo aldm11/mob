@@ -20,6 +20,12 @@ class Store
 
   has_one :account, as: :rolable
   has_many :catalogue_items, as: :provider
+
+  def to_hash
+    res = self.attributes.with_indifferent_access
+    res[:logo] = self.logo.to_s
+    res
+  end
   
   #TODO: remove aliases and try to use alias_method if possible
   ALIASES =  {:avatar => "logo"}

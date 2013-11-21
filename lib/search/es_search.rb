@@ -5,6 +5,12 @@ module Search
     @@facets = nil
     @@results = nil
     
+    SORT_ORDER = {
+      :relevance => {"relevance" => "desc"},
+      :date => {"created_at" => "desc"},
+      :price => {"price" => "desc"}
+    }
+    
     FILTERS_MAPPINGS = {
       "prices" => lambda  do |s, price_range|
         if s && price_range && price_range["from"] && price_range["to"]
@@ -47,7 +53,7 @@ module Search
       term = options && options[:search_term] ? options[:search_term] : search_term
       filters = options && options[:search_filters] ? options[:search_filters] : search_filters
       filters = filters.with_indifferent_access
-      sorts = options && options[:search_sort] ? options[:search_sort] : search_sort
+      sorts = options && options[:search_sort] ? SORT_ORDER[options[:search_sort].to_sym] : search_sort
       from = options && options[:search_from] ? options[:search_from] : search_from
       size = options && options[:search_size] ? options[:search_size] : search_size
                

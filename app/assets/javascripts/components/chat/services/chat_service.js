@@ -1,6 +1,6 @@
-var char_app = angular.module("Chat");
-chat_app.factory("ChatService", ["$http", "$log", "$q", "$rootScope", function($http, $log, $q, $rootScope){
-	
+//var chat_app = angular.module("chat");
+//chat_app.factory("ChatService", ["$http", "$log", "$q", "$rootScope", 
+var ChatService = function($http, $log, $q, $rootScope){
 	return function(user_account){
 		var socket = null;
 		var enabled = false;
@@ -85,4 +85,5 @@ chat_app.factory("ChatService", ["$http", "$log", "$q", "$rootScope", function($
 		
 		return chat_service;
 	};
-}]);
+};
+//}]);

@@ -1,9 +1,4 @@
 class SearchController < ApplicationController   
-  SORT_MAPPINGS = {
-    :relevance => {"relevance" => "desc"},
-    :date => {"created_at" => "desc"},
-    :price => {"price" => "desc"}
-  }
   
   def search_phones
     @from = params[:from] || 0
@@ -11,7 +6,7 @@ class SearchController < ApplicationController
     options = {
       :search_term => params[:search_term] || nil,
       :search_filters => {},
-      :search_sort => params[:sort_by] ? SORT_MAPPINGS[params[:sort_by].to_sym] : nil,
+      :search_sort => params[:sort_by] || nil,
       :search_from => @from,
       :search_size => @size
     }

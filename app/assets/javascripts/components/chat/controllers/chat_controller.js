@@ -1,10 +1,9 @@
-var chat_app = angular.module("Chat");
-
 // some kind of deleting conversations from time to time
 // scroller on conversations
 // maybe embedding chat html and css into component and somehow referenc it from some view - iframe or similar
 
-chat_app.controller("ChatController", ["$scope", "$timeout", "$http", "ChatService", function($scope, $timeout, $http, ChatService){
+//chat_app.controller("ChatController", ["$scope", "$timeout", "$http", "ChatService", 
+var ChatController = function($scope, $timeout, $http, ChatService){
 	$scope.PROPERTIES = ["account_id", "username", "image", "name", "email"];
 	$scope.contacts = {};
 	$scope.conversations = {};
@@ -183,5 +182,5 @@ chat_app.controller("ChatController", ["$scope", "$timeout", "$http", "ChatServi
 			}		
 		}
 	}
-	
-}]);
+}
+//}]);

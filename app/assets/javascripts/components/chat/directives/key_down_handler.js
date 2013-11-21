@@ -1,4 +1,6 @@
-var key_down_handler = function(){
+//var chat_app = angular.module("chat");
+//chat_app.directive("keydownHandler", 
+var key_down_hanlder = function(){
 	return {
 		restrict: "A",
 		link: function(scope, element, attrs){
@@ -13,3 +15,4 @@ var key_down_handler = function(){
 		}
 	}
 };
+//});
