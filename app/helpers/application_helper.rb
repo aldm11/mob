@@ -13,7 +13,7 @@ module ApplicationHelper
       "account_id" => current_account.id.to_s, 
       "username" => current_account.username, 
       "name" => rolable.name, 
-      "image" => rolable.logo.respond_to?("exists?") && rolable.logo.exists? ? rolable.logo.url : DEFAULT_LOGO, 
+      "image" => rolable.avatar.respond_to?("exists?") && rolable.avatar.exists? ? rolable.avatar.url : DEFAULT_LOGO, 
       "email" => current_account.email
     }
     session[:current_account] = account    

@@ -76,4 +76,9 @@ class Message
     return -1 if !self.date_read.nil? && other.date_read.nil?
     0
   end
+  
+  def to_hash
+    res = self.attributes.with_indifferent_access
+    res
+  end
 end

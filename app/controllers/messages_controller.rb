@@ -96,7 +96,6 @@ class MessagesController < ApplicationController
   def show
     @message_id = params[:id] || nil
     @type = params[:type] || nil
-    puts "id #{@message_id} tip #{@type}"
     @conversation = Managers::MessageManager.get_conversation(current_account, @type, @message_id)
     @target_message = @conversation.select{|m| m.id.to_s == @message_id }.to_a.first
     @other_part = @type.to_s == "received" ? @target_message.sender_id : @target_message.receiver_id
