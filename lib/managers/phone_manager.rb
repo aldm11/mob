@@ -199,15 +199,10 @@ module Managers
         all_offers.sort! {|a, b| a.actual_price <=> b.actual_price} 
       end
       
-      if options[:from] && options[:to]
-        from = options[:from]
-        to = options[:to]
-        to = all_offers.length-1 if to > all_offers.length - 1
-        related_offers = all_offers[from..to]      
-      else
-        to = 0
-        related_offers = all_offers
-      end
+      from = options[:from] || 0
+      to = options[:to] || all_offers.length - 1
+      to = all_offers.length-1 if to > all_offers.length - 1        
+      related_offers = all_offers[from..to]
      
       prices = related_offers.map { |ci| ci.actual_price }.sort
       min_price = prices.first

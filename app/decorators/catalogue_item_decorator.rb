@@ -11,4 +11,16 @@ class CatalogueItemDecorator < Draper::Base
       content_tag(:ul, prices.html_safe, :class => "prices-history-content")
     end
   end
+
+  FILTER_ATTRIBUTES = [:_id, :prices, :deleted_date, :provider_type, :provider_id, :phone_id]
+  def get_hash(options = {})
+    offer = catalogue_item.to_hash.with_indifferent_access
+    provider = offer[:provider_type].constantize.find(offer[:provider_id]).account
+    provider = AccountDecorator.decorate(provider)
+    offer[:provider] = provider.get_hash
+    
+    offer.delete_if { |attr, val| FILTER_ATTRIBUTES.include?(attr.to_sym) }
+    
+    offer
+  end
 end

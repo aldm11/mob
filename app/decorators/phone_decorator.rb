@@ -41,15 +41,37 @@ class PhoneDecorator < Draper::Base
   end
   
   IMAGE_FORMATS = [".jpg", ".jpeg", ".png", ".gif"]
+  DEFAULT_IMAGE = "no_image.jpg"
   def image_path
+    # image_small = phone.amazon_image_small_full.is_a?(String) ? phone.amazon_image_small_full : phone.amazon_image_small_full.url
+    # image_medium = phone.amazon_image_medium_full.is_a?(String) ? phone.amazon_image_medium_full : phone.amazon_image_medium_full.url
+    # image_url = if image_small && !image_small.include?("missing.png") && IMAGE_FORMATS.any? { |format| File.extname(image_small).include?(format) }
+      # image_small
+    # elsif image_medium && !image_medium.include?("missing.png") && IMAGE_FORMATS.any? { |format| File.extname(image_medium).include?(format) }
+      # image_medium
+    # else
+      # "no_image.jpg"
+    # end
+    return image_path_small if image_path_small != DEFAULT_IMAGE
+    image_path_medium
+  end
+  
+  def image_path_small
     image_small = phone.amazon_image_small_full.is_a?(String) ? phone.amazon_image_small_full : phone.amazon_image_small_full.url
-    image_medium = phone.amazon_image_medium_full.is_a?(String) ? phone.amazon_image_medium_full : phone.amazon_image_medium_full.url
     image_url = if image_small && !image_small.include?("missing.png") && IMAGE_FORMATS.any? { |format| File.extname(image_small).include?(format) }
       image_small
-    elsif image_medium && !image_medium.include?("missing.png") && IMAGE_FORMATS.any? { |format| File.extname(image_medium).include?(format) }
+    else
+      DEFAULT_IMAGE
+    end
+  end
+  
+  def image_path_medium
+    image_medium = phone.amazon_image_medium_full.is_a?(String) ? phone.amazon_image_medium_full : phone.amazon_image_medium_full.url
+    
+    if image_medium && !image_medium.include?("missing.png") && IMAGE_FORMATS.any? { |format| File.extname(image_medium).include?(format) }
       image_medium
     else
-      "no_image.jpg"
+      DEFAULT_IMAGE
     end
   end
   
@@ -63,4 +85,55 @@ class PhoneDecorator < Draper::Base
       h.content_tag(:span, "", :class => "icon-star")
     end
   end
+  
+  FILTER_PHONE_METADATA = [
+    :catalogue_items, :price, :latest_prices_size, :_type, :_index, :_version, :highlight, :_explanation,
+    :amazon_image_small_full, :amazon_image_medium_full, :_score, :sort, :_id
+  ]
+  def get_metadata (options = {})     
+      phone_hash = phone.to_hash.with_indifferent_access
+      
+      prices = phone_hash[:catalogue_items].map{|ci| ci.actual_price}.sort
+      phone_hash[:min_price] = prices.first
+      phone_hash[:max_price] = prices.last
+      phone_hash[:image_path_small] = image_path_small
+      phone_hash[:image_path_medium] = image_path_medium
+      
+      phone_hash.delete_if{ |attr, val| FILTER_PHONE_METADATA.include?(attr.to_sym) }
+              
+      phone_hash
+    end
+    
+    FILTER_ATTRIBUTES = [:_id, :account_id, :comments_count, :image_content_type, :image_file_size, :image_updated_at,
+      :latest_price, :latest_prices, :latest_prices_size, :reviews, :image_file_name, :amazon_image_small, :amazon_image_medium,
+      :amazon_image_medium_full_content_type, :amazon_image_medium_full_file_name, :amazon_image_medium_full_file_size, :amazon_image_medium_full_updated_at, 
+      :amazon_image_small_full_content_type, :amazon_image_small_full_file_name, :amazon_image_small_full_file_size, :amazon_image_small_full_updated_at
+    ]  
+    def get_hash(options = {})
+      phone_hash = {}
+      unless options[:only_comments] || options[:only_offers]
+        phone_hash = phone.to_hash.with_indifferent_access
+        phone_hash[:image_path_small] = image_path_small
+        phone_hash[:image_path_medium] = image_path_medium
+        phone_hash.delete("comments")
+        phone_hash.delete("catalogue_items")
+        phone_hash.delete_if { |attr, val| FILTER_ATTRIBUTES.include?(attr.to_sym) }
+      end
+      
+      if options[:include_offers]
+        offers_details = Managers::PhoneManager.get_offers(phone, {:from => options[:offers_from], :to => options[:offers_to], :sort_by => "date"})
+        phone_hash[:offers] = offers_details[:related_offers].map { |offer| CatalogueItemDecorator.decorate(offer).get_hash }
+        phone_hash[:min_price] = offers_details[:min_price]
+        phone_hash[:max_price] = offers_details[:max_price]
+      end
+            
+      if options[:include_comments]
+        comments_details = Managers::PhoneManager.get_comments(phone, {:from => options[:comments_from], :to => options[:comments_to], :sort_by => "date"})
+        related_comments = comments_details[:related_comments]
+        phone_hash[:comments] = related_comments.map{|comment| CommentDecorator.decorate(comment).get_hash}
+      end
+      
+      phone_hash
+    end
+     
 end

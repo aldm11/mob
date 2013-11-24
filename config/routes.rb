@@ -83,6 +83,7 @@ Mobis::Application.routes.draw do
       match "chat/config" => "chat#get_conf", via: :get
       
       mount Api::V1::Phones, :at => "/phones"
+      mount Api::V1::Messages, :at => "/messages"
     end
   end
   
