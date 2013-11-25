@@ -5,7 +5,7 @@
 
 <div class="<%= css_class %>" id="<%= message.id.to_s %>">
 	<%= link_to "#", :class => "span2 other_part_avatar" do %>
-	<%= image_tag other_part["logo"], :size => "40x40" %>
+	<%= image_tag other_part["logo"] || other_part["avatar"], :size => "40x40" %>
 	<% end %>
 	
 	<div class="span10">

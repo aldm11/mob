@@ -84,6 +84,7 @@ Mobis::Application.routes.draw do
       
       mount Api::V1::Phones, :at => "/phones"
       mount Api::V1::Messages, :at => "/messages"
+      mount Api::V1::Catalogue, :at => "/catalogue"
     end
   end
   

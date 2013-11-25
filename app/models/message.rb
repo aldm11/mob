@@ -30,7 +30,7 @@ class Message
   validates :sender_id, :presence => true
   validates :receiver_id, :presence => true
   
-  SUBJECT_ATTRS = ["id", "logo", "name", "website", "phone", "address"]
+  SUBJECT_ATTRS = ["id", "avatar", "name", "website", "phone", "address"]
   DEFAULT_LOGO = "/images/no_image.jpg"
   before_create do |message|
     message.date_sent = Time.now.utc.to_time.to_i unless message.date_sent
@@ -47,8 +47,8 @@ class Message
     self.receiver_details = {"username" => sen_rec.username}
     SUBJECT_ATTRS.each do |attr|
       if sen.respond_to?(attr)      
-        if attr == "logo"
-          val_sen = sen.logo.exists? ? sen.logo.url : DEFAULT_LOGO
+        if attr == "avatar"
+          val_sen = sen.avatar.exists? ? sen.avatar.url : DEFAULT_LOGO
         else
           val_sen = sen.send(attr)
         end
@@ -56,8 +56,9 @@ class Message
       end
       
       if rec.respond_to?(attr) 
-        if attr == "logo"
-          val_rec = rec.logo.exists? ? rec.logo.url : DEFAULT_LOGO
+        if attr == "avatar"
+          val_rec = rec.avatar.exists? ? rec.avatar.url : DEFAULT_LOGO
+          puts "receiver logo #{val_rec.inspect}"
         else
           val_rec = rec.send(attr)
         end

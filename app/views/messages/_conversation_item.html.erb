@@ -3,7 +3,7 @@
 <div class="<%= css_class %>">
 	<div class="row-fluid">
 		<%= link_to "#", :class => "sender-avatar" do %>
-		<%= image_tag message.sender_details["logo"], :size => "34x34" %>
+		<%= image_tag message.sender_details["logo"] || message.sender_details["avatar"], :size => "34x34" %>
 		<% end %>
 		
 		<%= link_to "#{message.sender_details['name']} (#{message.sender_details['username']})", "#", :class => "sender-name" %><br/>

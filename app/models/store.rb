@@ -29,13 +29,18 @@ class Store
   
   #TODO: remove aliases and try to use alias_method if possible
   ALIASES =  {:avatar => "logo"}
-  def method_missing(method_name, *args, &block)
-    if defined?(ALIASES) && ALIASES.keys.map {|k| k.to_s}.include?(method_name.to_s)
-      self.send(ALIASES[method_name.to_sym])
-    elsif defined?(EMPTY) && EMPTY.include?(method_name)
-      nil
-    else
-      super
-    end  
-  end
+  # def method_missing(method_name, *args, &block)
+    # if defined?(ALIASES) && ALIASES.keys.map {|k| k.to_s}.include?(method_name.to_s)
+      # self.send(ALIASES[method_name.to_sym])
+    # elsif defined?(EMPTY) && EMPTY.include?(method_name)
+      # nil
+    # else
+      # super
+    # end  
+  # end
+  
+  ALIASES.each do |ali, orig|
+    alias_method(ali, orig.to_sym)
+  end  
+
 end
