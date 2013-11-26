@@ -122,7 +122,7 @@ class PhoneDecorator < Draper::Base
       
       if options[:include_offers]
         offers_details = Managers::PhoneManager.get_offers(phone, {:from => options[:offers_from], :to => options[:offers_to], :sort_by => "date"})
-        phone_hash[:offers] = offers_details[:related_offers].map { |offer| CatalogueItemDecorator.decorate(offer).get_hash }
+        phone_hash[:offers] = offers_details[:related_offers].map { |offer| CatalogueItemDecorator.decorate(offer).get_hash(:context => "phone") }
         phone_hash[:min_price] = offers_details[:min_price]
         phone_hash[:max_price] = offers_details[:max_price]
       end

@@ -12,15 +12,29 @@ class CatalogueItemDecorator < Draper::Base
     end
   end
 
-  FILTER_ATTRIBUTES = [:_id, :prices, :deleted_date, :provider_type, :provider_id, :phone_id]
+  FILTER_ATTRIBUTES = [:_id, :prices, :deleted_date, :provider_type, :provider_id, :phone_id, :tire__matches]
   def get_hash(options = {})
     offer = catalogue_item.to_hash.with_indifferent_access
-    provider = offer[:provider_type].constantize.find(offer[:provider_id]).account
-    provider = AccountDecorator.decorate(provider)
-    offer[:provider] = provider.get_hash
-    
     offer.delete_if { |attr, val| FILTER_ATTRIBUTES.include?(attr.to_sym) }
-    
+
+    if options[:context].to_s == "catalogue"
+      phone_model = catalogue_item.phone
+      phone = PhoneDecorator.decorate(catalogue_item.phone)
+      offer[:phone] = {
+        :id => phone.id,
+        :brand => phone.brand,
+        :model => phone_model.model, # decorator.model reuturns whole phone model
+        :image_path_small => phone.image_path_small,
+        :image_path_medium => phone.image_path_medium,
+      }
+    end
+     
+    if options[:context].to_s == "phone"    
+      provider = catalogue_item.provider_type.constantize.find(catalogue_item.provider_id).account
+      provider = AccountDecorator.decorate(provider)
+      offer[:provider] = provider.get_hash
+    end  
+        
     offer
   end
 end

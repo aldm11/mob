@@ -4,7 +4,7 @@ module Api
   module V1
     class Messages < Sinatra::Base
       before do
-        headers"Content-Type"=> "text/json"
+        headers "Content-Type"=> "text/json"
         authenticate_user
       end
       
