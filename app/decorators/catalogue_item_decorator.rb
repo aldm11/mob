@@ -12,7 +12,7 @@ class CatalogueItemDecorator < Draper::Base
     end
   end
 
-  FILTER_ATTRIBUTES = [:_id, :prices, :deleted_date, :provider_type, :provider_id, :phone_id, :tire__matches]
+  FILTER_ATTRIBUTES = [:prices, :deleted_date, :provider_type, :provider_id, :phone_id, :tire__matches]
   def get_hash(options = {})
     offer = catalogue_item.to_hash.with_indifferent_access
     offer.delete_if { |attr, val| FILTER_ATTRIBUTES.include?(attr.to_sym) }

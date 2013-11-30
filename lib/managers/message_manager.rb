@@ -168,7 +168,7 @@ module Managers
         to = all_messages.length - 1 if to > all_messages.length - 1
         related_messages = all_messages[from..to]
       else
-        to = 0
+        to = all_messages.length
         related_messages = all_messages
       end
       unread_count = type.to_s == "received" ? all_messages.select {|m| m.date_read.nil?}.length : 0
