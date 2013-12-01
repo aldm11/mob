@@ -1,4 +1,4 @@
-﻿$(function ($) {
+﻿jQuery(function ($) {
 
     var settings = "";
     var reviewSummary = "";
@@ -124,4 +124,4 @@
 
     };
 
-})(jQuery)
+});

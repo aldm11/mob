@@ -1,5 +1,7 @@
 jQuery(function($){
 	//example of callbacks for remote link and form, just make regulat html view on action and in works :)
+	
+	// TODO: use js.erb view in session#create instead of this and move flickrimg elsewhere and remove client.js
 	$("#login_form").bind("ajax:beforeSend", function(event, data, status, xhr) {		
 	});	
 	

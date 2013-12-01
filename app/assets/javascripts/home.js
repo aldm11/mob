@@ -115,9 +115,6 @@ $(document).ready(function(){
 		}
 	});
 	
-	// TEMPORARY HACK, RESOLVE THIS USING PALOMA GEM OR ELSE
-	if(window.location.toString().indexOf("http://localhost:300") !== -1){
-		search("phones", get_params());
-		
-	}
+	search("phones", get_params());
+
 });
