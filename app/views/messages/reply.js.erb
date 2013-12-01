@@ -5,6 +5,11 @@ $("form.send-message").append($('<div class="text-error message"><small>Please f
 <% if @result && @result[:status] %>
 	var message_html = $("<%= escape_javascript(render(:partial => "messages/conversation_item", :locals => {:message => @message})) %>");
 	$(".conversation").append(message_html);
+	$("#text").val("");
+<% else %>
+	<% error = @result ? @result[:text] : "There was an error. Try later." %>
+	var html = '<div class="text-error message"><small><%= error %></small></div>';
+	$("form.send-message").append($(html));
 <% end %>
 
 if($(".message").length > 0){

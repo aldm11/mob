@@ -33,6 +33,7 @@ class MessagesController < ApplicationController
     @result = nil
     unless @receiver_id.blank? || @text.blank?
       @result = Managers::MessageManager.send_message(current_account, @receiver_id, @text)
+      puts "rez #{@result.inspect}"
     end
   end
   
@@ -100,8 +101,9 @@ class MessagesController < ApplicationController
     @target_message = @conversation.select{|m| m.id.to_s == @message_id }.to_a.first
     @other_part = @type.to_s == "received" ? @target_message.sender_id : @target_message.receiver_id
     
-    @read_result = @target_message.date_read.nil? ? Managers::MessageManager.read_message(current_account, @target_message) : nil
-    
+    unless @type.to_s == "sent"
+      @read_result = @target_message.date_read.nil? ? Managers::MessageManager.read_message(current_account, @target_message) : nil
+    end
     respond_to {|format| format.js }
   end
   

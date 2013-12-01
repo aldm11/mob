@@ -67,14 +67,23 @@ $(document).ready(function(){
 	
 	//phone popovers in catalogue
 	$(".catalogue-phone-title").each(function(){
+		$(this).live("click", function(){
+			event.preventDefault();
+		});
 		$(this).popover({html: true, delay: 1000, trigger: "hover"});
 	});
 
 	$(".prices-history").each(function(){
+		$(this).live("click", function(){
+			event.preventDefault();
+		});
 		$(this).popover({html: true, delay: 0, trigger: "click"});
 	});
 		
 	$(".prices-from-others").each(function(){
+		$(this).live("click", function(){
+			event.preventDefault();
+		});
 		$(this).popover({html: true, delay: 0, trigger: "click"});
 	});
 	

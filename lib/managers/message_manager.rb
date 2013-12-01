@@ -120,7 +120,7 @@ module Managers
         return {:status => false, :message => mess, :text => "Access denied"} 
       end
  
-      sender = Account.find(message_receiver.sender_id.to_s)     
+      sender = Account.find(message_receiver.sender_id.to_s)   
       message_sender = sender.sent_messages.select {|m| m.id.to_s == mess_id }.first
       message_receiver.date_read = Time.now.utc.to_time.to_i unless message_receiver.mark_deleted
       message_sender.date_read = Time.now.utc.to_time.to_i unless message_sender.mark_deleted
