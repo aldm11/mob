@@ -55,23 +55,6 @@
   }
 }
 
-.align-center {
-  padding: 0;
-  margin: 0;
-  text-align: center;
-}
-
-.align-center.phone-title-main {
-  height: 40px;
-}
-
-.align-center.catalogue-phone-title {
-  height: 40px;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
 .attr_main {
   border-bottom: 1px solid #CCC;
   
