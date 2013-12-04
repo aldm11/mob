@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	
 	var DEFAULT_PAGING = {"from" : 0, "size" : 3};
 	var messages = {
 		"received" : {

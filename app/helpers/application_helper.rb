@@ -24,4 +24,13 @@ module ApplicationHelper
     session.delete(:current_account)
   end
   
+  def body_class_for_request
+    controller = if params[:controller].start_with?("admin/")
+      "admin"
+    else
+      params[:controller].split("/").join(".")
+    end
+    [controller, params[:action]].join(" ")
+  end
+  
 end

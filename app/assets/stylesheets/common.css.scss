@@ -1,0 +1,19 @@
+.phone-img-main-wrapper {
+  height: 64px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  
+  img {
+    max-height: 64px;
+    max-width: 64px;
+  }
+}
+
+#user, #logged_out_user {
+  display: none;
+}
+
+[class*=span]{
+  -moz-box-sizing: border-box !important;
+}

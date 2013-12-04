@@ -14,8 +14,6 @@
  *= require layout
  *= require_tree ./admin
  *= require chat
- *= require home
- *= require phone
- *= require messages
- *= require flickrimg.jquery
+ *= require jquery.flickrimg
+ *= require common
  */

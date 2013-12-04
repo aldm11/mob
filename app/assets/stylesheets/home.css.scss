@@ -5,51 +5,9 @@
 //@import 'bootstrap/css/bootstrap';
 //@import 'bootstrap/css/bootstrap-responsive';
 
-.brands-left-sidebar, .options-box {
+.brands-left-sidebar {
   background-color: #FFF; 
 }
-
-.options-box {
-  padding: 5px;
-}
-
-.container-narrow {
-  width: 700px;
-  margin: 20px auto auto auto;
-  text-align: center;
-}
-
-.container-register-bottom {
-  width: 600px;
-  margin: auto;
-}
-
-.container-register-bottom .span3 {
-  text-align: left;
-}
-
-.register p.lead {
-  margin: 20px 0 50px 0;
-}
-
-.register .span3 p {
-  margin-top: 20px;
-}
-
-.register .span3 ul {
-  height: 130px;
-}
-
-.container-register-step2 {
-  width: 800px;
-  margin: auto; 
-  text-align: center;
-}
-
-form.lock_user {
-  margin: 0;
-}
-
 
 .phone-main {   
   width : 23.404255319148934%;
@@ -69,6 +27,8 @@ form.lock_user {
 
 
 .options-box {
+  background-color: #FFF;
+  padding: 5px;
   margin-bottom: 20px;
   
   .show-price-range:hover {
@@ -85,15 +45,15 @@ form.lock_user {
       margin-right: 2px;
     }
   }
-}
-
-//slider
-.ui-widget {
-  font-size: .6em;
-}
-
-.ui-widget-header {
-  background: #CCC;
+  
+  //slider
+  .ui-widget {
+    font-size: .6em;
+  }
+  
+  .ui-widget-header {
+    background: #CCC;
+  }
 }
 
 #loading_big {
@@ -107,13 +67,4 @@ form.lock_user {
   clear: both;
   display: block;
   text-align: center;
-}
-
-//common
-#user, #logged_out_user {
-  display: none;
-}
-
-[class*="span"]{
-  -moz-box-sizing: border-box !important;
 }

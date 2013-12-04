@@ -5,10 +5,11 @@ class ApplicationController < ActionController::Base
   
   before_filter :set_locale, :setup, :search_setup, :js_vars
   
+  include ApplicationHelper
   include SessionHelper
   include CollectionHelper
   include AccountHelper
-      
+        
   def unauthorized_access
     respond_to do |format|
       format.js
