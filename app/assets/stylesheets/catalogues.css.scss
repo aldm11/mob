@@ -1,6 +1,45 @@
-.catalogue-phone-title {
-  height: 40px;
-  &:hover {
-    cursor: pointer;
+.catalogue-item-main {
+  .remove-item {
+    border: none;
+    float: right;
+    //margin: -10px -10px 0 0;
+  }
+  
+  .show-on-hover {
+    visibility: hidden;
+  }
+  
+  ul.prices-history-content > li {
+    font-size : 8pt;
+  }
+  
+  .catalogue-price {
+    margin-left: 10px;
+  }
+  
+  .catalogue-options {
+    margin-right: 10px;
+  }
+  
+  .catalogue-phone-title {
+    height: 40px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  
+  .attributes-catalogue {
+    .attribute-catalogue {
+      font-size: 8pt;
+      border-bottom: 1px solid #CCC;
+    }
+    dt {
+      width: 100px;
+      text-align: left;
+    }
+    dd {
+      margin-left: 100px;
+      text-align: left;
+    }
   }
 }

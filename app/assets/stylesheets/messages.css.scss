@@ -86,16 +86,6 @@
     
 }
 
-form.send-message {
-  textarea {
-    min-width: 360px;
-  }
-  
-  .message-to {
-    width: 360px;
-  }
-}
-
 .messages-center {
   margin-left: 0;
 
@@ -144,6 +134,16 @@ form.send-message {
       }
     }
      
+  }
+  
+  form.send-message {
+    textarea {
+      min-width: 360px;
+    }
+    
+    .message-to {
+      width: 360px;
+    }
   }
 }
 

@@ -71,47 +71,6 @@
   }
 }
 
-.attributes_catalogue {
-  .attribute_catalogue {
-    font-size: 8pt;
-    border-bottom: 1px solid #CCC;
-  }
-  dt {
-    width: 100px;
-    text-align: left;
-  }
-  dd {
-    margin-left: 100px;
-    text-align: left;
-  }
-}
-
-.catalogue-item-main {
-  .remove-item {
-    border: none;
-    float: right;
-    //margin: -10px -10px 0 0;
-  }
-  
-  .show-on-hover {
-    visibility: hidden;
-  }
-  
-  ul.prices-history-content > li {
-    font-size : 8pt;
-  }
-  
-  .catalogue-price {
-    margin-left: 10px;
-  }
-  
-  .catalogue-options {
-    margin-right: 10px;
-  }
-}
-
-.typeahead { z-index: 1051; }
-
 
 ///phone#show
 

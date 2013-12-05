@@ -1,4 +1,9 @@
 $(document).ready(function(){	
+	//defaults
+	$.ajaxSetup ({  
+        cache: false
+    }); 
+	
 	$(".disabled").live("click", function(e){
 		e.stopImmediatePropagation();
 		return false;
@@ -11,7 +16,12 @@ $(document).ready(function(){
       }
       return true;
     });
+    
+    $(".modal-backdrop").live("click", function(event){
+		$(".modal").remove();
+	});
 
+	//client.js part
     $("#login_form").bind("ajax:before", function(xhr, status, error) {
 		$("#login_form .login-btn").append("<div id = 'loading_login' class='pull-right'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
     });
