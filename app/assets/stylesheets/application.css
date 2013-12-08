@@ -12,7 +12,6 @@
  *= require jquery-ui-1.10.2.custom
  *= require_tree ./bootstrap
  *= require layout
- *= require_tree ./admin
  *= require chat
  *= require jquery.flickrimg
  *= require common

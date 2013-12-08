@@ -22,14 +22,9 @@
 //= require jquery.mobis.reviewer
 
 //= require js_vars
-//= require common
 //= require search
 
-//= require load_page_script_and_style
-
-//= require scripts
-//= require client
-
+//= require common
 <%
 	components_dir = [File.expand_path(File.dirname(__FILE__)), "components"].join("/")
 	Dir.entries(components_dir).each do |component|

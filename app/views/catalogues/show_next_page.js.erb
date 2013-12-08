@@ -8,5 +8,3 @@ $(".offers").append(offer);
 var load_more = $("<%= escape_javascript(render(:partial => 'phones/load_more_offers')) %>");
 $(".phone-right-sidebar").append(load_more);
 <% end %>
-
-$(document).scrollTop($(".offers").position().top + $(".offers").height());

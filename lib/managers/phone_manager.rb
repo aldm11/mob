@@ -204,10 +204,12 @@ module Managers
       to = all_offers.length-1 if to > all_offers.length - 1        
       related_offers = all_offers[from..to]
      
-      prices = related_offers.map { |ci| ci.actual_price }.sort
+      #TODO: min and max price are evaluated in terms of all offers
+      # in need of paging min and max it should be separated attrs - related_min and related_max
+      prices = all_offers.map { |ci| ci.actual_price }.sort
       min_price = prices.first
       max_price = prices.last
-      
+            
       result = DEFAULT_OFFERS.merge({:all_offers => all_offers, :related_offers => related_offers, :min_price => min_price, :max_price => max_price, :to => to})
       result
     end

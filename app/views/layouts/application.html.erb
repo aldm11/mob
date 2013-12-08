@@ -4,11 +4,12 @@
   <title>Mobis</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "http://localhost:4000/socket.io/socket.io.js" %>
-  <%= javascript_include_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
 
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= body_class_for_request %>">
+<%= javascript_include_tag "load_page_script_and_style" %>
 
 <%= render "layouts/header" %>
 <% flash.each do |key, message| %>

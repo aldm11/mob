@@ -3,7 +3,7 @@ $(document).ready(function(){
 	    max_price = 1000;
 	
 	var search_term = "", 
-	    brand = "", 
+	    brand = $("#brand_param").val() || "", 
 	    sort_by = $(".sort-phones-by a:nth-child(1)").attr("id"),
 	    from = 0,
 	    size = 16;
@@ -117,4 +117,17 @@ $(document).ready(function(){
 	
 	search("phones", get_params());
 
+	//TODO: when remove commenting from home page remove this
+	var KEY_ENTER = 13;
+	$('#comment_text').live("keydown", function (event) {
+    	if (event.keyCode === KEY_ENTER){
+	    	if (event.ctrlKey){
+				$(this).val($(this).val()+"\n");
+	    	}
+	    	else{
+				event.preventDefault();
+	    		$("form#new_comment").submit();	
+	    	}
+	    }
+	});
 });

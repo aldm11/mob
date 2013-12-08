@@ -20,7 +20,7 @@ $(".comments").children(":first").animate({
 	borderLeftWidth: "0px",
 	borderRightWidth: "0px"
 }, 2000, function(){});
-
+$(".comment-text").val("");
 <% else %>
 $("#comment_text").css({"border" : "1px solid red"});
 <% end %>
