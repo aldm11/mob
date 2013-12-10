@@ -146,6 +146,9 @@ Mobis::Application.routes.draw do
     end
   end
   
+  resource :account, :only => [:update, :destroy]
+  
+  match "/settings" => "accounts#show", :as => "settings", :via => "get"
   match "/accounts_details" => "accounts#accounts_details", :as => "accounts_details", :via => :post  
   match "/:brand" => "home#index", :as => "brand"
   

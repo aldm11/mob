@@ -14,4 +14,16 @@ class AccountsController < ApplicationController
     render accounts.to_json
   end
   
+  def show
+    @account_info = AccountDecorator.decorate(current_account).get_info
+  end
+  
+  def destroy
+    
+  end
+  
+  def update
+    
+  end
+  
 end

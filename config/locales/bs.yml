@@ -32,14 +32,17 @@ bs:
     attributes:
       account:
         email: "E-mail"
-        password: "Šifra"
-        password_confirmation: "Potvrda šifre"
+        password: "Sifra"
+        password_confirmation: "Potvrdite sifru"
         remember: "Zapamti me"
+        username: "Username"
       user:
         name: "Ime"
         address: "Adresa"
         phone: "Telefon"
       store:
-        name: "Ime"
+        name: "Nazic"
         address: "Adresa"
         phone: "Telefon"
+        fax: "Fax"
+        website: "Web"

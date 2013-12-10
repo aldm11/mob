@@ -38,6 +38,7 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         remember: "Remember me"
+        username: "Username"
       user:
         name: "Name"
         address: "Address"
@@ -46,6 +47,8 @@ en:
         name: "Name"
         address: "Address"
         phone: "Phone"
+        fax: "Fax"
+        website: "Web"
       comment:
         text: "Comment"
       phone:
