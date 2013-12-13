@@ -3,7 +3,7 @@ class User
   include Mongoid::Paperclip
     
   field :name, :type => String
-  field :address, :type => String
+  field :address, :type => Array
   field :phone, :type => Array #[{type, number}] type optional
 
   field :created_at, :type => DateTime #check if exists by default in mongo or in devise

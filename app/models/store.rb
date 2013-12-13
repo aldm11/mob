@@ -3,10 +3,10 @@ class Store
   include Mongoid::Paperclip
       
   field :name, :type => String
-  field :address, :type => Hash #{ street, city }
+  field :address, :type => Array #{ street, city }
   field :phone, :type => Array #[{type, number}] type optional
   field :fax, :type => Array
-  field :website, :type => String
+  field :website, :type => Array
   
   field :created_at, :type => DateTime #check if exists by default in mongo or in devise
   field :followers, :type => Array # [{name, id, type}]
@@ -27,18 +27,7 @@ class Store
     res
   end
   
-  #TODO: remove aliases and try to use alias_method if possible
   ALIASES =  {:avatar => "logo"}
-  # def method_missing(method_name, *args, &block)
-    # if defined?(ALIASES) && ALIASES.keys.map {|k| k.to_s}.include?(method_name.to_s)
-      # self.send(ALIASES[method_name.to_sym])
-    # elsif defined?(EMPTY) && EMPTY.include?(method_name)
-      # nil
-    # else
-      # super
-    # end  
-  # end
-  
   ALIASES.each do |ali, orig|
     alias_method(ali, orig.to_sym)
   end  

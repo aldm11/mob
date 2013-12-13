@@ -1,0 +1,10 @@
+<% if value.is_a?(Array) %>
+	<% value.each do |val| %>
+	<div>
+		<span><%= val %></span>
+		<%= link_to "", "#", :class => "icon-remove" %>
+	</div>
+	<% end %>
+<% else %>
+	<%= value %>
+<% end %>
