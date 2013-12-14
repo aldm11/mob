@@ -1,10 +1,15 @@
 <% if value.is_a?(Array) %>
-	<% value.each do |val| %>
-	<div>
-		<span><%= val %></span>
-		<%= link_to "", "#", :class => "icon-remove" %>
-	</div>
+	<%= form_tag(settings_remove_path, :method => :delete, :remote => true, :class => "remove-property", :"data-type" => "json") do %>
+	<%= hidden_field_tag [property, "remove"].join("_"), "" %>
 	<% end %>
+	<div class="values">
+		<% value.each do |val| %>
+			<div class="label label-info">
+				<span><%= val %></span>
+				<%= link_to "", "#", :class => "icon-remove remove-property", :"data-property" => property %>
+			</div>
+		<% end %>
+	</div>
 <% else %>
 	<%= value %>
 <% end %>

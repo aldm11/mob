@@ -145,12 +145,12 @@ Mobis::Application.routes.draw do
       post "advanced_search"
     end
   end
-  
-  resource :account, :only => [:update, :destroy]
-  
+    
   match "/settings" => "accounts#show", :as => "settings", :via => "get"
+  match "/remove_settings" => "accounts#remove", :as => "settings_remove", :via => :delete
+  match "/add_settings" => "accounts#add", :as => "settings_add", :via => :put
   match "/accounts_details" => "accounts#accounts_details", :as => "accounts_details", :via => :post  
-  match "/:brand" => "home#index", :as => "brand"
+  match "/:brand" => "home#index", :as => "brand", :via => "get"
   
   mount Heartbeat::Application, :at => "/heartbeat"
 end

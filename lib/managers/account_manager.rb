@@ -84,15 +84,18 @@ module Managers
       forbidden_properties = properties.map { |property, values| SETTINGS[property.to_sym] ? nil : property }.compact
       return {:status => false, :message => "#{forbidden_properties} can't be removed"} unless forbidden_properties.empty?
       
+      new_properties = {}
       properties.each do |property, value|
         target_object = current_account.fields[property.to_s] ? current_account : current_account.rolable
         existing_value = target_object.attributes[property.to_s]
         existing_value = [] if existing_value.nil?
         new_values = existing_value - [value].flatten
-        target_object.update_attributes(property.to_s => new_values)     
+        target_object.update_attributes(property.to_s => new_values) 
+        new_properties[property.to_s] = new_values    
       end
       
-      {:status => true, :message => "#{properties.keys.map { |property| property.to_s }.join(", ")} succesfully removed"}
+      message = "#{properties.keys.map { |property| property.to_s }.join(", ")} succesfully removed"
+      {:status => true, :message => message, :attributes => new_properties.with_indifferent_access}
     end  
     
   end

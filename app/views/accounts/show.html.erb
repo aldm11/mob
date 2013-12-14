@@ -6,7 +6,7 @@
       </a>
     </div>
     <div id="collapseOne" class="accordion-body collapse in">
-      <div class="accordion-inner">
+      <div class="accordion-inner account-info">
         <h3><%= @account_info[:name][:value] + " " + "contact info" %></h3>
 
 		<table class="table table-hover">
@@ -16,7 +16,7 @@
 					<tr class="<%= details[:value].blank? ? "warning" : "success" %>">
 					<td><%= details[:label] %></td>
 			  		<td>
-			  			<%= render :partial => "account_info_value", :locals => {:value => details[:value]} %>
+			  			<%= render :partial => "account_info_value", :locals => {:property => attr, :value => details[:value]} %>
 			  		</td>
 			  		<td>
 			  			<%= details[:value].blank? ? link_to("Add", "#", :class => "text-success") : link_to("Update", "#", :class => "text-warning") %>
