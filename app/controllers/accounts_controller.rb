@@ -34,7 +34,16 @@ class AccountsController < ApplicationController
   end
   
   def add
+    properties_to_add = params.clone
+    properties_to_add.delete_if { |name, value| FILTER_PROPERTIES.include?(name.to_s) }
+    properties_to_add = Hash[properties_to_add.map { |name, value| [name.to_s.split("_").first, value] }]
     
+    add_result = Managers::AccountManager.add(current_account, properties_to_add)
+    if add_result[:status]
+      render :json => {:message => add_result[:message], :attributes => add_result[:attributes]}, :status => 200
+    else
+      render :json => add_result[:message], :status => 400
+    end
   end
   
 end

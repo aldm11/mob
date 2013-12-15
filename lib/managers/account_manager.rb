@@ -9,7 +9,7 @@ module Managers
       :website => {:limit => 3, :value_pattern => /^(([\w]+:)?\/\/)?(([\d\w]|%[a-fA-f\d]{2,2})+(:([\d\w]|%[a-fA-f\d]{2,2})+)?@)?([\d\w][-\d\w]{0,253}[\d\w]\.)+[\w]{2,4}(:[\d]+)?(\/([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)*(\?(&amp;?([-+_~.\d\w]|%[a-fA-f\d]{2,2})=?)*)?(#([-+_~.\d\w]|%[a-fA-f\d]{2,2})*)?$/}
     }
     
-    def self.addd(current_account, properties)
+    def self.add(current_account, properties)
       account_attributes = if current_account.is_a?(Hash)
         current_account
       elsif current_account.is_a?(AccountDecorator)
@@ -33,7 +33,7 @@ module Managers
       
       invalid_values = properties.map do |property, value|
         invalids = [value].flatten.select { |val| SETTINGS[property.to_sym][:value_pattern] && val.match(SETTINGS[property.to_sym][:value_pattern]).nil? }
-        invalids.empty? ? nil : "Invalid value #{invalids.first} for #{property.to_s}."
+        invalids.empty? ? nil : "Invalid value #{invalids.first.to_s} for #{property.to_s}."
       end.compact
       return {:status => false, :message => invalid_values.join(" ")} unless invalid_values.empty?
       
@@ -47,6 +47,7 @@ module Managers
       end.compact
       return {:status => false, :message => limit_excedded_properties.join(" ")} unless limit_excedded_properties.empty? 
       
+      new_properties = {}
       properties.each do |property, value|
         target_object = current_account.fields[property.to_s] ? current_account : current_account.rolable
         
@@ -58,8 +59,10 @@ module Managers
         end
         
         target_object.update_attributes(property.to_s => new_value)
+        new_properties[property] = new_value
       end
-      {:status => true, :message => "#{properties.keys.map { |property, value| property.to_s }.join(", ")} succesfully updated"}
+      new_properties = new_properties.with_indifferent_access
+      {:status => true, :message => "#{properties.keys.map { |property, value| property.to_s }.join(", ")} succesfully updated", :attributes => new_properties}
     end
     
     def self.remove(current_account, properties)

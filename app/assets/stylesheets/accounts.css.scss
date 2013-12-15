@@ -2,5 +2,27 @@ form.remove-property {
   display: none;
   margin: 0;
 }
+
+form.add-property {
+  margin: 0;
+}
+
+.account-attributes {
+  td.update-attribute {
+    width: 25%;
+  }
+  
+  td.attribute-name {
+    width: 25%
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.value-wrapper {
+  margin-right: 10px;
+}
   
 
