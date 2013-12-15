@@ -149,6 +149,7 @@ Mobis::Application.routes.draw do
   match "/settings" => "accounts#show", :as => "settings", :via => "get"
   match "/remove_settings" => "accounts#remove", :as => "settings_remove", :via => :delete
   match "/add_settings" => "accounts#add", :as => "settings_add", :via => :put
+  match "/change_password" => "accounts#change_password", :as => "change_password", :via => :post
   match "/accounts_details" => "accounts#accounts_details", :as => "accounts_details", :via => :post  
   match "/:brand" => "home#index", :as => "brand", :via => "get"
   

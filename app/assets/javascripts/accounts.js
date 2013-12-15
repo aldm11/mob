@@ -78,4 +78,30 @@ $(document).ready(function(){
 		}	
     }
     
+    //password change
+	$("form.change-password").bind("ajax:before", function(xhr, status, error) {
+		$(this).find("input[type=submit]").attr("disabled", "disabled");
+		$(this).append("<div id = 'loading_big' class='loading center'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
+    });
+
+    $("form.change-password").bind("ajax:success", function(event, data, status, xhr) {
+    	$("#loading_big").remove();
+		$(this).find("input[type=submit]").removeAttr("disabled");
+		$(this).find("input[type=password]").val("");
+		
+		var confirm_message = $("<div></div>").attr("class", "text-success").html(data.message);
+		$(this).append(confirm_message);
+		setTimeout(function(){confirm_message.fadeOut(2000, function(){})}, 1500);
+    });
+
+    $("form.change-password").bind("ajax:error", function(xhr, status, error) {
+    	$("#loading_big").remove();
+    	$(this).find("input[type=submit]").removeAttr("disabled");
+				
+		var error_message = $("<div></div>").attr("class", "text-error").html(status.responseText);
+		$(this).append(error_message);
+		setTimeout(function(){error_message.fadeOut(2000, function(){})}, 1500);
+    });
+    
+    
 });

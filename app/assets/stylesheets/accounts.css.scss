@@ -24,5 +24,18 @@ form.add-property {
 .value-wrapper {
   margin-right: 10px;
 }
+
+form.change-password {
+  display: inline-block;
+  width: auto;
+  label {
+    display: inline-block;
+    width: 150px;
+  }
+  
+  input {
+    display: inline-block;
+  }
+}
   
 

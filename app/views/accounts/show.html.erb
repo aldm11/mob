@@ -42,7 +42,23 @@
     </div>
     <div id="collapseTwo" class="accordion-body collapse">
       <div class="accordion-inner">
-        change password
+        <%= form_tag(change_password_path, :method => :post, :remote => true, :"data-type" => "json", :class => "change-password") do %>
+        <div>
+        	<%= label_tag("old_password", "Old password") %>
+        	<%= password_field_tag "old_password" %>
+        </div>
+        <div>
+        	<%= label_tag("new_password", "New password") %>
+        	<%= password_field_tag "new_password" %>
+        </div>
+        <div>
+        	<%= label_tag("password_confirmation", "Confirm password") %>
+        	<%= password_field_tag "password_confirmation" %>
+        </div>
+        <div>
+        	<%= submit_tag "Submit", :class => "btn pull-right" %>
+        </div>
+        <% end %>
       </div>
     </div>
   </div>
