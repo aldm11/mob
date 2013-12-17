@@ -12,11 +12,6 @@
 <%= javascript_include_tag "load_page_script_and_style" %>
 
 <%= render "layouts/header" %>
-<% flash.each do |key, message| %>
-<%= content_tag(:div, :class => "alert alert-#{key.to_s}") do %>
-<%= message %>
-<% end %>
-<% end %>
 <div class="container">
 	<div class="content">
 		<%= yield %>
