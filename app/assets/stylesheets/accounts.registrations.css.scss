@@ -1,28 +1,28 @@
-.container-narrow {
-  width: 700px;
-  margin: 20px auto auto auto;
+.registration-header {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
   text-align: center;
 }
 
-.container-register-bottom {
-  width: 600px;
-  margin: auto;
+// .container-narrow {
+  // width: 740px;
+  // margin: 20px auto auto auto;
+  // text-align: center;
+// }
+
+ul.reg-list {
+   margin: 20px 0 10px 20px;
+   min-height: 150px;
+   
+   li {
+     margin-left: 10px;
+     list-style-image: url("ok.jpg");
+   }
 }
 
-.container-register-bottom .span3 {
-  text-align: left;
-}
-
-.register p.lead {
-  margin: 20px 0 50px 0;
-}
-
-.register .span3 p {
-  margin-top: 20px;
-}
-
-.register .span3 ul {
-  height: 130px;
+.sign-up-btn {
+  margin-left: 30px;
 }
 
 .container-register-step2 {

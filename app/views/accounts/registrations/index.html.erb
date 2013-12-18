@@ -1,43 +1,43 @@
-<div class="container-narrow register">
-	<h2>Registracija na mobis.ba</h2>
-	<p class="lead">
-		Kupujete ili prodajete mobitel? Interesujete se za cijene novih i polovnih mobitela?
-		Vlasnik ste prodavnice mobitela? Interesuje se za novosti u svijetu mobitela?
-		Mi smo pravo mjesto za Vas. Popunjavanjem jednostavnog formulara olakšajte svoje potrebe kada su u pitanju mobiteli.
-	</p>
+	<div class="row-fluid hero-unit registration-header">
+		<h2>Registracija na mobis.ba</h2>
+		<p>
+			Kupujete ili prodajete mobitel? Interesujete se za cijene novih i polovnih mobitela?
+			Vlasnik ste prodavnice mobitela? Interesuje se za novosti u svijetu mobitela?
+			Mi smo pravo mjesto za Vas. Popunjavanjem jednostavnog formulara olakšajte svoje potrebe kada su u pitanju mobiteli.
+		</p>
+	</div>
 	
-	<div class="container-register-bottom">	
-		<div class="span3">
+	<div class="row-fluid">
+		<div class="span1"></div>
+			
+		<div class="span4">
 			<h4>Registracija fizičkog lica</h4>
-			<p>
-				Registracija fizičkog lica Vam omogućuje:
-				<ul>
-					<li>Prodaju mobitela</li>
-					<li>Kupovinu mobitela</li>
-					<li>Praćenje mobitela na mreži</li>
-					<li>Praćenje prodavnice</li>
-					<li>Praćenje drugih korisnika</li>
-					<li>Komunikaciju sa drugim korisnicima</li>
-					<li>i još mnogo toga...</li>
-				</ul>
-			</p>
-			<%= link_to "Registruj se", users_sign_up_path, :class => "btn btn-success" %>
+			<ul class="reg-list">
+				<li>Prodaju mobitela</li>
+				<li>Kupovinu mobitela</li>
+				<li>Praćenje mobitela na mreži</li>
+				<li>Praćenje prodavnice</li>
+				<li>Praćenje drugih korisnika</li>
+				<li>Komunikaciju sa drugim korisnicima</li>
+				<li>i još mnogo toga...</li>
+			</ul>
+			<%= link_to "Registruj se", users_sign_up_path, :class => "btn sign-up-btn" %>
 		</div>
 		
-		<div class="span3">
+		<div class="span2"></div>
+		
+		<div class="span4">
 			<h4>Registracija prodavnice</h4>
-			<p>
-				Registracija prodavnice Vam omogućuje:
-				<ul>
-					<li>Ažuriranje kataloga mobitela</li>
-					<li>Praćenje mobitela na mreži</li>
-					<li>Praćenje konkurentskih prodavnica</li>
-					<li>Praćenje korisnika</li>
-					<li>Komunikaciju sa svojim mušterijama</li>
-					<li>i još mnogo toga...</li>
-				</ul>
-			</p>
-			<%= link_to "Registruj prodavnicu", stores_sign_up_path, :class => "btn btn-success" %>
+			<ul class="reg-list">
+				<li>Ažuriranje kataloga mobitela</li>
+				<li>Praćenje mobitela na mreži</li>
+				<li>Praćenje konkurentskih prodavnica</li>
+				<li>Praćenje korisnika</li>
+				<li>Komunikaciju sa svojim mušterijama</li>
+				<li>i još mnogo toga...</li>
+			</ul>
+			<%= link_to "Registruj prodavnicu", stores_sign_up_path, :class => "btn sign-up-btn" %>
 		</div>
+		
+		<div class="span1"></div>
 	</div>
-</div>
