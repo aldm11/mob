@@ -71,11 +71,17 @@ Mobis::Application.routes.draw do
   match "show_error" => "application#show_error"
   match "messages" => "messages#index"
   
-  devise_for :accounts, :controllers => { :registrations => "accounts/registrations", :sessions => "accounts/sessions" }
+  #TODO: check this
+  devise_for :accounts, :controllers => {
+    :sessions => "accounts/sessions" 
+  }
+  
   devise_scope :account do
+    match "login" => "accounts/sessions#new", :as => "new_account_session"
+    
     match "registration" => "accounts/registrations#index", :as => "register"
-    match "users/sign_up" => "accounts/registrations#new", :account => { :type => "user" }
-    match "stores/sign_up" => "accounts/registrations#new", :account => { :type => "store" }
+    match "register_user" => "accounts/registrations#new", :account => { :type => "user" }, :as => "register_user"
+    match "register_store" => "accounts/registrations#new", :account => { :type => "store" }, :as => "register_store"
   end
   
   namespace :api do

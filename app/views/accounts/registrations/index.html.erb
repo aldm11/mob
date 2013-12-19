@@ -7,10 +7,10 @@
 		</p>
 	</div>
 	
-	<div class="row-fluid">
-		<div class="span1"></div>
+	<div class="row-fluid registration-types">
+<!-- 		<div class="span1"></div> -->
 			
-		<div class="span4">
+		<div class="offset1 span4">
 			<h4>Registracija fizičkog lica</h4>
 			<ul class="reg-list">
 				<li>Prodaju mobitela</li>
@@ -21,12 +21,12 @@
 				<li>Komunikaciju sa drugim korisnicima</li>
 				<li>i još mnogo toga...</li>
 			</ul>
-			<%= link_to "Registruj se", users_sign_up_path, :class => "btn sign-up-btn" %>
+			<%= link_to "Registruj se", register_user_path, :class => "btn sign-up-btn" %>
 		</div>
 		
-		<div class="span2"></div>
+<!-- 		<div class="span2"></div> -->
 		
-		<div class="span4">
+		<div class="offset2 span4">
 			<h4>Registracija prodavnice</h4>
 			<ul class="reg-list">
 				<li>Ažuriranje kataloga mobitela</li>
@@ -36,7 +36,7 @@
 				<li>Komunikaciju sa svojim mušterijama</li>
 				<li>i još mnogo toga...</li>
 			</ul>
-			<%= link_to "Registruj prodavnicu", stores_sign_up_path, :class => "btn sign-up-btn" %>
+			<%= link_to "Registruj prodavnicu", register_store_path, :class => "btn sign-up-btn" %>
 		</div>
 		
 		<div class="span1"></div>

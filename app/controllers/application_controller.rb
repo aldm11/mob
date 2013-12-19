@@ -42,12 +42,11 @@ class ApplicationController < ActionController::Base
   
   def js_vars
     @@js_vars ||= {}
-    #puts "-------------------------------------- JS vars #{@@js_vars.inspect}"
   end
   
   private
   def set_locale
-    I18n.locale = "en"
+    I18n.locale = "bs"
   end
   
   def search_setup

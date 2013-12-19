@@ -1,6 +1,10 @@
 bs:
   ####### common
-  price: "%{price} KM"  
+  price: "%{price} KM"
+  registration:
+    reg_store: "Registracija prodavnice"
+    reg_user: "Registracija korisnika"
+    required_fields_message: "Polja oznacena sa * su obavezna"
   ##############
   hello: "Zdravo"
   sign_up: "Registruj se"

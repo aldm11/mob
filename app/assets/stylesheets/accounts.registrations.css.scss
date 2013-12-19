@@ -1,15 +1,10 @@
+/* registration step 1 */
 .registration-header {
   padding-top: 20px;
   padding-bottom: 10px;
   box-sizing: border-box;
   text-align: center;
 }
-
-// .container-narrow {
-  // width: 740px;
-  // margin: 20px auto auto auto;
-  // text-align: center;
-// }
 
 ul.reg-list {
    margin: 20px 0 10px 20px;
@@ -33,4 +28,29 @@ ul.reg-list {
 
 form.lock_user {
   margin: 0;
+}
+
+/* registration step 2 */
+.registration-container {
+  h2 {
+    margin-bottom: 30px;
+  }
+  .required-fields {
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  .register-form {
+    div {
+      margin-bottom: 8px;
+      
+      label {
+        display: inline-block;
+        width: 180px;
+      }
+      
+      input {
+        display: inline-block;
+      }
+    }
+  }
 }

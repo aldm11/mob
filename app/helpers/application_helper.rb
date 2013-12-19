@@ -33,4 +33,8 @@ module ApplicationHelper
     [controller, params[:action]].join(" ")
   end
   
+  def require_attributes(model)
+    model.class._validators.select { |field, field_validators| !field_validators.select { |validator| validator.class.to_s == "Mongoid::Validations::PresenceValidator" }.empty? }.keys 
+  end
+  
 end
