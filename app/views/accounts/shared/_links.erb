@@ -1,17 +1,17 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to I18n.t(:sign_in), new_session_path(resource_name) %><br />
+  <%= link_to I18n.t("registration.sign_in"), new_session_path(resource_name) %><br />
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to I18n.t(:sign_up), register_path %><br />
+  <%= link_to I18n.t("registration.sign_up"), register_path %><br />
 <% end -%>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-  <%= link_to I18n.t(:forgot_password), new_password_path(resource_name) %><br />
+  <%= link_to I18n.t("registration.forgot_password"), new_password_path(resource_name) %><br />
 <% end -%>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to I18n.t(:didnt_recieve_confirmation_ins), new_confirmation_path(resource_name) %><br />
+  <%= link_to I18n.t("registration.didnt_recieve_confirmation_ins"), new_confirmation_path(resource_name) %><br />
 <% end -%>
 <!--
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
@@ -20,6 +20,6 @@
 -->
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to I18n.t(:sign_up_provider), omniauth_authorize_path(resource_name, provider) %><br />
+    <%= link_to I18n.t("registration.sign_up_provider"), omniauth_authorize_path(resource_name, provider) %><br />
   <% end -%>
 <% end -%>

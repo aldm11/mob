@@ -13,7 +13,9 @@ module DeviseHelper
     return "" if resource.errors.empty?
 
     #messages = resource.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
-    messages = resource.errors.full_messages.map { |msg| content_tag(:span, msg) }.join(".")
+    # messages = resource.errors.full_messages.map { |msg| content_tag(:span, msg) }.join(".")
+    messages = resource.errors.full_messages.map { |msg| content_tag(:li, msg) }.join(".")
+    puts "errors #{resource.errors.messages[:email].inspect}"
     sentence = I18n.t("errors.messages.not_saved",
                       :count => resource.errors.count,
                       :resource => resource.class.model_name.human.downcase)
@@ -28,7 +30,9 @@ module DeviseHelper
      html = <<-HTML
     <div id="error_explanation" class="alert alert-error">
       <a class="close" data-dismiss="alert" href="#">&times;</a>
-      #{messages}
+      <li>
+        #{messages}
+      </li>
     </div>
     HTML
 

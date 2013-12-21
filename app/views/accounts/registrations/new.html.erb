@@ -1,45 +1,48 @@
-<%= devise_error_messages! %>
-
 <% resource.rolable = params[:account][:type].downcase.camelize.constantize.new %>
 <div class="container registration-container">
-	<h2><%= I18n.t("registration.reg_#{params[:account][:type]}") %></h2>
-	
-	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => "register-form"}) do |f| %>
-	
-	  <div>
-	  	<%= f.label :email %>
-		<%= f.text_field :email %>
-		<span class="text-success">*</span>
-	  </div>
-	
-	  <div>
-	  	<%= f.label :password %>
-	  	<%= f.password_field :password %>
-	  	<span class="text-success">*</span>
-	  </div>
+	<div class="row-fluid">
+		<h2><%= I18n.t("registration.reg_#{params[:account][:type]}") %></h2>
 		
-	  <div>
-	  	<%= f.label :password_confirmation %>
-	  	<%= f.password_field :password_confirmation %>
-	  	<span class="text-success">*</span>
-	  </div>
-
-	  <%= fields_for resource.rolable do |rf| %>
-	  <%= render :partial => "accounts/registrations/" + ["new", params[:account][:type], "fields"].join("_"), :locals => {:f => rf} %>
-	  <% end %>
-	  
-	  <div class="text-success required-fields">
-		<small><%= I18n.t("registration.required_fields_message") %></small>
-	  </div>
-	  
-	  <div>
-	  	<%= f.submit I18n.t(:sign_up), :class => "btn btn-primary" %>
-	  </div>
+		<%= form_for(resource, :as => resource_name, :url => registration_path, :html => {:class => "register-form"}) do |f| %>
+		
+		  <div>
+		  	<%= f.label :email %>
+			<%= f.text_field :email %>
+			<span class="text-success">*</span>
+			<%= content_tag(:span, resource.errors.messages[:email].join(" "), :class => "text-error") if resource.errors.messages[:email] %>
+		  </div>
+		
+		  <div>
+		  	<%= f.label :password %>
+		  	<%= f.password_field :password %>
+		  	<span class="text-success">*</span>
+		    <%= content_tag(:span, resource.errors.messages[:password].join(" "), :class => "text-error") if resource.errors.messages[:password] %>
+		  </div>
+			
+		  <div>
+		  	<%= f.label :password_confirmation %>
+		  	<%= f.password_field :password_confirmation %>
+		  	<span class="text-success">*</span>
+			<%= content_tag(:span, resource.errors.messages[:password_confirmation].join(" "), :class => "text-error") if resource.errors.messages[:password_confirmation] %>
+		  </div>
 	
-	  <div>
-	  	<%= render :partial => "accounts/shared/links" %>
-	  </div>
-	  
-	  <%= hidden_field :account, :type, :value => params[:account][:type] %>
-	<% end %>
+		  <%= fields_for resource.rolable do |rf| %>
+		  <%= render :partial => "accounts/registrations/" + ["new", params[:account][:type], "fields"].join("_"), :locals => {:f => rf} %>
+		  <% end %>
+		  
+		  <div class="text-success required-fields">
+			<small><%= I18n.t("registration.required_fields_message") %></small>
+		  </div>
+		  
+		  <div>
+		  	<%= f.submit I18n.t("registration.sign_up"), :class => "btn btn-primary" %>
+		  </div>
+		
+		  <div>
+		  	<%= render :partial => "accounts/shared/links" %>
+		  </div>
+		  
+		  <%= hidden_field :account, :type, :value => params[:account][:type] %>
+		<% end %>
+	</div>
 </div>

@@ -9,7 +9,7 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
     params[params[:account][:type].to_sym][:phone] = params[params[:account][:type].to_sym][:phone] ? [params[params[:account][:type].to_sym][:phone]] : []
     rolable = params[:account][:type].downcase.camelize.constantize.new(params[params[:account][:type].to_sym])
     resource.rolable = rolable
-    resource.username = form_username(resource.email) if resource.email
+    resource.username = form_username(resource.email) unless resource.email.blank?
     
     valid = rolable.valid? && resource.valid?
     

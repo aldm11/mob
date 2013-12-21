@@ -44,3 +44,29 @@
   text-align: center;
   
 }
+
+label[for=remember_me] {
+  display: inline-block;
+  width: 100px;
+}
+
+input[name=remember_me] {
+  display: inline;
+}
+
+
+.login-form {
+  div {
+    label {
+      display: inline;
+    }
+    input[type=checkbox] {
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+}
+
+.field_with_errors {
+  display: inline;
+}

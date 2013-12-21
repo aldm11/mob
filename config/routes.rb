@@ -73,15 +73,18 @@ Mobis::Application.routes.draw do
   
   #TODO: check this
   devise_for :accounts, :controllers => {
-    :sessions => "accounts/sessions" 
-  }
-  
+    :sessions => "accounts/sessions"
+  },
+  :path => "",
+  :path_names => {:sign_in => "login", :sign_out => "logout"}
+    
   devise_scope :account do
-    match "login" => "accounts/sessions#new", :as => "new_account_session"
+    # match "login" => "accounts/sessions#new", :as => "new_account_session", :via => :get
     
     match "registration" => "accounts/registrations#index", :as => "register"
     match "register_user" => "accounts/registrations#new", :account => { :type => "user" }, :as => "register_user"
     match "register_store" => "accounts/registrations#new", :account => { :type => "store" }, :as => "register_store"
+    match "register" => "accounts/registrations#create", :as => "registration", :method => :post
   end
   
   namespace :api do

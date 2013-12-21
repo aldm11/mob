@@ -5,15 +5,16 @@ bs:
     reg_store: "Registracija prodavnice"
     reg_user: "Registracija korisnika"
     required_fields_message: "Polja oznacena sa * su obavezna"
+    sign_up: "Registruj se"
+    sign_in: "Imate račun? Prijava"
+    forgot_password: "Zaboravili ste šifru?"
+    didnt_receieve_confirmation_ins: "Niste primili instrukcije za potvrdu  registracije?"
+    sign_up_provider: "Registruje se sa %{provider.to_s.titleize}"
+    didnt_receive_unlock_ins: "Niste primili instrukcije za otključavanje računa?"
+  login:
+    sign_in_title: "Login"
+    sign_in: "Prijava"
   ##############
-  hello: "Zdravo"
-  sign_up: "Registruj se"
-  sign_in: "Imate račun? Prijava"
-  forgot_password: "Zaboravili ste šifru?"
-  didnt_receieve_confirmation_ins: "Niste primili instrukcije za potvrdu  registracije?"
-  sign_up_provider: "Registruje se sa %{provider.to_s.titleize}"
-  didnt_receive_unlock_ins: "Niste primili instrukcije za otključavanje računa?"
-  login: "Prijava"
   add_phone: "Dodaj"
   phone_added: "Phone added succesfully"
   mongoid: 
@@ -22,30 +23,33 @@ bs:
         account:
           attributes:
             email:
-              blank: "nije unijet"
+              blank: "Email nije unijet"
+              invalid: "Email nije u ispravnom formatu"
+              taken: "Korisnik vec postoji u sistemu"
             password: 
-              blank: "nije unijeta"
+              blank: "Sifra nije unijeta"
+              confirmation: "Sifra se ne poklapa sa potvrdom"
         user:
           attributes:
             name:
-              blank: "nije unijeto"
+              blank: "Ime nije unijeto"
         store:
           attributes:
             name: 
-              blank: "nije unijeto"
+              blank: "Naziv nije unijet"
     attributes:
       account:
         email: "E-mail"
         password: "Sifra"
         password_confirmation: "Potvrdite sifru"
-        remember: "Zapamti me"
+        remember_me: "Zapamti me"
         username: "Username"
       user:
         name: "Ime"
         address: "Adresa"
         phone: "Telefon"
       store:
-        name: "Nazic"
+        name: "Naziv"
         address: "Adresa"
         phone: "Telefon"
         fax: "Fax"

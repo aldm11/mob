@@ -1,6 +1,6 @@
 <div class="login-container">
-	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:id => "login_form_main"}) do |f| %>
-	  <h3>Log in</h3>
+	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:id => "login_form_main"}, :class => "login-form") do |f| %>
+	  <h3><%= I18n.t("login.sign_in_title") %></h3>
 	  
 	  <div class="control-group">
 	  	<%= f.label :email %>
@@ -18,7 +18,7 @@
 	  </div>
 	
 	  <div class="control-group">
-	  	<%= f.submit "Sign in", :class => "btn btn-primary" %>
+	  	<%= f.submit I18n.t("login.sign_in"), :class => "btn btn-primary" %>
 	  	<% if flash[:alert] %>
 		<span class="pull-right text-error"><%= flash[:alert] %></span>
 		<% end %>
