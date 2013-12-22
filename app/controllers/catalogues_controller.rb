@@ -12,6 +12,7 @@ class CataloguesController < ApplicationController
     account = Account.where(username: username).to_a.first
     @my_item = account_signed_in? && current_account.username == params[:username]
     @catalogue_items = Managers::CatalogueManager.get_catalogue(account)
+    #@catalogue_items = [] if @catalogue_items.nil?
     @catalogue_phones = Catalogue.new(account, @catalogue_items).full_items
   end
   

@@ -99,12 +99,13 @@ module Managers
       return nil if account.blank?
       if account.is_a?(String)
         accounts = Account.where(username: account)
-        return nil if accounts.empty? 
+        return nil if accounts.empty?
         account = accounts.first
       end
 
       provider = account.rolable
       catalogue_items = CatalogueItem.where(provider_id: provider.id, deleted_date: nil).desc(:date_from).to_a
+      catalogue_items
       rescue Exception => e
         Rails.logger.fatal "Error while getting catalogue for account #{account.inspect} : #{e.message}"
         return nil

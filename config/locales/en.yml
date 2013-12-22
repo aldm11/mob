@@ -61,7 +61,7 @@ en:
         width: "Width"
         weight: "Weight"
         internal_memory: "Internal memory"
-        external_memory: "Enternal memory"
+        external_memory: "External memory"
         created_at: "Created at"
       
       

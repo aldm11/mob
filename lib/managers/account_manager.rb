@@ -3,6 +3,7 @@ module Managers
     
     SETTINGS = {
       :name => {},
+      :username => {},
       :phone => {:limit => 3, :value_pattern => /^[0-9]+{8,20}$/},
       :fax => {:limit => 3, :value_pattern => /^[0-9]+{8,20}$/},
       :address => {:limit => 4},

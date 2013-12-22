@@ -10,7 +10,11 @@ bs:
     forgot_password: "Zaboravili ste šifru?"
     didnt_receieve_confirmation_ins: "Niste primili instrukcije za potvrdu  registracije?"
     sign_up_provider: "Registruje se sa %{provider.to_s.titleize}"
-    didnt_receive_unlock_ins: "Niste primili instrukcije za otključavanje računa?"
+    
+    reset_password_title: "Promjena sifre"
+    didnt_receive_unlock_instructions: "Niste primili instrukcije za otključavanje računa?"
+    send_reset_password_instructions: "Posalji mi instrukcije za promjenu passworda"
+    
   login:
     sign_in_title: "Login"
     sign_in: "Prijava"
@@ -54,3 +58,17 @@ bs:
         phone: "Telefon"
         fax: "Fax"
         website: "Web"
+      comment:
+        text: "Komentar"
+      phone:
+        brand: "Brend"
+        model: "Model"
+        camera: "Kamera"
+        display: "Ekran"
+        os: "Operativni sistem"
+        height: "Visina"
+        width: "Sirina"
+        weight: "Tezina"
+        internal_memory: "Interna memorija"
+        external_memory: "Eksterna memorija"
+        created_at: "Kreiran"

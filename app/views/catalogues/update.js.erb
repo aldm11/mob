@@ -14,6 +14,10 @@
 	catalogue_item.find(".prices-from-others").popover({html: true, delay: 0, trigger: "click"});
 	catalogue_item.find(".prices-history").popover({html: true, delay: 0, trigger: "click"});
 	catalogue_item.find(".catalogue-phone-title").popover({html: true, delay: 1000, trigger: "hover"});
+	
+	if($(".catalogue-empty").length > 0){
+		$(".catalogue-empty").remove();
+	}
 <% else %>
 var error = "<div class = "text-error error-update-phone"><%= @result[:message] %></div>";
 if($(".save-catalogue-item").find("error-update-phone").length > 0){

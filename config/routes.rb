@@ -85,6 +85,8 @@ Mobis::Application.routes.draw do
     match "register_user" => "accounts/registrations#new", :account => { :type => "user" }, :as => "register_user"
     match "register_store" => "accounts/registrations#new", :account => { :type => "store" }, :as => "register_store"
     match "register" => "accounts/registrations#create", :as => "registration", :method => :post
+  
+    match "reset_password" => "accounts/passwords#new", :as => "new_unlock", :method => :get
   end
   
   namespace :api do

@@ -24,15 +24,21 @@ class User
     user.created_at = Time.now
   end
   
-  ALIASES =  {:avatar => "logo"}
-  EMPTY = [:website]
-  def method_missing(method_name, *args, &block)
-    if defined?(ALIASES) && ALIASES.keys.map {|k| k.to_s}.include?(method_name.to_s)
-      self.send(ALIASES[method_name.to_sym])
-    elsif defined?(EMPTY) && EMPTY.include?(method_name)
-      nil
-    else
-      super
-    end  
+  # ALIASES =  {:avatar => "logo"}
+  # EMPTY = [:website]
+  # def method_missing(method_name, *args, &block)
+    # if defined?(ALIASES) && ALIASES.keys.map {|k| k.to_s}.include?(method_name.to_s)
+      # self.send(ALIASES[method_name.to_sym])
+    # elsif defined?(EMPTY) && EMPTY.include?(method_name)
+      # nil
+    # else
+      # super
+    # end  
+  # end
+  
+  def to_hash
+    res = self.attributes.with_indifferent_access
+    res[:avatar] = self.avatar.to_s
+    res
   end
 end
