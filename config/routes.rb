@@ -72,22 +72,22 @@ Mobis::Application.routes.draw do
   match "messages" => "messages#index"
   
   #TODO: check this
-  devise_for :accounts, :controllers => {
-    :sessions => "accounts/sessions"
-  },
-  :path => "",
-  :path_names => {:sign_in => "login", :sign_out => "logout"}
-    
-  devise_scope :account do
-    # match "login" => "accounts/sessions#new", :as => "new_account_session", :via => :get
-    
+  devise_scope :account do    
     match "registration" => "accounts/registrations#index", :as => "register"
     match "register_user" => "accounts/registrations#new", :account => { :type => "user" }, :as => "register_user"
     match "register_store" => "accounts/registrations#new", :account => { :type => "store" }, :as => "register_store"
-    match "register" => "accounts/registrations#create", :as => "registration", :method => :post
+    match "register" => "accounts/registrations#create", :as => "registration", :method => :post  
   
-    match "reset_password" => "accounts/passwords#new", :as => "new_unlock", :method => :get
+    # match "reset_password" => "devise/passwords#new", :as => "new_unlock", :method => :get
+    # match "reset_password" => "devise/passwords#create", :as => "create_unlock", :method => :post
   end
+  
+  devise_for :accounts, :controllers => {
+    :sessions => "accounts/sessions",
+    :passwords => "devise/passwords"
+  },
+  :path => "",
+  :path_names => {:sign_in => "login", :sign_out => "logout", :new_unlock => "reset_password"}
   
   namespace :api do
     namespace :v1 do      
@@ -162,6 +162,8 @@ Mobis::Application.routes.draw do
   match "/add_settings" => "accounts#add", :as => "settings_add", :via => :put
   match "/change_password" => "accounts#change_password", :as => "change_password", :via => :post
   match "/accounts_details" => "accounts#accounts_details", :as => "accounts_details", :via => :post  
+  match "settings/change_avatar" => "accounts#change_avatar", :as => "change_avatar", :via => :post
+ 
   match "/:brand" => "home#index", :as => "brand", :via => "get"
   
   mount Heartbeat::Application, :at => "/heartbeat"

@@ -9,28 +9,41 @@
       <div class="accordion-inner account-info">
         <h3><%= @account_info[:name][:value] + " " + "contact info" %></h3>
 
-		<table class="table table-hover account-attributes">
-			<tbody>
-			<% @account_info.each do |attr, details| %>
-				<% if  attr != :name && details[:display] %>
-					<% css_class = [details[:value].blank? ? "warning" : "success", [attr, "info"].join("-")].join(" ") %>
-					<tr class="<%= css_class %>">
-					<td class="attribute-name"><%= details[:label] %></td>
-			  		<td class="attribute-value">
-			  			<%= render :partial => "account_info_value", :locals => {:property => attr, :value => details[:value]} %>
-			  		</td>
-			  		<td class="update-attribute">
-			  			<%= link_to("Add", "#", :class => "toggle-property", :"data-property" => attr) %>
-			  			<%= link_to("", "#", :class => "pull-right icon-ok add-property hidden", :"data-property" => attr) %>
-			  			<%= form_tag(settings_add_path, :method => :put, :remote => true, :class => "form-inline add-property hidden", :"data-type" => "json") do %>
-			  			<%= text_field_tag [attr.to_s, "add"].join("_"), "" %>
-			  			<% end %>
-			  		</td>
-			  		</tr>
-			  	<% end %>
-			<% end %>
-			</tbody>
-		</table>
+		<div class="row-fluid">
+			<div class="span10">
+				<table class="table table-hover account-attributes">
+					<tbody>
+					<% @account_info.each do |attr, details| %>
+						<% if  attr != :name && attr != :avatar && details[:display] %>
+							<% css_class = [details[:value].blank? ? "warning" : "success", [attr, "info"].join("-")].join(" ") %>
+							<tr class="<%= css_class %>">
+							<td class="attribute-name"><%= details[:label] %></td>
+					  		<td class="attribute-value">
+					  			<%= render :partial => "account_info_value", :locals => {:property => attr, :value => details[:value]} %>
+					  		</td>
+					  		<td class="update-attribute">
+					  			<%= link_to("Add", "#", :class => "toggle-property", :"data-property" => attr) %>
+					  			<%= link_to("", "#", :class => "pull-right icon-ok add-property hidden", :"data-property" => attr) %>
+					  			<%= form_tag(settings_add_path, :method => :put, :remote => true, :class => "form-inline add-property hidden", :"data-type" => "json") do %>
+					  			<%= text_field_tag [attr.to_s, "add"].join("_"), "" %>
+					  			<% end %>
+					  		</td>
+					  		</tr>
+					  	<% end %>
+					<% end %>
+					</tbody>
+				</table>
+			</div>
+			<div class="span2 settings-avatar-container">
+				<%= form_tag(change_avatar_path, :method => :post, :remote => true, :class => "change-avatar-form", :multipart => true) do %>
+				<%= file_field_tag "avatar" %>
+				<% end %> 
+				<div class="avatar-wrapper clearfix">
+					<%= image_tag @account_info[:avatar][:value], :class => "pull-right image-rounded account-settings-avatar" %>
+					<%= link_to I18n.t("accounts.change_avatar"), "#", :class => "change-avatar" %>
+				</div>
+			</div>
+		</div>
       </div>
     </div>
   </div>

@@ -18,6 +18,9 @@ bs:
   login:
     sign_in_title: "Login"
     sign_in: "Prijava"
+    
+  accounts:
+    change_avatar: "Promijeni avatar"
   ##############
   add_phone: "Dodaj"
   phone_added: "Phone added succesfully"
@@ -30,6 +33,7 @@ bs:
               blank: "Email nije unijet"
               invalid: "Email nije u ispravnom formatu"
               taken: "Korisnik vec postoji u sistemu"
+              not_found: "Email ne postoji"
             password: 
               blank: "Sifra nije unijeta"
               confirmation: "Sifra se ne poklapa sa potvrdom"

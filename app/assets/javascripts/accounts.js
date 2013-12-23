@@ -103,5 +103,24 @@ $(document).ready(function(){
 		setTimeout(function(){error_message.fadeOut(2000, function(){})}, 1500);
     });
     
+    //avatar upload
+    $("a.change-avatar").live("click", function(event){
+    	$("#avatar").click();
+    });
+    
+    $("img.account-settings-avatar").hover(function(event){
+    	$(this).css("opacity", 0.4);
+    	$("a.change-avatar").show();
+    }, function(event){
+    	if(!$("a.change-avatar").is(":hover")){
+    		$(this).css("opacity", 1);
+    		$("a.change-avatar").hide();
+    	}
+    	
+    });
+    
+    $("#avatar").live("change", function(event){
+    	$(".change-avatar-form").submit();
+    });
     
 });

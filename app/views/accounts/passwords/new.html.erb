@@ -1,11 +1,10 @@
 <h2><%= I18n.t("registration.reset_password_title") %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
-
   <div>
   	<%= f.label :email %>
-  	<%= f.email_field :email %>
+  	<%= f.text_field :email %>
+	<%= content_tag(:span, resource.errors.messages[:email].join(" "), :class => "text-error") if resource.errors.messages[:email] %>
   </div>
 
   <div><%= f.submit I18n.t("registration.send_reset_password_instructions"), :class => "btn btn-primary" %></div>

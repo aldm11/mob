@@ -2,6 +2,7 @@ class AccountDecorator < Draper::Base
   decorates :account
  
   DISPLAY_ACCOUNT_INFO = ["name", "phone", "address", "fax", "website"]
+  DEFAULT_AVATAR = "/images/no_image.jpg"
   def get_info(options = {})
     result = {
       :email => {:value => account.email, :display => true, :label => I18n.t("mongoid.attributes.account.email")}, 
@@ -13,6 +14,7 @@ class AccountDecorator < Draper::Base
       display = DISPLAY_ACCOUNT_INFO.include?(attr.to_s)
       [attr, {:value => val, :display => display, :label => label}]
     end] 
+    rolable_hash[:avatar] = {:value => account.rolable.avatar.exists? ? account.rolable.avatar : DEFAULT_AVATAR}
     result.merge!(rolable_hash)
     result = result.with_indifferent_access
     result

@@ -37,5 +37,26 @@ form.change-password {
     display: inline-block;
   }
 }
+
+.settings-avatar-container {
+  .avatar-wrapper {
+    position: relative;
+    
+    img.account-settings-avatar {
+      width: 128px;
+    }
+  
+    .change-avatar {
+      position: absolute;
+      bottom: 5px;
+      left: 10px;
+      display: none;
+    }
+  }
+  
+  form.change-avatar-form {
+    display: none;
+  }
+}
   
 

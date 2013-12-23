@@ -60,4 +60,14 @@ class AccountsController < ApplicationController
     end
   end
   
+  def change_avatar
+    current_account.rolable.avatar = params[:avatar]
+    if current_account.save && current_account.rolable.save
+      current_account.reload
+      render :json => "success"
+    else
+      render :json => "failure"
+    end
+  end
+  
 end
