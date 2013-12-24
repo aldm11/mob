@@ -14,10 +14,14 @@ class AccountDecorator < Draper::Base
       display = DISPLAY_ACCOUNT_INFO.include?(attr.to_s)
       [attr, {:value => val, :display => display, :label => label}]
     end] 
-    rolable_hash[:avatar] = {:value => account.rolable.avatar.exists? ? account.rolable.avatar : DEFAULT_AVATAR}
+    rolable_hash[:avatar] = {:value => get_avatar}
     result.merge!(rolable_hash)
     result = result.with_indifferent_access
     result
+  end
+  
+  def get_avatar
+    account.rolable.avatar.exists? ? account.rolable.avatar : DEFAULT_AVATAR
   end
  
   FILTER_ATTRIBUTES = [:followings, :followers]

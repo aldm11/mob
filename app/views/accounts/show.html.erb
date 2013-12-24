@@ -36,11 +36,11 @@
 			</div>
 			<div class="span2 settings-avatar-container">
 				<%= form_tag(change_avatar_path, :method => :post, :remote => true, :class => "change-avatar-form", :multipart => true) do %>
-				<%= file_field_tag "avatar" %>
+				<%= file_field_tag "avatar", :"data-url" => change_avatar_path %>
 				<% end %> 
 				<div class="avatar-wrapper clearfix">
 					<%= image_tag @account_info[:avatar][:value], :class => "pull-right image-rounded account-settings-avatar" %>
-					<%= link_to I18n.t("accounts.change_avatar"), "#", :class => "change-avatar" %>
+					<%= link_to "", "#", :class => "change-avatar icon-upload", :title => I18n.t("accounts.change_avatar") %>
 				</div>
 			</div>
 		</div>

@@ -21,6 +21,7 @@ bs:
     
   accounts:
     change_avatar: "Promijeni avatar"
+    change_avatar_error: "Doslo je do greske. Molimo pokusajte kasnije"
   ##############
   add_phone: "Dodaj"
   phone_added: "Phone added succesfully"

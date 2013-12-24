@@ -64,9 +64,9 @@ class AccountsController < ApplicationController
     current_account.rolable.avatar = params[:avatar]
     if current_account.save && current_account.rolable.save
       current_account.reload
-      render :json => "success"
+      render :json => {:status => "success", :avatar => AccountDecorator.decorate(current_account).get_avatar }, :status => 200
     else
-      render :json => "failure"
+      render :json => I18n.t("accounts.change_avatar_error"), :status => 400
     end
   end
   

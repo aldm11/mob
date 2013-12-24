@@ -110,6 +110,7 @@ $(document).ready(function(){
     
     $("img.account-settings-avatar").hover(function(event){
     	$(this).css("opacity", 0.4);
+    	$("a.change-avatar").css("opacity", 1);
     	$("a.change-avatar").show();
     }, function(event){
     	if(!$("a.change-avatar").is(":hover")){
@@ -119,8 +120,45 @@ $(document).ready(function(){
     	
     });
     
-    $("#avatar").live("change", function(event){
-    	$(".change-avatar-form").submit();
+    var upload_message = $("<div style='width: 100%; height: 100%; text-align: center; vertical-align: center;'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
+    $('#avatar').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            $("img.account-settings-avatar").attr("src", data._response.result.avatar);
+            upload_message.remove();
+            $("img.account-settings-avatar").show();
+        },
+        add: function (e, data) {
+            // Automatically upload the file once it is added to the queue
+            var jqXHR = data.submit();
+            $(".avatar-wrapper").width($("img.account-settings-avatar").width());
+            $(".avatar-wrapper").height($("img.account-settings-avatar").height());
+            $("img.account-settings-avatar").hide();
+            $(".avatar-wrapper").append(upload_message);
+        },
+
+        progress: function(e, data){
+
+            // // Calculate the completion percentage of the upload
+            // var progress = parseInt(data.loaded / data.total * 100, 10);
+// 
+            // // Update the hidden input field and trigger a change
+            // // so that the jQuery knob plugin knows to update the dial
+            // data.context.find('input').val(progress).change();
+// 
+            // if(progress == 100){
+                // data.context.removeClass('working');
+            // }
+        },
+
+        fail:function(e, data){
+        	upload_message.remove();
+        	$("img.account-settings-avatar").show();
+        	var error_message = $("<small></small>").addClass("text-error").html(data._response.jqXHR.responseText);
+        	error_message.insertAfter(".avatar-wrapper");
+        	
+        	setTimeout(function(){ error_message.fadeOut(2000, function(){}); }, 1000);
+        }
     });
     
 });

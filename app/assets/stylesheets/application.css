@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require jquery-ui-1.10.2.custom
+ *= require jquery.fileupload
  *= require_tree ./bootstrap
  *= require layout
  *= require chat
