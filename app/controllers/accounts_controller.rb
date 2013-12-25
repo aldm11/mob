@@ -60,7 +60,20 @@ class AccountsController < ApplicationController
     end
   end
   
+  ALLOWED_AVATAR_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif"]
+  MAX_AVATAR_SIZE = 4000000
   def change_avatar
+    if(params[:avatar].size > MAX_AVATAR_SIZE)
+      render :json => I18n.t("accounts.file_too_big_error", max_size: MAX_AVATAR_SIZE/1000000), :status => 400
+      return
+    end
+    
+    file_extension = File.extname(params[:avatar].original_filename).strip.downcase
+    unless ALLOWED_AVATAR_EXTENSIONS.include?(file_extension)
+      render :json => I18n.t("accounts.file_bad_extension_error", allowed_extensions: ALLOWED_AVATAR_EXTENSIONS.join(", ")), :status => 400
+      return
+    end
+    
     current_account.rolable.avatar = params[:avatar]
     if current_account.save && current_account.rolable.save
       current_account.reload

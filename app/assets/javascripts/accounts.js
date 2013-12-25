@@ -121,6 +121,7 @@ $(document).ready(function(){
     });
     
     var upload_message = $("<div style='width: 100%; height: 100%; text-align: center; vertical-align: center;'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
+    var max_file_size = 4000000;
     $('#avatar').fileupload({
         dataType: 'json',
         done: function (e, data) {
@@ -129,12 +130,17 @@ $(document).ready(function(){
             $("img.account-settings-avatar").show();
         },
         add: function (e, data) {
-            // Automatically upload the file once it is added to the queue
-            var jqXHR = data.submit();
-            $(".avatar-wrapper").width($("img.account-settings-avatar").width());
-            $(".avatar-wrapper").height($("img.account-settings-avatar").height());
-            $("img.account-settings-avatar").hide();
-            $(".avatar-wrapper").append(upload_message);
+        	if(data.files[0].size > max_file_size){
+        		showError("Prevelik fajl. Maksimalna velicina avatara je " + (max_file_size/1000000) + " MB");	
+        	}
+        	else {
+	            // Automatically upload the file once it is added to the queue
+	            var jqXHR = data.submit();
+	            $(".avatar-wrapper").width($("img.account-settings-avatar").width());
+	            $(".avatar-wrapper").height($("img.account-settings-avatar").height());
+	            $("img.account-settings-avatar").hide();
+	            $(".avatar-wrapper").append(upload_message);
+	        }
         },
 
         progress: function(e, data){
@@ -154,11 +160,14 @@ $(document).ready(function(){
         fail:function(e, data){
         	upload_message.remove();
         	$("img.account-settings-avatar").show();
-        	var error_message = $("<small></small>").addClass("text-error").html(data._response.jqXHR.responseText);
-        	error_message.insertAfter(".avatar-wrapper");
-        	
-        	setTimeout(function(){ error_message.fadeOut(2000, function(){}); }, 1000);
+        	showError(data._response.jqXHR.responseText);
         }
     });
+    
+    function showError(error_message){
+	    var error_message = $("<small></small>").addClass("text-error").html(error_message);
+    	error_message.insertAfter(".avatar-wrapper");
+    	setTimeout(function(){ error_message.fadeOut(1500, function(){}); }, 3000);
+    }
     
 });
