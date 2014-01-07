@@ -8,10 +8,10 @@ var search = function(){
 			url : "/search/search_phones",
 			before_send : function(parameters){
 				if(parameters["from"] === this.paging["from"] && parameters["size"] === this.paging["size"]){
-					$(".phones-grid").html("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+					$(".phones-grid").html("<div id = 'loading_big'><img src = '/loading.gif' width = '32px' height = '32px' /></div>");
 				}
 				else {
-					$(".phones-grid").append("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+					$(".phones-grid").append("<div id = 'loading_big'><img src = '/loading.gif' width = '32px' height = '32px' /></div>");
 				}
 			}
 		},

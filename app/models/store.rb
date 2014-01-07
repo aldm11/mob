@@ -27,9 +27,9 @@ class Store
     res
   end
   
-  ALIASES =  {:avatar => "logo"}
+  ALIASES =  {"avatar" => "logo", "avatar=" => "logo="}
   ALIASES.each do |ali, orig|
-    alias_method(ali, orig.to_sym)
+    alias_method(ali.to_sym, orig.to_sym)
   end  
 
 end

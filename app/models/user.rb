@@ -24,7 +24,7 @@ class User
     user.created_at = Time.now
   end
   
-  # ALIASES =  {:avatar => "logo"}
+  ALIASES =  {:avatar => "logo"}
   # EMPTY = [:website]
   # def method_missing(method_name, *args, &block)
     # if defined?(ALIASES) && ALIASES.keys.map {|k| k.to_s}.include?(method_name.to_s)

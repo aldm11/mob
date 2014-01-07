@@ -28,7 +28,8 @@ $(document).ready(function(){
     	event.preventDefault();    	
     	$(this).closest("td").find("form").toggleClass("hidden");
     	$(this).closest("td").find("a.add-property").toggleClass("hidden");
-    	$(this).html() === "Add" ? $(this).html("Cancel") : $(this).html("Add");
+    	// $(this).html() === "Add" ? $(this).html("Cancel") : $(this).html("Add");
+    	$(this).toggleClass("icon-edit").toggleClass("icon-remove");
     }); 
     
     

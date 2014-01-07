@@ -1,78 +1,76 @@
-<div class="accordion" id="accordion2">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        Account info
-      </a>
-    </div>
-    <div id="collapseOne" class="accordion-body collapse in">
-      <div class="accordion-inner account-info">
-        <h3><%= @account_info[:name][:value] + " " + "contact info" %></h3>
-
-		<div class="row-fluid">
-			<div class="span10">
-				<table class="table table-hover account-attributes">
-					<tbody>
-					<% @account_info.each do |attr, details| %>
-						<% if  attr != :name && attr != :avatar && details[:display] %>
-							<% css_class = [details[:value].blank? ? "warning" : "success", [attr, "info"].join("-")].join(" ") %>
-							<tr class="<%= css_class %>">
-							<td class="attribute-name"><%= details[:label] %></td>
-					  		<td class="attribute-value">
-					  			<%= render :partial => "account_info_value", :locals => {:property => attr, :value => details[:value]} %>
-					  		</td>
-					  		<td class="update-attribute">
-					  			<%= link_to("Add", "#", :class => "toggle-property", :"data-property" => attr) %>
-					  			<%= link_to("", "#", :class => "pull-right icon-ok add-property hidden", :"data-property" => attr) %>
-					  			<%= form_tag(settings_add_path, :method => :put, :remote => true, :class => "form-inline add-property hidden", :"data-type" => "json") do %>
-					  			<%= text_field_tag [attr.to_s, "add"].join("_"), "" %>
-					  			<% end %>
-					  		</td>
-					  		</tr>
-					  	<% end %>
-					<% end %>
-					</tbody>
-				</table>
-			</div>
-			<div class="span2 settings-avatar-container">
-				<%= form_tag(change_avatar_path, :method => :post, :remote => true, :class => "change-avatar-form", :multipart => true) do %>
-				<%= file_field_tag "avatar", :"data-url" => change_avatar_path %>
-				<% end %> 
-				<div class="avatar-wrapper clearfix">
-					<%= image_tag @account_info[:avatar][:value], :class => "pull-right image-rounded account-settings-avatar" %>
-					<%= link_to "", "#", :class => "change-avatar icon-upload", :title => I18n.t("accounts.change_avatar") %>
+<div class="account-settings">
+	<ul class="nav nav-pills">
+		<li class="active">
+			<a class="toggle-tab-account-settings" href="#account_info" data-toggle="pill">
+		    	<%= I18n.t("accounts.account_info_tab_title") %>
+			</a>
+		</li>
+		<li>
+		  	<a class="toggle-tab-account-settings" href="#change_password" data-toggle="pill">
+		    	<%= I18n.t("accounts.change_password_tab_title") %>
+		  	</a>
+		</li>
+	</ul>     
+    
+    
+    <div class="tab-content">
+	    <div id="account_info" class="tab-pane active account-info thumbnail">
+			<div class="row-fluid">
+				<div class="span10">
+					<table class="table table-hover account-attributes">
+						<tbody>
+						<% @account_info.each do |attr, details| %>
+							<% if  attr != :name && attr != :avatar && details[:display] %>
+								<% css_class = [details[:value].blank? ? "warning" : "success", [attr, "info"].join("-")].join(" ") %>
+								<tr class="<%= css_class %>">
+								<td class="attribute-name"><%= details[:label] %></td>
+						  		<td class="attribute-value">
+						  			<%= render :partial => "account_info_value", :locals => {:property => attr, :value => details[:value]} %>
+						  		</td>
+						  		<td class="update-attribute">
+						  			<%= link_to("", "#", :class => "icon-edit toggle-property", :"data-property" => attr) %>
+						  			<%= link_to("", "#", :class => "pull-right icon-ok add-property hidden", :"data-property" => attr) %>
+						  			<%= form_tag(settings_add_path, :method => :put, :remote => true, :class => "form-inline add-property hidden", :"data-type" => "json") do %>
+						  			<%= text_field_tag [attr.to_s, "add"].join("_"), "" %>
+						  			<% end %>
+						  		</td>
+						  		</tr>
+						  	<% end %>
+						<% end %>
+						</tbody>
+					</table>
+				</div>
+				<div class="span2 settings-avatar-container">
+					<%= form_tag(change_avatar_path, :method => :post, :remote => true, :class => "change-avatar-form", :multipart => true) do %>
+					<%= file_field_tag "avatar", :"data-url" => change_avatar_path %>
+					<% end %> 
+					<div class="avatar-wrapper clearfix">
+						<%= image_tag @account_info[:avatar][:value], :class => "pull-right image-rounded account-settings-avatar" %>
+						<%= link_to "", "#", :class => "change-avatar icon-upload", :title => I18n.t("accounts.change_avatar") %>
+					</div>
 				</div>
 			</div>
-		</div>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-        Change password
-      </a>
-    </div>
-    <div id="collapseTwo" class="accordion-body collapse">
-      <div class="accordion-inner">
-        <%= form_tag(change_password_path, :method => :post, :remote => true, :"data-type" => "json", :class => "change-password") do %>
-        <div>
-        	<%= label_tag("old_password", "Old password") %>
-        	<%= password_field_tag "old_password" %>
-        </div>
-        <div>
-        	<%= label_tag("new_password", "New password") %>
-        	<%= password_field_tag "new_password" %>
-        </div>
-        <div>
-        	<%= label_tag("password_confirmation", "Confirm password") %>
-        	<%= password_field_tag "password_confirmation" %>
-        </div>
-        <div>
-        	<%= submit_tag "Submit", :class => "btn pull-right" %>
-        </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
+	    </div>
+	
+	    <div id="change_password" class="tab-pane thumbnail">
+	        <%= form_tag(change_password_path, :method => :post, :remote => true, :"data-type" => "json", :class => "change-password") do %>
+	        <div>
+	        	<%= label_tag("old_password", "Stara sifra") %>
+	        	<%= password_field_tag "old_password" %>
+	        </div>
+	        <div>
+	        	<%= label_tag("new_password", "Nova sifra") %>
+	        	<%= password_field_tag "new_password" %>
+	        </div>
+	        <div>
+	        	<%= label_tag("password_confirmation", "Potvrdite sifru") %>
+	        	<%= password_field_tag "password_confirmation" %>
+	        </div>
+	        <div>
+	        	<%= submit_tag "Promijeni sifru", :class => "btn pull-right" %>
+	        </div>
+	        <% end %>
+	    </div>
+	</div>
+    
 </div>

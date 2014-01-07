@@ -3,7 +3,7 @@ module Managers
     
     SETTINGS = {
       :name => {},
-      :username => {},
+      :username => {:value_pattern => /[a-z0-9]+{6,20}/},
       :phone => {:limit => 3, :value_pattern => /^[0-9]+{8,20}$/},
       :fax => {:limit => 3, :value_pattern => /^[0-9]+{8,20}$/},
       :address => {:limit => 4},
@@ -22,7 +22,7 @@ module Managers
       invalid_properties = properties.map do |property, value|
         field = current_account.fields[property.to_s] ? field = current_account.fields[property.to_s] : current_account.rolable.fields[property.to_s]
         if value.is_a?(Array) && field.options[:type] != Array
-          "Invalid add for #{property.to_s}."
+          "#{property.to_s} ne moze imati vise vrijednosti."
         else
           nil          
         end
@@ -30,18 +30,18 @@ module Managers
       return {:status => false, :message => invalid_properties.join(" ")} unless invalid_properties.empty?
             
       forbidden_properties = properties.map { |property, values| SETTINGS[property.to_sym] ? nil : property }.compact
-      return {:status => false, :message => "#{forbidden_properties} can't be updated"} unless forbidden_properties.empty?
+      return {:status => false, :message => "#{forbidden_properties.join(" ")} se ne moze promijeniti"} unless forbidden_properties.empty?
       
       invalid_values = properties.map do |property, value|
         invalids = [value].flatten.select { |val| SETTINGS[property.to_sym][:value_pattern] && val.match(SETTINGS[property.to_sym][:value_pattern]).nil? }
-        invalids.empty? ? nil : "Invalid value #{invalids.first.to_s} for #{property.to_s}."
+        invalids.empty? ? nil : "Neispravan format #{invalids.first.to_s} za #{property.to_s}."
       end.compact
       return {:status => false, :message => invalid_values.join(" ")} unless invalid_values.empty?
       
       limit_excedded_properties = properties.map do |property, value|
         existing_length = account_attributes[property.to_sym] ? account_attributes[property.to_sym].length : 0
         if SETTINGS[property.to_sym][:limit] && [value].flatten.length + existing_length > SETTINGS[property.to_sym][:limit]
-          "Maximum length #{SETTINGS[property.to_sym][:limit]} for #{property.to_s} excedded."
+          "Nije moguce dodati vise od #{SETTINGS[property.to_sym][:limit]} #{pluralize(property.to_s)}"
         else
           nil
         end      
@@ -63,7 +63,7 @@ module Managers
         new_properties[property] = new_value
       end
       new_properties = new_properties.with_indifferent_access
-      {:status => true, :message => "#{properties.keys.map { |property, value| property.to_s }.join(", ")} succesfully updated", :attributes => new_properties}
+      {:status => true, :message => "#{properties.keys.map { |property, value| property.to_s }.join(", ")} uspjesno promijenjen", :attributes => new_properties}
     end
     
     def self.remove(current_account, properties)
@@ -80,13 +80,13 @@ module Managers
         ((field = current_account.rolable.fields[property.to_s]) && field.options[:type] == Array)
           nil
         else
-          "Invalid remove for #{property.to_s}."
+          "#{property.to_s} ne moze imati vise vrijednosti"
         end
       end.compact
       return {:status => false, :message => invalid_properties.join(" ")} unless invalid_properties.empty?
             
       forbidden_properties = properties.map { |property, values| SETTINGS[property.to_sym] ? nil : property }.compact
-      return {:status => false, :message => "#{forbidden_properties} can't be removed"} unless forbidden_properties.empty?
+      return {:status => false, :message => "#{forbidden_properties.join(" ")} se ne moze promijeniti"} unless forbidden_properties.empty?
       
       new_properties = {}
       properties.each do |property, value|
@@ -98,7 +98,7 @@ module Managers
         new_properties[property.to_s] = new_values    
       end
       
-      message = "#{properties.keys.map { |property| property.to_s }.join(", ")} succesfully removed"
+      message = "#{properties.keys.map { |property| property.to_s }.join(", ")} uspjesno obrisan"
       {:status => true, :message => message, :attributes => new_properties.with_indifferent_access}
     end  
     

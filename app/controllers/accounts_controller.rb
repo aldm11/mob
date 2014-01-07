@@ -51,12 +51,12 @@ class AccountsController < ApplicationController
       if current_account.reset_password!(params[:new_password], params[:password_confirmation])
         current_account.save
         sign_in(current_account, :bypass => true)
-        render :json => {:message => "Password changed sucesfully"}, :status => 200
+        render :json => {:message => "Sifra promijenjena"}, :status => 200
       else
-        render :json => "Invalid new password. Password must be at least 6 characters long. Password must match confirmation.", :status => 400
+        render :json => "Neispravan format sifre. Sifra mora imati bar 6 znakova. Potvrda sifre se mora poklapati sa sifrom", :status => 400
       end
     else
-      render :json => "Wrong password", :status => 400
+      render :json => "Pogresna sifra", :status => 400
     end
   end
   

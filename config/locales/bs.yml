@@ -24,6 +24,8 @@ bs:
     change_avatar_error: "Doslo je do greske. Molimo pokusajte kasnije"
     file_too_big_error: "Fajl prevelik. Max velicina avatara: %{max_size} MB"
     file_bad_extension_error: "Nedozvoljena ekstenzija fajla. Dozvoljene ekstenzije: %{allowed_extensions}"
+    account_info_tab_title: "Korisnicki racun"
+    change_password_tab_title: "Promjena sifre"
   ##############
   add_phone: "Dodaj"
   phone_added: "Phone added succesfully"
@@ -65,6 +67,9 @@ bs:
         phone: "Telefon"
         fax: "Fax"
         website: "Web"
+      admin:
+        name: "Ime"
+        phone: "Telefon"    
       comment:
         text: "Komentar"
       phone:
