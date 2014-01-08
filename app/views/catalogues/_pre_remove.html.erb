@@ -1,12 +1,11 @@
 <div class='modal hide fade remove-confirm'>
-	<div class='modal-header'>Confirm action</div>
 	<div class='modal-body'>
 		<%= form_tag url_for(:action => "remove"), :remote => true do %>
-			<p>Are you sure that you want to remove this phone from your catalogue?</p>
+			<h5><%= I18n.t("catalogues.confirm_remove_message") %></h5>
 			<%= hidden_field_tag "phone_id", params[:phone_id] %>
 			<%= hidden_field_tag "catalogue_id", params[:catalogue_id] %>
-			<%= submit_tag "Yes", :class => "btn btn-danger" %>
-			<%= button_tag "Cancel", :type => "reset", :class => "btn" %>
+			<%= submit_tag I18n.t("catalogues.confirm"), :class => "btn btn-danger" %>
+			<%= button_tag I18n.t("catalogues.cancel"), :type => "reset", :class => "btn", "data-dismiss" => "modal" %>
 		<% end %>
 	</div>
 </div>

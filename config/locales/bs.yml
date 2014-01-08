@@ -26,6 +26,20 @@ bs:
     file_bad_extension_error: "Nedozvoljena ekstenzija fajla. Dozvoljene ekstenzije: %{allowed_extensions}"
     account_info_tab_title: "Korisnicki racun"
     change_password_tab_title: "Promjena sifre"
+    
+  catalogues:
+    add_phone: "Dodaj telefon"
+    save: "Spasi"
+    cancel: "Odustani"
+    type_phone_name: "Upisite model ili proizvodjaca"
+    type_phone_price: "Upisite cijenu"
+    confirm: "Potvrdi"
+    confirm_remove_message: "Jeste li sigurni da zelite obrisati telefon iz kataloga?"
+    no_prices_others: "Ovaj artikal ne postoji u drugim katalozima"
+    prices_from_others: "Uporedi cijenu"
+    prices_history: "Historija cijena"
+    no_prices_before: "Ovaj artikal nije ranije dodavan u katalog"
+    
   ##############
   add_phone: "Dodaj"
   phone_added: "Phone added succesfully"

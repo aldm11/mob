@@ -6,17 +6,17 @@
 		<div class="span3">
 			<%= form_tag url_for(:action => "update"), :method =>:put, :remote => true, :class => "form-horizontal", :id => "saveCatalogueItem" do %>
 			<div class="control-group">
-				<%= text_field_tag "phone_name", "", :placeholder => "Type phone name ...", :class => "typeahead", :autocomplete => "off" %>
+				<%= text_field_tag "phone_name", "", :placeholder => I18n.t("catalogues.type_phone_name"), :class => "typeahead", :autocomplete => "off" %>
 			</div>
 			<div class="control-group">
 				<%= hidden_field_tag "phone_id" %>
 			</div>
 			<div class="control-group">
-				<%= text_field_tag "price", "", :placeholder => "Type price ...", :class => "number", :autocomplete => "off" %>
+				<%= text_field_tag "price", "", :placeholder => I18n.t("catalogues.type_phone_price"), :class => "number", :autocomplete => "off" %>
 			</div>
 			<div class="control-group">
-				<%= submit_tag "Add", :class => "btn btn-primary" %>
-				<%= button_tag "Cancel", :class => "btn cancel-catalogue-save", :type => "reset" %>
+				<%= submit_tag I18n.t("catalogues.save"), :class => "btn btn-primary" %>
+				<%= button_tag I18n.t("catalogues.cancel"), :class => "btn", :type => "reset", "data-dismiss" => "modal" %>
 			</div>
 			<% end %>
 		</div>

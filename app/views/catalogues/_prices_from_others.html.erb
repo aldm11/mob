@@ -1,5 +1,5 @@
 <% if prices_from_others.empty? %>
-<p class="muted">No prices for this article in other stores</p>
+<p class="muted"><%= I18n.t("catalogues.no_prices_others") %></p>
 <% else %>
 <ul>
 	<% prices_from_others.each do |price| %>

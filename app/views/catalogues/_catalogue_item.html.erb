@@ -21,10 +21,23 @@
 	<div class="align-center">
 		<abbr class="pull-left text-error catalogue-price"><%= t "price", :price => catalogue_item.actual_price %></abbr>
 		<div class="pull-right catalogue-options">
-			<%= link_to "", "#", :class => "prices-from-others show-on-hover icon-info-sign", "data-toggle" =>"popover", "data-original-title" => "Price from others", "data-content" => "#{render :partial => "prices_from_others", :locals => {:prices_from_others => catalogue_phone["prices_from_others"]}}" %>
+			<%= link_to "", "#", 
+				"class" => "prices-from-others show-on-hover icon-info-sign", 
+				"data-toggle" =>"popover", 
+				"data-original-title" => I18n.t("catalogues.prices_from_others"), 
+				"data-content" => "#{render :partial => "prices_from_others", :locals => {:prices_from_others => catalogue_phone["prices_from_others"]}}" 
+			%>
 			<% if my_item %>
-				<%= link_to "", edit_catalogue_path(:phone_name => catalogue_item.phone.name, :price => catalogue_item.actual_price), :class => "change-price icon-edit", :remote => true, :title => "Change price" %>
-				<%= link_to "", "#", :class => "prices-history show-on-hover icon-calendar", "data-toggle" => "popover", "data-original-title" => "Prices history", "data-content" => "#{catalogue_item.prices_history.html_safe}" %>
+				<%= link_to "", edit_catalogue_path(:phone_name => catalogue_item.phone.name, :price => catalogue_item.actual_price), 
+					:class => "change-price icon-edit", 
+					:remote => true
+				%>
+				<%= link_to "", "#", 
+					:class => "prices-history show-on-hover icon-calendar", 
+					"data-toggle" => "popover", 
+					"data-original-title" => I18n.t("catalogues.prices_history"), 
+					"data-content" => "#{catalogue_item.prices_history.html_safe}" 
+				%>
 			<% end %>
 		</div>
 	</div>	

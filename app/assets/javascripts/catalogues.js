@@ -59,11 +59,6 @@ $(document).ready(function(){
 		$(".save-catalogue-item").remove();
 	});
 	
-	$(".cancel-catalogue-save").live("click", function(){
-		$(".remove-confirm").modal("hide");
-		$(".remove-confirm").remove();
-	});
-	
 	$("#saveCatalogueItem").live("submit", function(){
 		if($("#phone_name").val().length < 3 || $("#price").val().length < 2){
 			$(".modal-footer").html("<p class='text-error'>Please enter valid phone name and price !</p>");

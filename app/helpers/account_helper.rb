@@ -15,4 +15,8 @@ module AccountHelper
     formed_username
   end
   
+  def property_editable?(property)
+    Managers::AccountManager.editable?(property)
+  end
+  
 end

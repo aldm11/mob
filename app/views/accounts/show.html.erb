@@ -28,11 +28,15 @@
 						  			<%= render :partial => "account_info_value", :locals => {:property => attr, :value => details[:value]} %>
 						  		</td>
 						  		<td class="update-attribute">
-						  			<%= link_to("", "#", :class => "icon-edit toggle-property", :"data-property" => attr) %>
-						  			<%= link_to("", "#", :class => "pull-right icon-ok add-property hidden", :"data-property" => attr) %>
-						  			<%= form_tag(settings_add_path, :method => :put, :remote => true, :class => "form-inline add-property hidden", :"data-type" => "json") do %>
-						  			<%= text_field_tag [attr.to_s, "add"].join("_"), "" %>
-						  			<% end %>
+						  			<% if property_editable?(attr) %>
+							  			<%= link_to("", "#", :class => "icon-edit toggle-property", :"data-property" => attr) %>
+							  			<%= link_to("", "#", :class => "pull-right icon-ok add-property hidden", :"data-property" => attr) %>
+							  			<%= form_tag(settings_add_path, :method => :put, :remote => true, :class => "form-inline add-property hidden", :"data-type" => "json") do %>
+							  			<%= text_field_tag [attr.to_s, "add"].join("_"), "" %>
+							  			<% end %>
+							  		<% else %>
+							  			<small class="text-info"><%= details[:label] %> se ne moze promijeniti</small>
+							  		<% end %>
 						  		</td>
 						  		</tr>
 						  	<% end %>
