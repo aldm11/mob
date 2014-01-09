@@ -61,7 +61,7 @@ $(document).ready(function(){
 	
 	$("#saveCatalogueItem").live("submit", function(){
 		if($("#phone_name").val().length < 3 || $("#price").val().length < 2){
-			$(".modal-footer").html("<p class='text-error'>Please enter valid phone name and price !</p>");
+			$(".modal-footer").html("<p class='text-error'>Niste unijeli telefon ili cijenu !</p>");
 			return false;
 		}
 		return true;

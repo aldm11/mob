@@ -1,8 +1,6 @@
 <div class="conversation">
 	<% if conversation.empty? %>
-	<div class="muted">
-		No messages in conversation
-	</div>
+	<div class="muted"><%= I18n.t("messages.conversation_empty") %></div>
 	<% else %>
 	<% conversation.each do |message| %>
 	<%= render :partial => "messages/conversation_item", :locals => {:message => message} %>

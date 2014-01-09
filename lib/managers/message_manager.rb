@@ -1,6 +1,6 @@
 module Managers
   module MessageManager
-    INVALID_PARAMS_RESULT = {:status => false, :message => nil, :text => "Invalid parameters"}
+    INVALID_PARAMS_RESULT = {:status => false, :message => nil, :text => I18n.t("messages.internal.parameters_invalid")}
     
     ### SENDING MESSAGE
     ### PARAMETERS: 
@@ -48,7 +48,7 @@ module Managers
           message1.reply_to_type = "received"
           message2.reply_to_type = "sent"     
         else
-          return {:status => false, :message => message1, :text => "Invalid reply to"}
+          return {:status => false, :message => message1, :text => I18n.t("messages.internal.receiver_invalid")}
         end
         
         reply_object_sender.responded_with_type = "sent"
@@ -68,9 +68,9 @@ module Managers
           reply_object_receiver.save
         end
         
-        return {:status => true, :message => message1, :text => "Message sent"}
+        return {:status => true, :message => message1, :text => I18n.t("messages.internal.message_sent")}
       else
-        return {:status => false, :message => message1, :text => "Message invalid"}
+        return {:status => false, :message => message1, :text => I18n.t("messages.internal.message_invalid")}
       end
     end
     
@@ -88,7 +88,7 @@ module Managers
         old_message = sender.sent_messages.select { |m| m.id.to_s == mess.id.to_s }.first
         receiver = Account.find(old_message.receiver_id.to_s)
       rescue Exception => ex
-        return {:status => false, :message => mess, :text => "Access denied"}
+        return {:status => false, :message => mess, :text => I18n.t("messages.internal.access_denied")}
       end
             
       edit_enabled = 3 * 60     
@@ -99,9 +99,9 @@ module Managers
       message_receiver = receiver.received_messages.select {|m| m.id.to_s == mess.id }.first
       message_receiver.text = mess.text unless message_received.mark_deleted?
       if mess.save && message_receiver.save
-        return {:status => true, :message => mess, :text => "Message updated"}
+        return {:status => true, :message => mess, :text => I18n.t("messages.internal.message_updated")}
       else
-        return {:status => false, :message => mess, :text => "Message invalid"}
+        return {:status => false, :message => mess, :text => I18n.t("messages.internal.message_invalid")}
       end
     end
     
@@ -117,7 +117,7 @@ module Managers
         mess_id = mess.is_a?(Message) ? mess.id.to_s : mess.to_s
         message_receiver = receiver.received_messages.select {|m| m.id.to_s == mess_id}.first
       rescue Exception
-        return {:status => false, :message => mess, :text => "Access denied"} 
+        return {:status => false, :message => mess, :text => I18n.t("messages.internal.access_denied")} 
       end
  
       sender = Account.find(message_receiver.sender_id.to_s)   
@@ -126,9 +126,9 @@ module Managers
       message_sender.date_read = Time.now.utc.to_time.to_i unless message_sender.mark_deleted
       
       if message_receiver.save && message_sender.save
-        return {:status => true, :message => message_receiver, :text => "Message read"}
+        return {:status => true, :message => message_receiver, :text => I18n.t("messages.internal.message_read")}
       else
-        return {:status => false, :message => message_receiver, :text => "Message invalid"}
+        return {:status => false, :message => message_receiver, :text => I18n.t("messages.internal.message_invalid")}
       end
     end
     
@@ -190,7 +190,7 @@ module Managers
       begin
         account = current_account.is_a?(Account) ? current_account : Account.find(current_account.to_s)
       rescue Exception => e
-        return {:status => false, :message => mess, :text => "Account not found"}
+        return {:status => false, :message => mess, :text => I18n.t("messages.internal.account_invalid")}
       end
       
       if mess.is_a?(Message)
@@ -198,7 +198,7 @@ module Managers
       else
         messages = type.to_s == "sent" ? account.sent_messages.select {|m| m.id.to_s == mess.to_s } : account.received_messages.select {|m| m.id.to_s == mess.to_s }
         if messages.empty?
-          return {:status => false, :message => mess, :text => "Message not found"}
+          return {:status => false, :message => mess, :text => I18n.t("messages.internal.message_not_found")}
         else
           message = messages.first
         end       
@@ -215,7 +215,7 @@ module Managers
       begin
         account = current_account.is_a?(Account) ? current_account : Account.find(current_account.to_s)
       rescue Exception => e
-        return {:status => false, :message => "Invalid account"}
+        return {:status => false, :message => I18n.t("messages.internal.account_invalid")}
       end
       
       messages = []
@@ -261,7 +261,7 @@ module Managers
         end
         return {:status => true, :message => message, :text => text}
       else
-        return {:status => false, :message => mess, :text => "Access denied"} 
+        return {:status => false, :message => mess, :text => I18n.t("messages.internal.access_denied")} 
       end
     end
     
@@ -271,13 +271,13 @@ module Managers
       begin
         account = current_account.is_a?(Account) ? current_account : Account.find(current_account.to_s)
       rescue Exception => e
-        return {:status => false, :message => message_id, :text => "Account invalid"}
+        return {:status => false, :message => message_id, :text => I18n.t("messages.internal.account_invalid")}
       end
       
       begin
         message = type.to_s == "sent" ? account.sent_messages.select {|m| m.id.to_s == message_id.to_s}.to_a.first : account.received_messages.select {|m| m.id.to_s == message_id.to_s}.to_a.first
       rescue Exception => e
-        return {:status => false, :message => message_id, :text => "Message not found"}
+        return {:status => false, :message => message_id, :text => I18n.t("messages.internal.message_not_found")}
       end
       
       conversation = []

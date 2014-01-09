@@ -12,6 +12,6 @@
 	</div>
 	
 	<div class="date-sent muted">
-		<%= [distance_of_time_in_words(message.date_sent.to_time.to_i, Time.now.utc.to_time.to_i, true), "ago"].join(" ") %>
+		<%= [distance_of_time_in_words(message.date_sent.to_time.to_i, Time.now.utc.to_time.to_i, true), "ranije"].join(" ") %>
 	</div>
 </div>

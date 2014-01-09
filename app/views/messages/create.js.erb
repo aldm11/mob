@@ -1,14 +1,16 @@
 <% if @receiver_id.blank? || @text.blank? %>
-$("form.send-message").append($('<div class="text-error message"><small>Please fill in receiver and message text</small></div>'));
-<% end %>
+$("form.send-message").append($('<div class="text-error message"><small><%= I18n.t("messages.errors.invalid_fields") %></small></div>'));
+<% else %>
 
 <% if @result && @result[:status] %>
-$("form.send-message").append($('<div class="text-success message"><small>Message sent</small></div>'));
+$("form.send-message").append($('<div class="text-success message"><small><%= I18n.t("messages.message_sent") %></small></div>'));
 $("#text").val("");
 <% else %>
-<% error = @result ? @result[:text] : "There was an error. Try later." %>
+<% error = @result ? @result[:text] : I18n.t("messages.errors.common_error") %>
 var html = '<div class="text-error message"><small><%= error %></small></div>';
 $("form.send-message").append($(html));
+<% end %>
+
 <% end %>
 
 if($(".message").length > 0){

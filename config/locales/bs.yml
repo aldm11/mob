@@ -1,5 +1,13 @@
 bs:
   ####### common
+  confirm: "Potvrdi"
+  save: "Spasi"
+  cancel: "Odustani"
+  date: "Datum"
+  sort_by_date: "Sortiraj po datumu"
+  select_all: "Oznaci sve"
+  delete: "Brisi"
+  
   price: "%{price} KM"
   registration:
     reg_store: "Registracija prodavnice"
@@ -29,16 +37,50 @@ bs:
     
   catalogues:
     add_phone: "Dodaj telefon"
-    save: "Spasi"
-    cancel: "Odustani"
     type_phone_name: "Upisite model ili proizvodjaca"
     type_phone_price: "Upisite cijenu"
-    confirm: "Potvrdi"
     confirm_remove_message: "Jeste li sigurni da zelite obrisati telefon iz kataloga?"
     no_prices_others: "Ovaj artikal ne postoji u drugim katalozima"
     prices_from_others: "Uporedi cijenu"
     prices_history: "Historija cijena"
     no_prices_before: "Ovaj artikal nije ranije dodavan u katalog"
+    add_new: "Dodaj novi"
+    catalogue_empty: "Nema telefona u katalogu. "
+    updating_price: "Promjena cijene za %{phone_name}"
+    adding_phone: "Dodavanje telefona u katalog"
+    internal:
+      invalid_phone: "Telefon ne postoji"
+      parameters_invalid: "Niste unijeli telefon ili cijenu"
+ 
+  messages:
+    new_message: "Nova poruka"
+    message_sent: "Poruka poslana"
+    remove_confirm: "Jeste li sigurni da zelite obrisati poruku?"
+    outbox_empty: "Nema poslanih poruka"
+    inbox_empty: "Nema primljenih poruka"
+    showing: "Prikazano %{from} - %{to} od %{count}"
+    receiver: "Primatelj"
+    type_message: "Unesite poruku"
+    send: "Posalji"
+    unread: "Neprocitane"
+    unread_first: "Prikazi prvo neprocitane"
+    search_messages: "Pretraga poruka"
+    received: "Primljene"
+    sent: "Poslane"
+    conversation_empty: "Nema poruka u konverzaciji"
+    errors:
+      invalid_fields: "Nije unesen tekst poruke ili primatelj"
+      common_error: "Doslo je do pogreske. Molimo pokusajte kasnije."
+    internal:
+      parameters_invalid: "Primatelj ili poruka neispravni"
+      receiver_invalid: "Neispravan primatelj"
+      message_sent: "Poruka poslana"
+      message_invalid: "Poruka neispravna. Poruka mora imati bat 10 znakova"
+      message_updated: "Poruka editovana"
+      message_read: "Poruka procitana"
+      message_not_found: "Poruka ne postoji"
+      access_denied: "Pristup zabranjen"
+      account_invalid: "Korisnicki racun ne postoji"
     
   ##############
   add_phone: "Dodaj"

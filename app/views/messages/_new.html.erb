@@ -6,7 +6,7 @@
 
 <% if to.nil? %>
 <%= text_field_tag "receiver", "", 
-	:placeholder => "To", 
+	:placeholder => I18n.t("messages.receiver"), 
 	:class => "message-to",
 	:id => "receiver", 
 	:autocomplete => "off",
@@ -32,9 +32,9 @@
 <% end %>
 
 <div>
-	<%= text_area_tag "text", "", :rows => 4, :class=> "span4", :placeholder => "Enter your message" %>
+	<%= text_area_tag "text", "", :rows => 4, :class=> "span4", :placeholder => I18n.t("messages.type_message") %>
 </div>
 <div class="pull-right">
-	<%= submit_tag "Send", :class => "btn btn-success btn-small" %>
+	<%= submit_tag I18n.t("messages.send"), :class => "btn btn-success btn-small" %>
 </div>
 <% end %>

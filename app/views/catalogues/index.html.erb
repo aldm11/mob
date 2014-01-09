@@ -6,8 +6,8 @@
 	<div class="span9 catalogue-items">
 		<% if @catalogue_phones.empty? %>
 		<p class="muted catalogue-empty">
-			You don't have phones in your catalogue.
-			<%= link_to "Click to add new", new_catalogue_path, :remote => true %>
+			<%= I18n.t("catalogues.catalogue_empty") %>
+			<%= link_to I18n.t("catalogues.add_new"), new_catalogue_path, :remote => true %>
 		</p>
 		<% else %>
 		<% @catalogue_phones.each do |catalogue_phone|  %>

@@ -1,6 +1,6 @@
 <% if page_inbox.empty? %>
 <div class="muted no-messages">
-	No received messages
+	<%= I18n.t("messages.inbox_empty") %>
 </div>
 <% else %>
 <div class="messages">
@@ -16,7 +16,7 @@
 <% next_class = [next_class, "disabled"].join(" ") if to == inbox.length - 1  %>
 <div class="pagination">
 	<div class="pull-right">
-		<small class="muted"><%= "Showing #{from + 1} - #{to + 1} from #{inbox.length}" %></small>
+		<small class="muted"><%= I18n.t("messages.showing", :from => from + 1, :to => to + 1, :count => inbox.length) %></small>
 		<%= link_to "#", :class => prev_class do %>
 		<i class="icon-backward"></i>
 		<% end %>

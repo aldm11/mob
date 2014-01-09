@@ -4,12 +4,12 @@ module Managers
     #TODO: add logic for all parameters on modules to call before action to sanitize parameters
     #TODO: change time zone (+1 h)
     def self.add_phone(account, phone, price)
-      return {:status => false, :message => "Data not provided", :catalogue_item => nil} if phone.blank? || account.blank? || price.blank?
+      return {:status => false, :message => I18n.t("catalogues.internal.parameters_invalid"), :catalogue_item => nil} if phone.blank? || account.blank? || price.blank?
       
       if phone.is_a?(String)
         brand, model = phone.split(" ", 2) #TODO: this may be bug in some cases
         phones = Phone.where(brand: brand, model: model).to_a      
-        return {:status => false, :message => "Phone does not exists", :catalogue_item => nil} if phones.empty? || phones.length != 1
+        return {:status => false, :message => I18n.t("catalogues.internal.invalid_phone"), :catalogue_item => nil} if phones.empty? || phones.length != 1
 
         phone = phones.first
       end

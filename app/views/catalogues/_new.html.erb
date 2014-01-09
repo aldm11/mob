@@ -1,6 +1,6 @@
 <div class='modal hide fade save-catalogue-item'>
 	<div class='modal-header'>
-		<h3>Add new phone</h3>
+		<h3><%= I18n.t("catalogues.adding_phone") %></h3>
 	</div>
 	<div class='modal-body'>
 		<div class="span3">
@@ -15,8 +15,8 @@
 				<%= text_field_tag "price", "", :placeholder => I18n.t("catalogues.type_phone_price"), :class => "number", :autocomplete => "off" %>
 			</div>
 			<div class="control-group">
-				<%= submit_tag I18n.t("catalogues.save"), :class => "btn btn-primary" %>
-				<%= button_tag I18n.t("catalogues.cancel"), :class => "btn", :type => "reset", "data-dismiss" => "modal" %>
+				<%= submit_tag I18n.t("save"), :class => "btn btn-primary" %>
+				<%= button_tag I18n.t("cancel"), :class => "btn", :type => "reset", "data-dismiss" => "modal" %>
 			</div>
 			<% end %>
 		</div>

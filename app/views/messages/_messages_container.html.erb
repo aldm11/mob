@@ -1,36 +1,36 @@
 <div class="span4 messages-container messages-left">
 	<div class="row-fluid search-sort">
 		<div class="pull-left input-append sort-messages">
-			<%= link_to "#", :class => "btn btn-mini disabled", :id => "sort_messages_date", :title => "Sort by date" do %>
-			<i class="icon-arrow-down"></i> Date
+			<%= link_to "#", :class => "btn btn-mini disabled", :id => "sort_messages_date", :title => I18n.t("sort_by_date") do %>
+			<i class="icon-arrow-down"></i><%= I18n.t("date") %>
 			<% end %>
 			
-			<%= link_to "#", :class => "btn btn-mini", :id => "sort_messages_unread", :title => "Show unread first" do %>
-			<i class="icon-arrow-down"></i> Unread
+			<%= link_to "#", :class => "btn btn-mini", :id => "sort_messages_unread", :title => I18n.t("messages.unread_first") do %>
+			<i class="icon-arrow-down"></i><%= I18n.t("messages.unread") %>
 			<% end %>
 		</div>
 		<div class="pull-right search">
-			<%= text_field_tag "messages_term", "", :class => "input-medium search-query", :placeholder => "Search messages" %>
+			<%= text_field_tag "messages_term", "", :class => "input-medium search-query", :placeholder => I18n.t("messages.search_messages") %>
 		</div>
 	</div>
 	
 	<div class="row-fluid select-delete">
 		<div class="pull-left">
 			<label class="checkbox inline">
-				<%= check_box_tag "select-all" %> Select all
+				<%= check_box_tag "select-all" %><%= I18n.t("select_all") %>
 			</label>
 		</div>
 		
 		<div class="pull-right">
 			<%= link_to "#", :class => "btn btn-mini delete-messages" do %>
-			<i class="icon-remove-sign"></i> Delete
+			<i class="icon-remove-sign"></i><%= I18n.t("delete") %>
 			<% end %>
 		</div>
 	</div>
 	
 	<ul class="nav nav-tabs small">
-		<li class="active"><%= link_to "Received", "#received", "data-toggle" => "tab", :id => "show-received-messages" %></li>
-		<li><%= link_to "Sent", "#sent", "data-toggle" => "tab", :id  => "show-sent-messages" %></li>
+		<li class="active"><%= link_to I18n.t("messages.received"), "#received", "data-toggle" => "tab", :id => "show-received-messages" %></li>
+		<li><%= link_to I18n.t("messages.sent"), "#sent", "data-toggle" => "tab", :id  => "show-sent-messages" %></li>
 	</ul>
 	
 	<div class="tab-content">	
