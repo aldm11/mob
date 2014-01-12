@@ -6,7 +6,8 @@ class Catalogue
     @catalogue_items = [catalogue_items].flatten
     phones_ids = @catalogue_items.map { |ci| ci.phone.id }
     phones_prices = Managers::CatalogueManager.get_prices_from_others(account, phones_ids)
-    phones_prices = [] if phones_prices.nil?
+    puts "============= phones_prices #{phones_prices.inspect}"
+    puts "============= @catalogue_items #{@catalogue_items.inspect}"
     @full_items = @catalogue_items.map { |ci| {"catalogue_item" => ci, "prices_from_others" => phones_prices[ci.phone.id] }.with_indifferent_access}
   end
   

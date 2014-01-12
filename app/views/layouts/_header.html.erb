@@ -24,8 +24,8 @@
     					</a>
 						<ul class="dropdown-menu">
 							<li>
-								<%= link_to "Account settings", settings_path %>
-								<%= link_to "Logout", destroy_account_session_path, :method => "delete" %>
+								<%= link_to I18n.t("header.account_settings"), settings_path %>
+								<%= link_to I18n.t("header.logout"), destroy_account_session_path, :method => "delete" %>
 							</li>
 						</ul>
 					</li>

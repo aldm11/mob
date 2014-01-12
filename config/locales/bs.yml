@@ -51,6 +51,32 @@ bs:
     internal:
       invalid_phone: "Telefon ne postoji"
       parameters_invalid: "Niste unijeli telefon ili cijenu"
+  
+  search:
+    sort_by_date: "Sortiraj po datumu"
+    sort_by_price: "Sortiraj po cijeni"
+    sort_by_relevance: "Sortiraj po relevantnosti"
+    filter_by_price_range: "Filtriraj po cijeni"
+    search_phones: "Pretraga telefona..."
+    show_all: "Prikazi sve"
+    no_more_phones: "Nema vise telefona"
+    apply_price_range: "Filtriraj"
+    
+  header:
+    catalogue: "Katalog"
+    messages: "Poruke"
+    account_settings: "Korisnicki racun"
+    logout: "Odjava"
+    
+  footer:
+    all_rights_reserved: "Sva prava pridrzana"
+    
+  phone:
+    last_offer_added: "Posljednja ponuda kreirana"
+    new_comment: "Add new comment and press enter to submit"
+    new_line_shortcut: "Pritisnite Enter + Ctrl za novi red"
+    comment: "komentar"
+    offer: "ponuda"
  
   messages:
     new_message: "Nova poruka"

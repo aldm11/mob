@@ -3,7 +3,12 @@ module Managers
     
     SETTINGS = {
       :name => {:display => "Ime"},
-      :username => {:display => "Korisnicko ime", :value_pattern => /[a-z0-9]+{6,20}/},
+      :username => {
+        :display => "Korisnicko ime", 
+        :value_pattern => /^[a-z]+[0-9_-]*[^\/\?|\<|\>|\'|\.|\,|\?|\[|\]|\}|\{|\=|\)|\(|\*|\&|\|^|\%|\$|\#|\`|\~|\/]*\z/,
+        :min_length => 6,
+        :max_length => 16
+      },
       :phone => {:display => "Telefon", :limit => 3, :value_pattern => /^[0-9]+{8,20}$/},
       :fax => {:limit => 3, :display => "Fax", :value_pattern => /^[0-9]+{8,20}$/},
       :address => {:limit => 4, :display => "Adresa"},
@@ -35,7 +40,7 @@ module Managers
       return {:status => false, :message => "#{forbidden_properties.join(" ")} se ne moze promijeniti"} unless forbidden_properties.empty?
       
       invalid_values = properties.map do |property, value|
-        invalids = [value].flatten.select { |val| SETTINGS[property.to_sym][:value_pattern] && val.match(SETTINGS[property.to_sym][:value_pattern]).nil? }
+        invalids = [value].flatten.select { |val| (SETTINGS[property.to_sym][:value_pattern] && val.match(SETTINGS[property.to_sym][:value_pattern]).nil?) || (SETTINGS[property.to_sym][:min_length] && !val.length.between?(SETTINGS[property.to_sym][:min_length], SETTINGS[property.to_sym][:max_length])) }
         display_property = SETTINGS[property.to_sym][:display] || property.to_s.camelize
         invalids.empty? ? nil : "Neispravan format #{invalids.first.to_s} za #{display_property.to_s}."
       end.compact

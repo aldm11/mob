@@ -1,12 +1,15 @@
 module AccountHelper
   
-  DEFAULT_USERNAME_LENGTH = 8
+  MIN_USERNAME_LENGTH = 6
   #TODO: filter chars that are not allowed
+  FORBIDDEN_USERNAME_CHARS = /\?|\<|\>|\'|\.|\,|\?|\[|\]|\}|\{|\=|\)|\(|\*|\&|\|^|\%|\$|\#|\`|\~|/
   def form_username(email)
     formed_username = email.split("@")[0]
-    return formed_username if formed_username.length >= 6
+    formed_username = formed_username.gsub(FORBIDDEN_USERNAME_CHARS, "")
     
-    size = DEFAULT_USERNAME_LENGTH - formed_username.length    
+    return formed_username if formed_username.length >= MIN_USERNAME_LENGTH
+    
+    size = MIN_USERNAME_LENGTH - formed_username.length    
     while true
       formed_username = [formed_username, (1..size).to_a].flatten.join
       break if Account.where(username: formed_username).to_a.empty?

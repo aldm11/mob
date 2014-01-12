@@ -2,20 +2,26 @@
 	
 	<div class="row-fluid">
 		<div class="span9 btn-group sort-phones-by">
-			<a id="date" class = "btn disabled" title="Sort by date"><i class="icon-arrow-down"></i>Date</a>
-			<a id="relevance" class = "btn" title="Sort by relevance"><i class="icon-arrow-down"></i>Relevance</a>
-			<a id="price" class = "btn" title="Sort by price"><i class="icon-arrow-up"></i>Price</a>
+			<%= link_to "#", :class => "btn btn-medium disabled", :title => I18n.t("search.sort_by_date"), :id => "date" do %>
+			<i class='icon-arrow-up'></i><%= I18n.t("search.sort_by_date") %>
+			<% end %>
+			<%= link_to "#", :class => "btn btn-medium", :title => I18n.t("search.sort_by_relevance"), :id => "relavance" do %>
+			<i class='icon-arrow-down'></i><%= I18n.t("search.sort_by_relevance") %>
+			<% end %>
+			<%= link_to "#", :class => "btn btn-medium", :title => I18n.t("search.sort_by_price"), :id => "price" do %>
+			<i class='icon-arrow-up'></i><%= I18n.t("search.sort_by_price") %>
+			<% end %>
 		</div>
 		
 		<div class="span2">
-			<%= text_field_tag "search_term", "", :class => "input-medium", :placeholder => "Search for phones..." %>
+			<%= text_field_tag "search_term", "", :class => "input-medium", :placeholder => I18n.t("search.search_phones") %>
 		</div>
 		
 		<%= hidden_field_tag(:brand_param, @brand) %>
 	</div>
 	
-	<a href="#" class="pull-left show-price-range">Filter by price range</a>
-	<a href="#" class="pull-right show-all-phones"><i class="icon-repeat"></i>Show all</a>
+	<a href="#" class="pull-left show-price-range"><%= I18n.t("search.filter_by_price_range") %></a>
+	<a href="#" class="pull-right show-all-phones"><i class="icon-repeat"></i><%= I18n.t("search.show_all") %></a>
 
 	<div class="row-fluid">
 		<div class="span9 price-range-wrapper alert">
@@ -29,7 +35,7 @@
 					<span>&nbsp;$</span>
 				</div>
 				<div class="pull-right">
-					<a href="#" class="icon-ok-sign" id="apply_prices" title="Apply price range"></a>
+					<%= link_to "Potvrdi", "#", :class => "btn btn-mini", :id => "apply_prices", :title => I18n.t("search.apply_price_range") %>
 				</div>
 			</div>
 			<%= hidden_field_tag("price_from", "") %>
