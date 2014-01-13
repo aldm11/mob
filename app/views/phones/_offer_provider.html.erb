@@ -16,9 +16,11 @@
 			<small class="text-right text-success"><%= catalogue_item.provider.phone[0].blank? ? " / " : catalogue_item.provider.phone[0] %></small>
 		</div>
 		
+		<% if catalogue_item.provider.respond_to?(:website) %>
 		<div>
 			<small class="text-left">Website:</small>
 			<small class="text-right text-success"><%= catalogue_item.provider.website.blank? ? " / " : catalogue_item.provider.website %></small>
 		</div>
+		<% end %>
 	</div>
 </div>

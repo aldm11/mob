@@ -10,7 +10,7 @@
 			<%= hidden_field_tag("phone_id", @phone.id) %>
 			<div class = "row-fluid phone-info">
 				<div class="pull-left">
-					<%= content_tag(:span, "Last offer added on #{@last_offer.date_from.strftime('%m/%d/%Y')}",
+					<%= content_tag(:span, I18n.t("phones.last_offer_added", :last_updated => @last_offer.date_from.strftime('%m/%d/%Y')),
 					:class => "muted last-phone-offer",
 					"data-toggle" => "popover",
 					"data-original-title" => @last_offer.provider.name,
@@ -40,9 +40,9 @@
 				<%= render :partial => "comments/new", :locals => {:phone => @phone} %>
 			</div>
 			<% if @comments.empty? %>
-			<div class = "muted no-comments">No comments for this phone</div>
+			<div class = "muted no-comments"><%= I18n.t("phones.no_comments") %></div>
 			<% else %>
-			<%= render :partial => "comments/comment_count", :locals => {:comment_count => @all_comments.length} %>
+			<strong class="text-info comment-count"><%= I18n.t("phones.comment_count", :count => @all_comments.length) %></strong>
 			<div class="comments">
 				<% @comments.each do |comment| %>
 				<%= render :partial => "phones/comment_item", :locals => {:comment => comment} %>
@@ -58,18 +58,18 @@
 	
 	<div class="span3 phone-right-sidebar">
 		<% if @offers.empty? %>
-		<div class="muted no-offers">No offers for this phone</div>
+		<div class="muted no-offers"><%= I18n.t("phones.no_offers") %></div>
 		<% else %>
 		<div class="pull-left">
-			<strong class="text-info offer-count"><%= pluralize(@all_offers.length, "offer") %></strong>
+			<strong class="text-info offer-count"><%= I18n.t("phones.offer_count", :count => @all_offers.length) %></strong>
 		</div>
 		<div class="pull-right">
-			<%= link_to "#", :id => "sort_by_date", :class => "btn btn-mini disabled", :title => "Sort by date"  do %>
-			<i class="icon-arrow-down"></i> Date
+			<%= link_to "#", :id => "sort_by_date", :class => "btn btn-mini disabled"  do %>
+			<i class="icon-arrow-down"></i><%= I18n.t("phones.sort_by_date") %>
 			<% end %>
 			
-		 	<%= link_to "#", :id => "sort_by_price", :class => "btn btn-mini", :title => "Sort by price" do %>
-			<i class="icon-arrow-up"></i> Price
+		 	<%= link_to "#", :id => "sort_by_price", :class => "btn btn-mini" do %>
+			<i class="icon-arrow-up"></i><%= I18n.t("phones.sort_by_price") %>
 			<% end %>
 		</div>
 		

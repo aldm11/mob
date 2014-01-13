@@ -42,10 +42,10 @@ var search = function(){
 				$("#load_more_offers").remove();
 				
 				if(parameters["from"] === this.paging["from"] && parameters["size"] === this.paging["size"]){
-					$(".offers").html("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+					$(".offers").html("<div id = 'loading_big'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
 				}
 				else {
-					$(".offers").append("<div id = 'loading_big'><img src = '/loading.gif' width = '48px' height = '48px' /></div>");
+					$(".offers").append("<div id = 'loading_big'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
 				}
 			}
 		},

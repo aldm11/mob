@@ -71,12 +71,19 @@ bs:
   footer:
     all_rights_reserved: "Sva prava pridrzana"
     
-  phone:
-    last_offer_added: "Posljednja ponuda kreirana"
-    new_comment: "Add new comment and press enter to submit"
+  phones:
+    last_offer_added: "Posljednja ponuda kreirana %{last_updated}"
     new_line_shortcut: "Pritisnite Enter + Ctrl za novi red"
     comment: "komentar"
+    no_comments: "Nema komentara"
+    add_comment_text: "Unesite komentar i pritisnite Enter"
+    comment_count: "%{count} komentara"
+    
     offer: "ponuda"
+    no_offers: "Nema ponuda za ovaj telefon"
+    offer_count: "%{count} ponuda"
+    sort_by_date: "Datum"
+    sort_by_price: "Cijena"
  
   messages:
     new_message: "Nova poruka"
