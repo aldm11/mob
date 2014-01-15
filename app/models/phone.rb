@@ -7,22 +7,24 @@ class Phone
   
   NUMBER_OF_LATEST_PRICES = 15
 
-  field :brand, :type => String
-  field :model, :type => String
+  field :brand, :type => String, :multifield => true
+  field :model, :type => String, :multifield => true
   field :created_at, :type => DateTime
   field :last_updated, :type => DateTime
   field :camera, :type => Hash
   field :weight, :type => Float
   field :height, :type => Float
   field :width, :type => Float
-  field :os, :type => String
-  field :display, :type => String
+  field :os, :type => String, :multifield => true
+  field :display, :type => String, :multifield => true
   field :internal_memory, :type => String
   field :external_memory, :type => String
   field :specifications, :type => Hash
   field :amazon_image_small, :type => String
   field :amazon_image_medium, :type => String
-  
+  field :battery, :type => Hash
+  field :date_manufectured, :type => DateTime
+ 
   field :latest_prices, :type => Array
   field :latest_prices_size, :type => Integer
   field :latest_price, :type => Hash
@@ -51,16 +53,51 @@ class Phone
   
   has_many :catalogue_items
   
-  mapping do
-    indexes :brand, type: "multi_field", fields: { 
-      analyzed: {type: "string", index: "analyzed"},
-      original: {type: "string", index: "not_analyzed"} 
-    }
-    indexes :model, type: "multi_field", fields: {
-      analyzed: {type: "string", index: "analyzed"},
-      original: {type: "string", index: "not_analyzed"}       
-    }
-    indexes :catalogue_items, type: "nested"
+  ### ES settings
+  settings  :number_of_shards => 1,
+            :number_of_replicas => 1,
+            :refresh_interval => -1,
+            :analysis => {
+              :analyzer => {
+                :ngram => {
+                  "type" => "custom",
+                  "tokenizer" => "ngram",
+                  "filter" => ["lowercase", "standard"]
+                  
+                }
+              },
+              :tokenizer => {
+                :ngram => {
+                  "min_gram" => 3,
+                  "max_gram" => 6,
+                  "type" => "nGram",
+                  "token_chars" => ["letter", "digit", "whitespace"]
+                }
+              }
+            } do
+  
+    mapping do
+      multifield_fields = self.fields.select { |fld, details| details.options[:multifield] }.keys.map {|field| field.to_sym}
+      multifield_fields.each do |field|
+        indexes field, type: "multi_field", fields: { 
+          analyzed: {type: "string", index: "analyzed", analyzer: "ngram"},
+          original: {type: "string", index: "not_analyzed"} 
+        }
+      end
+      # indexes :brand, type: "multi_field", fields: { 
+        # analyzed: {type: "string", index: "analyzed"},
+        # original: {type: "string", index: "not_analyzed"} 
+      # }
+      # indexes :model, type: "multi_field", fields: {
+        # analyzed: {type: "string", index: "analyzed"},
+        # original: {type: "string", index: "not_analyzed"}       
+      # }
+      # indexes :os, type: "multi_field", fields: {
+        # analyzed: {type: "string", index: "analyzed"},
+        # original: {type: "string", index: "not_analyzed"}       
+      # }
+      indexes :catalogue_items, type: "nested"
+    end
   end
   
   before_create do |phone|
@@ -90,6 +127,18 @@ class Phone
     
     Phone.tire.mapping
     update_index unless options[:without_index]
+  end
+  
+  def self.reindex_all(opts = {})
+    index = Tire::Index.new("phones")
+    index.delete
+    Phone.create_elasticsearch_index
+    index = Tire::Index.new("phones")
+    phones_to_import = Phone.where(:latest_prices.exists => true, :latest_prices.ne => [])
+    puts "Importing #{phones_to_import.length.inspect} phones in index"
+    #index.import(phones_to_import)
+    phones_to_import.each { |phone| phone.save }
+    index.refresh
   end
   
   def set_average_review
@@ -168,11 +217,15 @@ class Phone
   end
   
   def set_latest_prices
-    unless self.catalogue_items.empty?
-      from = self.catalogue_items.length >= NUMBER_OF_LATEST_PRICES ? self.catalogue_items.length - NUMBER_OF_LATEST_PRICES : 0
-      to = self.catalogue_items.length - 1
+    active_catalogue_items = self.catalogue_items.select { |ci| ci.deleted_date.nil? }
+    if active_catalogue_items.empty?
+      self.latest_prices = []
+      self.latest_price = {}
+    else
+      from = active_catalogue_items.length >= NUMBER_OF_LATEST_PRICES ? active_catalogue_items.length - NUMBER_OF_LATEST_PRICES : 0
+      to = active_catalogue_items.length - 1
       
-      self.catalogue_items[from..to].each { |ci| add_price(ci.id, ci.actual_price, ci.date_from.to_time.to_i) }
+      active_catalogue_items[from..to].each { |ci| add_price(ci.id, ci.actual_price, ci.date_from.to_time.to_i) }
       
       self.latest_prices_size = self.latest_prices.length
       self.latest_price = self.latest_prices.last

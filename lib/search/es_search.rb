@@ -66,7 +66,7 @@ module Search
             should { term "brand.original", term }
             should { match "model.analyzed", term, { "operator" => "or" } }
             should { prefix "model.analyzed", term  }
-            should { prefix "model.original", term }
+            should { prefix "model.original", term }           
           end
         end
       else

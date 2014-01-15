@@ -4,8 +4,8 @@
 			<h5><%= I18n.t("catalogues.confirm_remove_message") %></h5>
 			<%= hidden_field_tag "phone_id", params[:phone_id] %>
 			<%= hidden_field_tag "catalogue_id", params[:catalogue_id] %>
-			<%= submit_tag I18n.t("catalogues.confirm"), :class => "btn btn-danger" %>
-			<%= button_tag I18n.t("catalogues.cancel"), :type => "reset", :class => "btn", "data-dismiss" => "modal" %>
+			<%= submit_tag I18n.t("confirm"), :class => "btn btn-danger" %>
+			<%= button_tag I18n.t("cancel"), :type => "reset", :class => "btn", "data-dismiss" => "modal" %>
 		<% end %>
 	</div>
 </div>

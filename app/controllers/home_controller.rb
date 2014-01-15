@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
-  def index    
+  def index
+    Phone.reindex_all
     # this action is submitted using javascript
     @brand = params[:brand] || nil
   end
