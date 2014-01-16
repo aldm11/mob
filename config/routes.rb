@@ -108,6 +108,7 @@ Mobis::Application.routes.draw do
     match "phones/import_phones" => "phones#import_phones", via: :get
     match "phones/import" => "phones#import", via: :post
     match "phones/import_images" => "phones#import_images", via: :post
+    match "phones/reindex" => "phones#reindex", via: :get
     
     resource :phones, :only => [:create, :new] 
   end

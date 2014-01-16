@@ -16,9 +16,9 @@ class Phone
   field :height, :type => Float
   field :width, :type => Float
   field :os, :type => String, :multifield => true
-  field :display, :type => String, :multifield => true
-  field :internal_memory, :type => String
-  field :external_memory, :type => String
+  field :display, :type => Hash
+  field :internal_memory, :type => Float
+  field :external_memory, :type => Float
   field :specifications, :type => Hash
   field :amazon_image_small, :type => String
   field :amazon_image_medium, :type => String
@@ -69,7 +69,7 @@ class Phone
               :tokenizer => {
                 :ngram => {
                   "min_gram" => 3,
-                  "max_gram" => 6,
+                  "max_gram" => 8,
                   "type" => "nGram",
                   "token_chars" => ["letter", "digit", "whitespace"]
                 }
@@ -135,9 +135,9 @@ class Phone
     Phone.create_elasticsearch_index
     index = Tire::Index.new("phones")
     phones_to_import = Phone.where(:latest_prices.exists => true, :latest_prices.ne => [])
-    puts "Importing #{phones_to_import.length.inspect} phones in index"
-    #index.import(phones_to_import)
-    phones_to_import.each { |phone| phone.save }
+    puts "Importing #{phones_to_import.length.inspect} phones to index"
+    index.import(phones_to_import)
+    #phones_to_import.each { |phone| phone.save }
     index.refresh
   end
   
@@ -211,7 +211,7 @@ class Phone
   INCLUDE_ATTRIBUTES = ["camera", "weight", "width", "height", "camera", "display", "os", "internal memory", "external memory"]
   def attributes_for_display
     attributes = self.attributes.select {|attr, value| INCLUDE_ATTRIBUTES.include?(attr) }
-    attributes["camera"] = attributes["camera"] ? attributes["camera"]["all"] : " / "
+    attributes["camera"] = attributes["camera"] ? attributes["camera"] : {}
     attributes.with_indifferent_access
     return attributes
   end

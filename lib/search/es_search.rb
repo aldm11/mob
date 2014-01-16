@@ -15,20 +15,45 @@ module Search
       "prices" => lambda  do |s, price_range|
         if s && price_range && price_range["from"] && price_range["to"]
           s.filter :nested, :path => "catalogue_items", :query => {:range => {"catalogue_items.actual_price" => { :from => price_range["from"], :to => price_range["to"] } } }
-        else
-          error = "Invalid parameters for price range filter"
-          Rails.logger.error error
-          raise error
         end
       end,
       "brand" => lambda do |s, brand|
-        if s && brand
-          s.filter :term, "brand.original" => brand
-        else
-          error = "Invalid parameters for brand term filter"
-          Rails.logger.error error
-          raise error
+        s.filter :term, "brand.original" => brand if s && brand
+      end,
+      "os" => lambda do |s, value|
+        s.filter :term, "os.brand" => value if s && brand
+      end,
+      "camera.mpixels" => lambda do |s, mpixels_range|
+        s.filter :numeric_range, "camera.mpixels" => {:gte => mpixels_range["from"], :lte => mpixels_range["to"]} if s && mpixels_range && mpixels_range["from"] && mpixels_range["to"]
+      end,
+      "camera.blic" => lambda do |s, value|
+        s.filter :term, "camera.blic" => value if s && value
+      end,
+      "camera.video" => lambda do |s, value|
+        s.filter :term, "camera.video" => value if s && value
+      end,
+      "display.type" => lambda do |s, value|
+        s.filter :term, "display.type" => value if s && value
+      end,
+      "internal_memory" => lambda do |s, value|
+        if s && value && (value["from"] || value["to"])
+          criteria = {}
+          criteria[:gte] = value["from"] if value["from"]
+          criteria[:lte] = value["to"] if value["to"]
+          s.filter :numeric_range, "external_memory" => criteria
         end
+      end,
+      "external_memory" => lambda do |s, value|
+        if s && value && (value["from"] || value["to"])
+          criteria = {}
+          criteria[:gte] = value["from"] if value["from"]
+          criteria[:lte] = value["to"] if value["to"]
+          s.filter :numeric_range, "external_memory" => criteria
+        end
+      end,
+      "weight" => lambda do |s, value|
+      end,
+      "date_manufectured" => lambda do |s, value|
       end
     }
     
@@ -66,7 +91,9 @@ module Search
             should { term "brand.original", term }
             should { match "model.analyzed", term, { "operator" => "or" } }
             should { prefix "model.analyzed", term  }
-            should { prefix "model.original", term }           
+            should { prefix "model.original", term }
+            should { term "os.original", term }
+            should { prefix "os.analyzed", term }
           end
         end
       else

@@ -64,4 +64,11 @@ class Admin::PhonesController < ApplicationController
     redirect_to :action => "import_phones"
   end
   
+  def reindex
+    Phone.reindex_all
+    
+    flash[:success] = "Mobiteli uspjesno reindeksirani"
+    redirect_to :action => "list_phones"
+  end
+  
 end
