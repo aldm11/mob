@@ -51,8 +51,15 @@ $(document).ready(function(){
 	});
 	
 	$(".show-price-range").live("click", function(){
-		$(this).hide();
-		$(".price-range-wrapper").show();
+		$("#price_range_wrapper").toggleClass("hide");
+	});
+	
+	$(".show-advanced-search").live("click", function(){
+		$("#advanced_search").toggleClass("hide");
+	});
+	
+	$(".advanced-search .close").live("click", function(){
+		$(this).parent().addClass("hide");
 	});
 	
 	$(".show-all-phones").live("click", function(){
@@ -173,4 +180,5 @@ $(document).ready(function(){
 	    	}
 	    }
 	});
+	
 });

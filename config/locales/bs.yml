@@ -61,6 +61,7 @@ bs:
     show_all: "Prikazi sve"
     no_more_phones: "Nema vise telefona"
     apply_price_range: "Filtriraj"
+    advanced_search: "Napredna pretraga"
     
   header:
     catalogue: "Katalog"
@@ -164,7 +165,11 @@ bs:
       phone:
         brand: "Brend"
         model: "Model"
-        camera: "Kamera"
+        camera:
+          mpx: "Mpx"
+          blic: "Blic"
+          video: "Video"
+          front: Prednja kamera"
         display: "Ekran"
         os: "Operativni sistem"
         height: "Visina"
@@ -173,3 +178,4 @@ bs:
         internal_memory: "Interna memorija"
         external_memory: "Eksterna memorija"
         created_at: "Kreiran"
+        date_manufactured: "Proizveden"

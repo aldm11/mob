@@ -21,7 +21,7 @@ module Search
         s.filter :term, "brand.original" => brand if s && brand
       end,
       "os" => lambda do |s, value|
-        s.filter :term, "os.brand" => value if s && brand
+        s.filter :term, "os.original" => value if s && brand
       end,
       "camera.mpixels" => lambda do |s, mpixels_range|
         s.filter :numeric_range, "camera.mpixels" => {:gte => mpixels_range["from"], :lte => mpixels_range["to"]} if s && mpixels_range && mpixels_range["from"] && mpixels_range["to"]
@@ -40,7 +40,7 @@ module Search
           criteria = {}
           criteria[:gte] = value["from"] if value["from"]
           criteria[:lte] = value["to"] if value["to"]
-          s.filter :numeric_range, "external_memory" => criteria
+          s.filter :numeric_range, "internal_memory" => criteria
         end
       end,
       "external_memory" => lambda do |s, value|
@@ -52,8 +52,20 @@ module Search
         end
       end,
       "weight" => lambda do |s, value|
+        if s && value && (value["from"] || value["to"])
+          criteria = {}
+          criteria[:gte] = value["from"] if value["from"]
+          criteria[:lte] = value["to"] if value["to"]
+          s.filter :numeric_range, "weight_memory" => criteria
+        end
       end,
       "date_manufectured" => lambda do |s, value|
+        if s && value && (value["from"] || value["to"])
+          criteria = {}
+          criteria[:gte] = value["from"] if value["from"]
+          criteria[:lte] = value["to"] if value["to"]
+          s.filter :numeric_range, "date_manufectured" => criteria
+        end
       end
     }
     

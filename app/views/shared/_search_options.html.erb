@@ -21,13 +21,65 @@
 	</div>
 	
 	<a href="#" class="pull-left show-price-range"><%= I18n.t("search.filter_by_price_range") %></a>
+	
+	<%= link_to I18n.t("search.advanced_search"), "#", :class => "show-advanced-search", "data-toggle" => "dropdown" %>
+	
 	<a href="#" class="pull-right show-all-phones"><i class="icon-repeat"></i><%= I18n.t("search.show_all") %></a>
+	
+	<div class="advanced-search hide" id="advanced_search">
+		<a href="#" class="close">&times;</a>
+		<div class="row-fluid well criteria-group">
+			<div class="criteria">
+				<%= label_tag "operating_system", I18n.t("mongoid.attributes.phone.os") %>
+				<%= select_tag "operating_system", options_from_collection_for_select(@search_options[:os], "first", "last") %>
+			</div>
+			<div class="criteria">
+				<%= label_tag "weight", I18n.t("mongoid.attributes.phone.weight") %>
+				<%= select_tag "weight", options_from_collection_for_select(@search_options[:weight], "first", "last") %>
+			</div>
+			<div class="criteria">
+				<%= label_tag "weight", I18n.t("mongoid.attributes.phone.brand") %>
+				<%= select_tag "weight", options_from_collection_for_select(@search_options[:brand], "first", "last") %>
+			</div>
+		</div>
+		<div class="row-fluid criteria-group well">
+			<div class="criteria">
+				<%= label_tag "internal_memory", I18n.t("mongoid.attributes.phone.internal_memory") %>
+				<%= select_tag "internal_memory", options_from_collection_for_select(@search_options[:internal_memory], "first", "last") %>
+			</div>
+			<div class="criteria">
+				<%= label_tag "external_memory", I18n.t("mongoid.attributes.phone.external_memory") %>
+				<%= select_tag "external_memory", options_from_collection_for_select(@search_options[:external_memory], "first", "last") %>
+			</div>
+		</div>
+		<div class="row-fluid criteria-group well">
+			<div class="criteria">
+				<%= label_tag "camera_mpx", I18n.t("mongoid.attributes.phone.camera.mpx") %>
+				<%= select_tag "camera_mpx", options_from_collection_for_select(@search_options[:camera][:mpx], "first", "last") %>
+			</div>
+			<div class="criteria">
+				<%= label_tag "camera_blic", I18n.t("mongoid.attributes.phone.camera.blic") %>
+				<%= select_tag "camera_blic", options_from_collection_for_select(@search_options[:camera][:blic], "first", "last") %>
+			</div>
+			<div class="criteria">
+				<%= label_tag "camera_video", I18n.t("mongoid.attributes.phone.camera.video") %>
+				<%= select_tag "camera_video", options_from_collection_for_select(@search_options[:camera][:video], "first", "last") %>
+			</div>
+			<div class="criteria">
+				<%= label_tag "camera_front", I18n.t("mongoid.attributes.phone.camera.front") %>
+				<%= select_tag "camera_front", options_from_collection_for_select(@search_options[:camera][:front], "first", "last") %>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<%= button_tag "Trazi", :class => "btn pull-right" %>
+		</div>
+	</div>
 
-	<div class="row-fluid">
-		<div class="span9 price-range-wrapper alert">
-			<a href="#" class="close" title="Hide price range">&times;</a>
-			<div class="span11">
-				<div id="price-slider"></div>
+	<div class="advanced-search hide" id="price_range_wrapper">
+		<a href="#" class="close">&times;</a>
+		<div class="span11">
+			<div id="price-slider"></div>
+			<div class="row-fluid">
 				<div class = "pull-left">
 					<span class="price-from-text">0</span>
 					<span>&nbsp;&nbsp;-&nbsp;&nbsp;</span>
@@ -38,9 +90,9 @@
 					<%= link_to "Potvrdi", "#", :class => "btn btn-mini", :id => "apply_prices", :title => I18n.t("search.apply_price_range") %>
 				</div>
 			</div>
-			<%= hidden_field_tag("price_from", "") %>
-			<%= hidden_field_tag("price_to", "") %>
 		</div>
+		<%= hidden_field_tag("price_from", "") %>
+		<%= hidden_field_tag("price_to", "") %>
 	</div>
 	
 </div>
