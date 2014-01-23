@@ -17,14 +17,14 @@ module Search
           s.filter :nested, :path => "catalogue_items", :query => {:range => {"catalogue_items.actual_price" => { :from => price_range["from"], :to => price_range["to"] } } }
         end
       end,
-      "brand" => lambda do |s, brand|
-        s.filter :term, "brand.original" => brand if s && brand
+      "brand" => lambda do |s, value|
+        s.filter :term, "brand.original" => value if s && value
       end,
       "os" => lambda do |s, value|
-        s.filter :term, "os.original" => value if s && brand
+        s.filter :term, "os.original" => value if s && value
       end,
-      "camera.mpixels" => lambda do |s, mpixels_range|
-        s.filter :numeric_range, "camera.mpixels" => {:gte => mpixels_range["from"], :lte => mpixels_range["to"]} if s && mpixels_range && mpixels_range["from"] && mpixels_range["to"]
+      "camera.mpixels" => lambda do |s, value|
+        s.filter :numeric_range, "camera.mpixels" => {:gte => value["from"], :lte => value["to"]} if s && value && value["from"] && value["to"]
       end,
       "camera.blic" => lambda do |s, value|
         s.filter :term, "camera.blic" => value if s && value
@@ -34,6 +34,9 @@ module Search
       end,
       "display.type" => lambda do |s, value|
         s.filter :term, "display.type" => value if s && value
+      end,
+      "display.front" => lambda do |s, value|
+        s.filter :term, "display.front" => value if s && value
       end,
       "internal_memory" => lambda do |s, value|
         if s && value && (value["from"] || value["to"])
@@ -121,6 +124,7 @@ module Search
         } 
       }
 
+      puts "=============== filters #{filters.inspect}"
       filters.each do |key, value|
         FILTERS_MAPPINGS[key.to_s].call(s, value) if FILTERS_MAPPINGS[key.to_s]
       end

@@ -1,15 +1,16 @@
 <table class="table table-striped table-hover">
 	<tr>
-		<th>Name</th><th>Camera</th><th>Display</th><th>Created at</th><th>Created by</th><th>Action</th>
+		<th>Name</th><th>Created at</th><th>Created by</th><th>Action</th>
 	</tr>
 	<% @phones.each do |phone| %>
 	<% created_by = phone.account_id ? Account.find(phone.account_id).email : "" %>
-	<tr>
+	<tr id="<%= phone.id.to_s %>">
 		<td><%= phone.name %></td>
 		<td><%= phone.created_at.strftime('%m/%d/%Y %H:%M') %></td>
 		<td><%= created_by %></td>
-		<td>Show offers</td>
-		<td>Delete</td>
+		<td>
+			<%= link_to "", url_for(:action => "edit", :id  => phone.id.to_s), :class => "icon-edit" %>
+		</td>
 	</tr>
 	<% end %>
 </table>

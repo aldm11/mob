@@ -39,3 +39,32 @@
     // width: 150px;
   // }
 // }
+
+form.add-phone {
+  .control-label {
+    display: inline-block;
+    label {
+      display: inline-block;
+      width: 150px;
+    } 
+  }
+  
+  .controls {
+    display: inline-block;
+    div {
+      display: inline-block;
+      margin-right: 10px;
+      label {
+        display: inline;
+        margin-right: 4px;
+      }
+    }
+    input {
+      display: inline-block;
+    }
+    
+    input[type=checkbox] {
+      margin-top: -3px;
+    }
+  }
+}

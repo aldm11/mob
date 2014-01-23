@@ -9,14 +9,33 @@ class Admin::PhonesController < ApplicationController
   end
   
   def create
-    params[:phone].merge!({:account_id => current_account.id})
-    result = Managers::PhoneManager.add_phone(params[:phone])
+    # params[:phone].merge!({:account_id => current_account.id, :camera => params[:camera]})
+    phone_params = params[:phone]
+    phone_params[:account_id] = current_account.id
+    phone_params[:camera] = params[:camera]
+    phone_params[:camera]["blic"] = phone_params[:camera]["blic"].to_s == "yes" ? true : false
+    phone_params[:camera]["front"] = phone_params[:camera]["front"].to_s == "yes" ? true : false
+    phone_params[:camera]["video"] = phone_params[:camera]["video"].to_s == "yes" ? true : false
+    # raise phone_params.inspect
+    result = Managers::PhoneManager.add_phone(phone_params)
     if result[:status]
       flash[:success] = I18n.t(:phone_added)
     else
       flash[:error] = result[:message]+" "+result[:phone].errors.full_messages.join(" ")
     end
     redirect_to :action => "new"
+  end
+  
+  def edit
+    @phone = Phone.find(params[:id])
+    camera_blic = @phone.camera && @phone.camera["blic"] ? ["no", "yes"] : ["yes", "no"]
+    @camera_blic = *camera_blic
+    
+    render "new"
+  end
+  
+  def update
+    
   end
   
   def list_phones

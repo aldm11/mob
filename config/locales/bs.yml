@@ -179,3 +179,4 @@ bs:
         external_memory: "Eksterna memorija"
         created_at: "Kreiran"
         date_manufactured: "Proizveden"
+        image: "Slika"

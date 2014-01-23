@@ -103,7 +103,6 @@ class Phone
   before_create do |phone|
     phone.created_at = Time.new.to_time.to_i
     phone.last_updated = phone.created_at
-    phone.camera = {:all => phone.camera}
   end
 
   #TODO: maybe change to before save  

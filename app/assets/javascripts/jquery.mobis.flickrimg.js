@@ -74,7 +74,7 @@ jQuery(function($){
 			if ($("#"+settings.fieldId).length == 0){
 				var html = '<input type="hidden" id="' + settings.fieldId + '" name="' + settings.fieldName + '" />';  
 				html += '<div class="dropdown flickrimg">' + 
-						'<a class="dropdown-toggle flickrimg-trigger" data-toggle="dropdown" href="#">Dropdown trigger</a>' +
+						'<a class="dropdown-toggle flickrimg-trigger" data-toggle="dropdown" href="#">Nadji slike</a>' +
 						'</div>';
 				
 				element.after(html);

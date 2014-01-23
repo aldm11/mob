@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= body_class_for_request %>">
+<%= javascript_include_tag "load_page_script_and_style" %>
 <%= render "layouts/header" %>
 <% flash.each do |key, message| %>
 <%= content_tag(:div, :class => "alert alert-#{key.to_s}") do %>

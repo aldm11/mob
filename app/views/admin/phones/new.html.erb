@@ -1,36 +1,64 @@
-<h1>Add new phone</h1>
-<%= form_for(@phone, :url => { :action => "create" }, :html => { :class => "form-horizontal", :multipart => "true" }) do |f| %>
-<div class="control-group">
+<h4>Dodavanje mobitela</h4>
+<%= form_for(@phone, :method => :post, :url => { :action => "create" }, :html => { :class => "add-phone", :multipart => "true" }) do |f| %>
+<div>
 	<div class="control-label"><%= f.label :brand %></div>
 	<div class="controls"><%= f.text_field :brand %></div>
 </div>
 
-<div class="control-group">
+<div>
 	<div class="control-label"><%= f.label :model %></div>
 	<div class="controls"><%= f.text_field :model %></div>
 </div>
 
-<div class="control-group">
+<div>
 	<div class="control-label"><%= f.label :weight %></div>
 	<div class="controls"><%= f.text_field :weight %></div>
+	<span>g</span>
 </div>
 
-<div class="control-group">
+<div>
 	<div class="control-label"><%= f.label :height %></div>
 	<div class="controls"><%= f.text_field :height %></div>
+	<span>cm</span>
 </div>
 
-<div class="control-group">
+<div>
 	<div class="control-label"><%= f.label :display %></div>
 	<div class="controls"><%= f.text_field :display %></div>
 </div>
 
-<div class="control-group">
-	<div class="control-label"><%= f.label :camera %></div>
-	<div class="controls"><%= f.text_field :camera %></div>
+<div>
+	<div class="control-label"><%= f.label :internal_memory %></div>
+	<div class="controls"><%= f.text_field :internal_memory %></div>
+	<span>MB</span>
 </div>
 
-<div class="control-group">
+<div>
+	<div class="control-label"><%= f.label :external_memory %></div>
+	<div class="controls"><%= f.text_field :external_memory %></div>
+	<span>MB</span>
+</div>
+
+<div>
+	<div class="control-label"><%= f.label :camera, "Kamera" %></div>
+	<div class="controls">
+		<div>
+			<label>Mpixels</label><%= text_field_tag "camera[mpixels]", @phone.camera ? @phone.camera["mpixels"] : "", :class => "input-mini" %>
+		</div>
+		<div>
+			<label>Prednja kamera</label><%= check_box "camera", "front", {}, "yes", "no" %>
+		</div>
+		<div>
+			<label>Video</label><%= check_box "camera", "video", {}, "yes", "no" %>
+		</div>
+		<div>
+			<label>Blic</label><%= check_box "camera", "blic", {}, @camera_blic %>
+		</div>
+
+	</div>
+</div>
+
+<div>
 	<div class="control-label"><%= f.label :os %></div>
 	<div class="controls"><%= f.text_field :os %></div>
 </div>
@@ -40,7 +68,7 @@
 	<div class="controls"><%= f.file_field :image, :id => "add_phone" %></div>
 </div> 
 
-<div class="control-group">
+<div>
 	<div class="controls"><%= f.submit I18n.t(:add_phone), :class => "btn btn-primary" %></div>
 </div>
 <% end %>
