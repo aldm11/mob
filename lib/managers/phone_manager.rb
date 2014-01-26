@@ -12,10 +12,10 @@ module Managers
      
       if phone = phone_exists?(pho)
         phone.update_attributes(pho) if pho
-        result[:message] = "Phone updated"
+        result[:message] = I18n.t("phones.internal.phone_updated")
       else
         phone = Phone.new(pho)
-        result[:message] = "Phone added"
+        result[:message] = I18n.t("phones.internal.phone_added")
       end
       
       result[:phone] = phone
@@ -23,16 +23,18 @@ module Managers
         result[:status] = true
       else
         result[:status] = false
-        result[:message] = "Phone not valid"
+        result[:message] = I18n.t("phones.internal.phone_invalid")
       end
       result
     end
     
     def self.prepare_params(phone)
-      if phone[:flickrimg]
-        phone[:image] = URI.parse(phone[:flickrimg])
-      elsif phone[:amazon]
-        phone[:image] = URI.parse(phone[:amazon])
+      if phone[:image].blank?
+        if !phone[:flickrimg].blank?
+          phone[:image] = URI.parse(phone[:flickrimg])
+        elsif !phone[:amazon].blank?
+          phone[:image] = URI.parse(phone[:amazon])
+        end
       end
       phone
     end
@@ -113,15 +115,15 @@ module Managers
         exists = attributes.any? { |attr| attr["name"] == attribute["name"] }
         if exists
           result[:status] = false
-          result[:message] = "Attribute exists"
+          result[:message] = I18n.t("phones.internal.attribute_exists")
         else
           result[:status] = true
-          result[:message] = "Attribute added"
+          result[:message] = I18n.t("phones.internal.attribute_added")
           attributes << attribute
         end
       else
         result[:status] = false
-        result[:message] = "Attribute not valid"
+        result[:message] = I18n.t("phones.internal.attribute_invalid")
       end
       
       write_attributes_to_file(attributes, filename)

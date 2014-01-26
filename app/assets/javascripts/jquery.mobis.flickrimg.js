@@ -1,6 +1,6 @@
 jQuery(function($){
 	$.fn.flickrimg = function(options){
-		var default_settings = { imagesNumber: 5, width: 20, height: 20 };
+		var default_settings = { imagesNumber: 5, width: 40, height: 20 };
 		var settings = $.extend(default_settings, options);
 		
 		var selector = $(this);      
@@ -11,25 +11,27 @@ jQuery(function($){
 		var values_selector = settings.values.join(", ");
 		
 		init(selector);
-		
+				
 		$(values_selector).bind("focusout", function(){
 			appendImages();
 		});
 		
 		$(".image").live("click", function(){
-			$("#"+settings.fieldId).val($(this).attr("src"));
-			selector.val($(this).attr("src"));
+			var image_src = $(this).attr("src");
+			$("#"+settings.fieldId).val(image_src);
+			//selector.val($(this).attr("src"));
+			
+			var message = $("<div class='confirm-message text-success'>Slika " + image_src + " uspjesno postavljena</div>");
+			$(".flickrimg-wrapper").after(message);
+			
+			setTimeout(function(){
+				$(".confirm-message").fadeOut(2000);
+			}, 2000);
 		});
 		
 		selector.live("change", function(){
 			var index = $(this).val().lastIndexOf("\\");
         	$("#"+settings.fieldId).val($(this).val().substr(index + 1));
-		});
-		
-		$(".flickrimg-trigger").live("mouseover", function(){
-			if($(".images-container").length == 0){
-				appendImages();			
-			}
 		});
 		
 		function appendImages(){
@@ -52,32 +54,36 @@ jQuery(function($){
 				url : url, 
 				type: "GET",
 				data: {},
-				async: false,
+				beforeSend: function(xhr, settings){
+					if($("#loading_flickr_images").length === 0){
+						$(".flickrimg").html("<li><div id = 'loading_flickr_images'><img src = '/loading.gif' width = '24px' height = '24px' /></div></li>")
+					}
+				},
 				success: function(result, textStatus, xhr){
 					$.each(result.photos.photo, function(j, photo){
-						html += '<img src="' + constructImageURL(photo) + '" class=" img-rounded image" />'
+						html += '<li><img src="' + constructImageURL(photo) + '" class=" img-rounded image" /></li>'
 					});
+					
+					$(".images-container").html(html);
 				},
-				error: function (xhr, textStatus, errorThrown) { alert(textStatus); }
+				error: function (xhr, textStatus, errorThrown) { 
+					$("#loading_flickr_images").parent().remove();
+					alert(textStatus);
+					$(".flickrimg").append("<ul><div class='text-error'>Error while loading images. Please try later.</div></ul>");
+				}
 			});
-			  
-			if($(".images-container").length == 0){
-				html = '<div class="dropdown-menu images-container" role="menu" aria-labelledby="dLabel">' + html + '</div>';
-				$(".flickrimg").append(html);
-			}
-			else{
-				$(".images-container").html(html);
-			}
 		};
 		
 		function init(element){
 			if ($("#"+settings.fieldId).length == 0){
 				var html = '<input type="hidden" id="' + settings.fieldId + '" name="' + settings.fieldName + '" />';  
-				html += '<div class="dropdown flickrimg">' + 
-						'<a class="dropdown-toggle flickrimg-trigger" data-toggle="dropdown" href="#">Nadji slike</a>' +
+				html += '<div class="dropdown flickrimg-wrapper">' + 
+						'<a href="#" class="dropdown-toggle flickrimg-toggle" data-toggle="dropdown">Nadji slike</a>' +
+						'<ul class="dropdown-menu flickrimg images-container"><li><div class="span12"><small class="text-error">Morate unijeti polja ' + settings.values.join(", ") + '</small></div></li></ul>' +
 						'</div>';
 				
 				element.after(html);
+				
 			}
 		}
 		

@@ -85,6 +85,15 @@ bs:
     offer_count: "%{count} ponuda"
     sort_by_date: "Datum"
     sort_by_price: "Cijena"
+    save_phone: "Spasi"
+    
+    internal:
+      phone_added: "Mobitel dodan uspjesno"
+      phone_updated: "Mobitel editovan"
+      phone_invalid: "Neispravni podaci o mobitelu"
+      attribute_exists: "Atribut postoji"
+      attribute_added: "Atribut dodan"
+      attribute_invalid: "Atribut nije validan"
  
   messages:
     new_message: "Nova poruka"
@@ -117,8 +126,6 @@ bs:
       account_invalid: "Korisnicki racun ne postoji"
     
   ##############
-  add_phone: "Dodaj"
-  phone_added: "Phone added succesfully"
   mongoid: 
     errors:
       models:
