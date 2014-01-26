@@ -68,6 +68,8 @@ bs:
     messages: "Poruke"
     account_settings: "Korisnicki racun"
     logout: "Odjava"
+    users: "Korisnici"
+    phones: "Mobiteli"
     
   footer:
     all_rights_reserved: "Sva prava pridrzana"

@@ -1,8 +1,8 @@
 <%
 	@links = {
       :admin => [
-        { :name  => "Users", :url => admin_users_path, :class => "" },
-        { :name  => "Phones", :url => admin_phones_path }
+        { :name  => I18n.t("header.users"), :url => admin_users_path, :class => "" },
+        { :name  => I18n.t("header.phones"), :url => admin_phones_path }
       ],
       :store => [
         { :name  => I18n.t("header.catalogue"), :url => catalogue_path(:username => current_account.username), :icon => "icon-list icon-white" },

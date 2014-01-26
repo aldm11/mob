@@ -112,6 +112,17 @@ class Phone
   end
   
   before_save do |phone|
+    phone.camera["mpixels"] = phone.camera["mpixels"].to_f if phone.camera && phone.camera["mpixels"]
+    phone.camera["blic"] = phone.camera["blic"].to_s == "1" || phone.camera["blic"].to_s == "true" ? true : false if phone.camera && phone.camera["blic"]
+    phone.camera["video"] = phone.camera["video"].to_s == "1" || phone.camera["video"].to_s == "true" ? true : false if phone.camera && phone.camera["video"]
+    phone.camera["front"] = phone.camera["front"].to_s == "1" || phone.camera["front"].to_s == "true" ? true : false if phone.camera && phone.camera["front"]
+    
+    phone.width = phone.width.gsub(",", ".").to_f if phone.width && phone.width.is_a?(String)
+    phone.height = phone.height.gsub(",", ".").to_f if phone.height && phone.height.is_a?(String)
+    phone.weight = phone.weight.gsub(",", ".").to_f if phone.weight && phone.weight.is_a?(String)
+    phone.internal_memory = phone.internal_memory.gsub(",", ".").to_f if phone.internal_memory && phone.internal_memory.is_a?(String)
+    phone.external_memory = phone.external_memory.gsub(",", ".").to_f if phone.external_memory && phone.external_memory.is_a?(String)
+
     phone.last_updated = Time.new.to_time.to_i
     phone.latest_prices_size = phone.latest_prices ? phone.latest_prices.length : 0
   end
@@ -224,8 +235,15 @@ class Phone
       from = active_catalogue_items.length >= NUMBER_OF_LATEST_PRICES ? active_catalogue_items.length - NUMBER_OF_LATEST_PRICES : 0
       to = active_catalogue_items.length - 1
       
-      active_catalogue_items[from..to].each { |ci| add_price(ci.id, ci.actual_price, ci.date_from.to_time.to_i) }
+      # active_catalogue_items[from..to].each do |ci| 
+        # self.latest_prices << { "catalogue_id" => ci.id, "price" => ci.actual_price, "created_at" => ci.date_from.to_time.to_i } 
+      # end
       
+      active_catalogue_items[from..to].each do |ci| 
+        add_price(ci.id, ci.actual_price, ci.date_from.to_time.to_i)
+      end
+     
+      puts "========================================= CIJENE #{latest_prices.inspect}"    
       self.latest_prices_size = self.latest_prices.length
       self.latest_price = self.latest_prices.last
     end

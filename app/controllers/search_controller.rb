@@ -1,16 +1,16 @@
 class SearchController < ApplicationController   
   
+  # types - string (default), bool, number, numeric_range_from, numeric_range_until, numeric_range, date_range_from, date_range_until, date_range
   FILTERS = {
-    :brand => "brand",
-    :operating_system => "os",
-    :weight => "weight",
-    :internal_memory => "internal_memory",
-    :external_memory => "external_memory",
-    :camera_mpx => "camera.mpixels",
-    :camera_blic => "camera.blic",
-    :camera_front => "camera.front",
-    :camera_video => "camera.video"
-    
+    :brand => {:name => "brand"},
+    :operating_system => {:name => "os"},
+    :weight => {:name => "weight"},
+    :internal_memory => {:name => "internal_memory"},
+    :external_memory => {:name => "external_memory"},
+    :camera_mpx => {:name => "camera.mpixels", :type => "numeric_range_until"},
+    :camera_blic => {:name => "camera.blic", :type => "bool"},
+    :camera_front => {:name => "camera.front", :type => "bool"},
+    :camera_video => {:name => "camera.video", :type => "bool"}
   }
   def search_phones
     @from = params[:from] || 0
@@ -24,10 +24,19 @@ class SearchController < ApplicationController
     }
         
     # options[:search_filters].merge!("brand" => params["brand"]) if params[:brand] && !params[:brand].empty?
-    options[:search_filters] = Hash[params.select { |param, value| FILTERS.keys.include?(param.to_sym) }.map { |param, value| [FILTERS[param.to_sym], value] }]
-    
-    puts "================= search filters #{options[:search_filters].inspect}"
-    
+    options[:search_filters] = Hash[
+      params.select { |param, value| FILTERS.keys.include?(param.to_sym) }.map do |param, value| 
+        val = value
+        val = val == "1" ? true : false if FILTERS[param.to_sym][:type] && FILTERS[param.to_sym][:type] == "bool"
+        val = val.to_f if FILTERS[param.to_sym][:type] && FILTERS[param.to_sym][:type] == "number"
+        val = {"from" => val.to_f} if FILTERS[param.to_sym][:type] && FILTERS[param.to_sym][:type] == "numeric_range_from"
+        val = {"to" => val.to_f} if FILTERS[param.to_sym][:type] && FILTERS[param.to_sym][:type] == "numeric_range_until"
+        val = {"from" => val.split("-").first.strip.to_f, "to" => val.split("-").last.strip.to_f} if FILTERS[param.to_sym][:type] && FILTERS[param.to_sym][:type] == "numeric_range"
+        
+        [FILTERS[param.to_sym][:name], val]
+      end
+    ]
+        
     if params[:price_from] && params[:price_to]
       options[:search_filters].merge!("prices" => {"from" => params[:price_from], "to" => params[:price_to]})
       @min_price = params[:price_from].to_f

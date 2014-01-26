@@ -9,12 +9,18 @@ jQuery(function($){
 			settings.values[i] = "#" + item;
 		});
 		var values_selector = settings.values.join(", ");
-		
-		init(selector);
 				
-		$(values_selector).bind("focusout", function(){
-			appendImages();
-		});
+		var value_exists = false;
+		for(var i = 0; i < settings.values.length; i++){
+			if($(settings.values[i]).val().length > 1){
+				value_exists = true;
+				break;
+			}
+		}
+		init(selector, value_exists);
+		if(value_exists) appendImages();	
+		$(values_selector).bind("focusout", function(){ appendImages(); });
+
 		
 		$(".image").live("click", function(){
 			var image_src = $(this).attr("src");
@@ -74,12 +80,16 @@ jQuery(function($){
 			});
 		};
 		
-		function init(element){
+		function init(element, value_exists){
 			if ($("#"+settings.fieldId).length == 0){
 				var html = '<input type="hidden" id="' + settings.fieldId + '" name="' + settings.fieldName + '" />';  
 				html += '<div class="dropdown flickrimg-wrapper">' + 
 						'<a href="#" class="dropdown-toggle flickrimg-toggle" data-toggle="dropdown">Nadji slike</a>' +
-						'<ul class="dropdown-menu flickrimg images-container"><li><div class="span12"><small class="text-error">Morate unijeti polja ' + settings.values.join(", ") + '</small></div></li></ul>' +
+						'<ul class="dropdown-menu flickrimg images-container"><li><div class="span12">'
+						
+				html += value_exists ? '<img src = "/loading.gif" width = "24px" height = "24px" />' : '<small class="text-error">Morate unijeti polja ' + settings.values.join(", ") + '</small>';
+						
+			    html += '</div></li></ul>' +
 						'</div>';
 				
 				element.after(html);

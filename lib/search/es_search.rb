@@ -24,13 +24,21 @@ module Search
         s.filter :term, "os.original" => value if s && value
       end,
       "camera.mpixels" => lambda do |s, value|
-        s.filter :numeric_range, "camera.mpixels" => {:gte => value["from"], :lte => value["to"]} if s && value && value["from"] && value["to"]
+        if s && value && (value["from"] || value["to"])
+          criteria = {}
+          criteria[:gte] = value["from"] if value["from"]
+          criteria[:lte] = value["to"] if value["to"]
+          s.filter :numeric_range, "camera.mpixels" => criteria
+        end
       end,
       "camera.blic" => lambda do |s, value|
         s.filter :term, "camera.blic" => value if s && value
       end,
       "camera.video" => lambda do |s, value|
         s.filter :term, "camera.video" => value if s && value
+      end,
+      "camera.front" => lambda do |s, value|
+        s.filter :term, "camera.front" => value if s && value
       end,
       "display.type" => lambda do |s, value|
         s.filter :term, "display.type" => value if s && value
