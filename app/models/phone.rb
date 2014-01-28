@@ -11,7 +11,13 @@ class Phone
   field :model, :type => String, :multifield => true
   field :created_at, :type => DateTime
   field :last_updated, :type => DateTime
-  field :camera, :type => Hash
+  field :camera, :type => Hash, :subfields => {
+    :mpixels => {:type => "double"}, 
+    :video => {:type => "boolean"}, 
+    :front => {:type => "boolean"}, 
+    :blic => {:type => "boolean"}, 
+    :resolution => {}
+  }
   field :weight, :type => Float
   field :height, :type => Float
   field :width, :type => Float
@@ -84,18 +90,7 @@ class Phone
           original: {type: "string", index: "not_analyzed"} 
         }
       end
-      # indexes :brand, type: "multi_field", fields: { 
-        # analyzed: {type: "string", index: "analyzed"},
-        # original: {type: "string", index: "not_analyzed"} 
-      # }
-      # indexes :model, type: "multi_field", fields: {
-        # analyzed: {type: "string", index: "analyzed"},
-        # original: {type: "string", index: "not_analyzed"}       
-      # }
-      # indexes :os, type: "multi_field", fields: {
-        # analyzed: {type: "string", index: "analyzed"},
-        # original: {type: "string", index: "not_analyzed"}       
-      # }
+
       indexes :catalogue_items, type: "nested"
     end
   end
@@ -116,7 +111,8 @@ class Phone
     phone.camera["blic"] = phone.camera["blic"].to_s == "1" || phone.camera["blic"].to_s == "true" ? true : false if phone.camera && phone.camera["blic"]
     phone.camera["video"] = phone.camera["video"].to_s == "1" || phone.camera["video"].to_s == "true" ? true : false if phone.camera && phone.camera["video"]
     phone.camera["front"] = phone.camera["front"].to_s == "1" || phone.camera["front"].to_s == "true" ? true : false if phone.camera && phone.camera["front"]
-    
+    phone.camera["resolution"] = phone.camera["resolution"] if  phone.camera && phone.camera["resolution"]
+   
     phone.width = phone.width.gsub(",", ".").to_f if phone.width && phone.width.is_a?(String)
     phone.height = phone.height.gsub(",", ".").to_f if phone.height && phone.height.is_a?(String)
     phone.weight = phone.weight.gsub(",", ".").to_f if phone.weight && phone.weight.is_a?(String)
@@ -146,8 +142,8 @@ class Phone
     index = Tire::Index.new("phones")
     phones_to_import = Phone.where(:latest_prices.exists => true, :latest_prices.ne => [])
     puts "Importing #{phones_to_import.length.inspect} phones to index"
-    index.import(phones_to_import)
-    #phones_to_import.each { |phone| phone.save }
+    #index.import(phones_to_import)
+    phones_to_import.each { |phone| phone.save }
     index.refresh
   end
   
@@ -243,7 +239,6 @@ class Phone
         add_price(ci.id, ci.actual_price, ci.date_from.to_time.to_i)
       end
      
-      puts "========================================= CIJENE #{latest_prices.inspect}"    
       self.latest_prices_size = self.latest_prices.length
       self.latest_price = self.latest_prices.last
     end

@@ -179,6 +179,10 @@ bs:
           blic: "Blic"
           video: "Video"
           front: Prednja kamera"
+          
+          zero: 0
+          one: 1
+          other: other
         display: "Ekran"
         os: "Operativni sistem"
         height: "Visina"

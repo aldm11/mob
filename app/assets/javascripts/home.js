@@ -19,6 +19,12 @@ $(document).ready(function(){
 		$("#price-slider").slider("values", 1, max_price);
 	}
 	
+	var reset_advanced_search = function(){
+		$("#advanced_search").find("select").each(function(){
+			$(this).prop('selectedIndex', 0);
+		});
+	}
+	
 	var get_params =  function(){
 	   var params = {
 			"search_term" : search_term,
@@ -74,6 +80,7 @@ $(document).ready(function(){
 		search_term = "";
 		$("#search_term").val("");
 		reset_price_range();
+		reset_advanced_search();
 		
 		$(".sort-phones-by a").removeClass("disabled");
 		$(".sort-phones-by a:nth-child(1)").addClass("disabled");
