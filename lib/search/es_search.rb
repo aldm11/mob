@@ -26,8 +26,8 @@ module Search
       "camera.mpixels" => lambda do |s, value|
         if s && value && (value["from"] || value["to"])
           criteria = {}
-          criteria[:gte] = value["from"] if value["from"]
-          criteria[:lte] = value["to"] if value["to"]
+          criteria[:lte] = value["from"] if value["from"]
+          criteria[:gte] = value["to"] if value["to"]
           s.filter :numeric_range, "camera.mpixels" => criteria
         end
       end,
@@ -132,7 +132,6 @@ module Search
         } 
       }
 
-      puts "=============== filters #{filters.inspect}"
       filters.each do |key, value|
         FILTERS_MAPPINGS[key.to_s].call(s, value) if FILTERS_MAPPINGS[key.to_s]
       end

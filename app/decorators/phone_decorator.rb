@@ -42,18 +42,29 @@ class PhoneDecorator < Draper::Base
   
   IMAGE_FORMATS = [".jpg", ".jpeg", ".png", ".gif"]
   DEFAULT_IMAGE = "no_image.jpg"
+
   def image_path
-    # image_small = phone.amazon_image_small_full.is_a?(String) ? phone.amazon_image_small_full : phone.amazon_image_small_full.url
-    # image_medium = phone.amazon_image_medium_full.is_a?(String) ? phone.amazon_image_medium_full : phone.amazon_image_medium_full.url
-    # image_url = if image_small && !image_small.include?("missing.png") && IMAGE_FORMATS.any? { |format| File.extname(image_small).include?(format) }
-      # image_small
-    # elsif image_medium && !image_medium.include?("missing.png") && IMAGE_FORMATS.any? { |format| File.extname(image_medium).include?(format) }
-      # image_medium
-    # else
-      # "no_image.jpg"
-    # end
-    return image_path_small if image_path_small != DEFAULT_IMAGE
-    image_path_medium
+    # return image_path_small if image_path_small != DEFAULT_IMAGE
+    # image_path_medium
+   
+    image = if defined_image_path != DEFAULT_IMAGE
+      defined_image_path
+    elsif image_path_small != DEFAULT_IMAGE
+      image_path_small
+    else
+      image_path_medium
+    end
+    image
+  end
+  
+  def defined_image_path
+    image_path = nil
+    if phone.image
+      image_path = phone.image
+      image_path = image_path.url unless image_path.is_a?(String)
+    end
+    return DEFAULT_IMAGE if image_path.nil? || image_path.include?("missing_png")
+    image_path
   end
   
   def image_path_small

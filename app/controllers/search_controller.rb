@@ -45,7 +45,7 @@ class SearchController < ApplicationController
     
     Search::ESSearch.search(options)
     @phones = Search::ESSearch.results
-    @phones = PhoneDecorator.decorate(@phones)
+    @phones = PhoneDecorator.decorate(@phones)   
     @brands = Search::ESSearch.facets("brands")
         
     respond_to do |format|

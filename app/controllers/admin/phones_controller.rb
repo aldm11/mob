@@ -17,7 +17,7 @@ class Admin::PhonesController < ApplicationController
     phone_params[:camera]["video"] = phone_params[:camera]["video"].to_s == "1" ? true : false if phone_params[:camera]["video"]
     result = Managers::PhoneManager.add_phone(phone_params)
     
-    result[:status] ? flash[:success] = result[:message] : flash[:error] = result[:message]
+    result[:status] ? flash[:success] = result[:message] : flash[:error] = result[:message]    
     redirect_to :action => "new"
   end
   

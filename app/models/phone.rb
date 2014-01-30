@@ -133,6 +133,7 @@ class Phone
     
     Phone.tire.mapping
     update_index unless options[:without_index]
+    index.refresh
   end
   
   def self.reindex_all(opts = {})
@@ -142,8 +143,8 @@ class Phone
     index = Tire::Index.new("phones")
     phones_to_import = Phone.where(:latest_prices.exists => true, :latest_prices.ne => [])
     puts "Importing #{phones_to_import.length.inspect} phones to index"
-    #index.import(phones_to_import)
-    phones_to_import.each { |phone| phone.save }
+    index.import(phones_to_import)
+    #phones_to_import.each { |phone| phone.save }
     index.refresh
   end
   
@@ -173,6 +174,10 @@ class Phone
       document.merge!("amazon_image_medium_full" => self.amazon_image_medium_full.to_s) 
     elsif self.attributes["amazon_image_medium"]
       document.merge!("amazon_image_medium" => self.amazon_image_medium.to_s) 
+    end
+    
+    if self.image.exists?
+      document.merge!("image" => self.image.to_s)
     end
     document["latest_price"]["catalogue_id"] = document["latest_price"]["catalogue_id"].to_s if document["latest_price"] && document["latest_price"]["catalogue_id"]
 
