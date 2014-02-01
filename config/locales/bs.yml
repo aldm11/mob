@@ -126,6 +126,9 @@ bs:
       message_not_found: "Poruka ne postoji"
       access_denied: "Pristup zabranjen"
       account_invalid: "Korisnicki racun ne postoji"
+      
+  admin:
+    search: "Pretraga..."
     
   ##############
   mongoid: 

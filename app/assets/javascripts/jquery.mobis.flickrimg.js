@@ -10,15 +10,15 @@ jQuery(function($){
 		});
 		var values_selector = settings.values.join(", ");
 				
-		var value_exists = false;
+		var value_defined = false;
 		for(var i = 0; i < settings.values.length; i++){
-			if($(settings.values[i]).val().length > 1){
-				value_exists = true;
+			if($(settings.values[i]).val() && $(settings.values[i]).val().length > 1){
+				value_defined = true;
 				break;
 			}
 		}
-		init(selector, value_exists);
-		if(value_exists) appendImages();	
+		init(selector, value_defined);
+		if(value_defined) appendImages();	
 		$(values_selector).bind("focusout", function(){ appendImages(); });
 
 		
@@ -80,14 +80,14 @@ jQuery(function($){
 			});
 		};
 		
-		function init(element, value_exists){
+		function init(element, value_defined){
 			if ($("#"+settings.fieldId).length == 0){
 				var html = '<input type="hidden" id="' + settings.fieldId + '" name="' + settings.fieldName + '" />';  
 				html += '<div class="dropdown flickrimg-wrapper">' + 
 						'<a href="#" class="dropdown-toggle flickrimg-toggle" data-toggle="dropdown">Nadji slike</a>' +
 						'<ul class="dropdown-menu flickrimg images-container"><li><div class="span12">'
 						
-				html += value_exists ? '<img src = "/loading.gif" width = "24px" height = "24px" />' : '<small class="text-error">Morate unijeti polja ' + settings.values.join(", ") + '</small>';
+				html += value_defined ? '<img src = "/loading.gif" width = "24px" height = "24px" />' : '<small class="text-error">Morate unijeti polja ' + settings.values.join(", ") + '</small>';
 						
 			    html += '</div></li></ul>' +
 						'</div>';

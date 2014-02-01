@@ -1,4 +1,7 @@
-<table class="table table-striped table-hover">
+<div class="row-fluid phones-header">
+	<%= text_field_tag("phones_search_term", "", :placeholder => I18n.t("admin.search"), :class => "pull-right search-query") %>
+</div>
+<table class="table table-striped table-hover phones-list-admin">
 	<tr>
 		<th>Name</th><th>Created at</th><th>Created by</th><th>Action</th>
 	</tr>

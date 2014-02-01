@@ -68,4 +68,12 @@ $(document).ready(function(){
     	return loop(this, "");
     }
     
+    Window.prototype.delay = (function(){
+	  var timer = 0;
+	  return function(callback, ms){
+	    window.clearTimeout (timer);
+	    timer = window.setTimeout(callback, ms);
+	  };
+	})();
+    
 });

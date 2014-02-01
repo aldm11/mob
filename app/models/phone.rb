@@ -86,7 +86,8 @@ class Phone
       multifield_fields = self.fields.select { |fld, details| details.options[:multifield] }.keys.map {|field| field.to_sym}
       multifield_fields.each do |field|
         indexes field, type: "multi_field", fields: { 
-          analyzed: {type: "string", index: "analyzed", analyzer: "ngram"},
+          ngram_analyzed: {type: "string", index: "analyzed", analyzer: "ngram"},
+          analyzed: {type: "string", index: "analyzed", analyzer: "standard"},
           original: {type: "string", index: "not_analyzed"} 
         }
       end

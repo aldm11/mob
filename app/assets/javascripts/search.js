@@ -62,13 +62,13 @@ var search = function(){
 		}
 	}
 	
-	var delay = (function(){
-	  var timer = 0;
-	  return function(callback, ms){
-	    window.clearTimeout (timer);
-	    timer = window.setTimeout(callback, ms);
-	  };
-	})();
+	// var delay = (function(){
+	  // var timer = 0;
+	  // return function(callback, ms){
+	    // window.clearTimeout (timer);
+	    // timer = window.setTimeout(callback, ms);
+	  // };
+	// })();
 	
 	return function(search_type, params){
 		var parameters = params;

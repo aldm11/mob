@@ -21,7 +21,7 @@ module Search
         s.filter :term, "brand.original" => value if s && value
       end,
       "os" => lambda do |s, value|
-        s.filter :term, "os.original" => value if s && value
+        s.filter :prefix, "os.analyzed" => value if s && value
       end,
       "camera.mpixels" => lambda do |s, value|
         if s && value && (value["from"] || value["to"])

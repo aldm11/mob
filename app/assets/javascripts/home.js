@@ -33,15 +33,14 @@ $(document).ready(function(){
 			"price_to" : $("#price_to").val(),
 			"from" : from,
 			"size" : size
-		}
+		};
+		if(brand) params["brand"] = brand;
 		
 		var filters = ["brand", "operating_system", "weight", "display_type", "internal_memory", "external_memory", "camera_mpx", "camera_blic", "camera_front", "camera_video"];
 		for(var i = 0; i < filters.length; i++){
 			var param_name = filters[i];
 			if($("#"+param_name).val()) params[param_name] = $("#"+param_name).val(); 
 		}
-		console.log("phone params ");
-		console.log(params);
 		return params;
 	}
 	
@@ -107,6 +106,7 @@ $(document).ready(function(){
 		reset_price_range();
 		from = 0;
 		size = 16;
+
 		search("phones", get_params());
 	});
 	
