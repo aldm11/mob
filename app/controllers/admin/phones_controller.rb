@@ -36,6 +36,7 @@ class Admin::PhonesController < ApplicationController
   
   def edit
     @phone = Phone.find(params[:id])
+    @phone_dec = PhoneDecorator.decorate(@phone)
     render "new"
   end
   

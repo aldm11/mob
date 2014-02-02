@@ -63,7 +63,7 @@ class PhoneDecorator < Draper::Base
       image_path = phone.image
       image_path = image_path.url unless image_path.is_a?(String)
     end
-    return DEFAULT_IMAGE if image_path.nil? || image_path.include?("missing_png")
+    return DEFAULT_IMAGE if image_path.nil? || image_path.include?("missing.png")
     image_path
   end
   

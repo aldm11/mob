@@ -129,6 +129,9 @@ bs:
       
   admin:
     search: "Pretraga..."
+    all_phones: "Svi mobiteli"
+    phones_in_catalogue: "Mobiteli u katalogu"
+    phones_not_in_catalogue: "Mobiteli van kataloga"
     
   ##############
   mongoid: 

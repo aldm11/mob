@@ -66,6 +66,11 @@
 <div>
 	<div class="control-label"><%= f.label :image %></div>
 	<div class="controls"><%= f.file_field :image, :id => "add_phone" %></div>
+	<div class="row-fluid existing-images">
+		<div class="span2"><small>Amazon small</small><%= image_tag @phone_dec.image_path_small %></div>
+		<div class="span2"><small>Amazon medium</small><%= image_tag @phone_dec.image_path_medium %></div>
+		<div class="span2"><small>User defined</small><%= image_tag @phone_dec.defined_image_path %></div>
+	</div>
 </div> 
 
 <div>
