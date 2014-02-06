@@ -223,7 +223,20 @@ class Phone
   INCLUDE_ATTRIBUTES = ["camera", "weight", "width", "height", "camera", "display", "os", "internal memory", "external memory"]
   def attributes_for_display
     attributes = self.attributes.select {|attr, value| INCLUDE_ATTRIBUTES.include?(attr) }
-    attributes["camera"] = attributes["camera"] ? attributes["camera"] : {}
+    attributes["camera"] = if attributes["camera"] && attributes["camera"]["mpixels"]
+      camera_display = attributes["camera"]["mpixels"]
+      
+      self.class.fields["camera"].options[:subfields].each do |attr, details|
+        if details[:type].to_s == "boolean" && !attributes["camera"][attr.to_s].nil?
+          attr_label = I18n.t(["mongoid.attributes.phone.camera", attr.to_s].join("."))
+          attr_value = attributes["camera"][attr.to_s] ? "&#10004;" : "&#10007;"
+          camera_display = "#{camera_display}<br/>#{attr_label} : #{attr_value}"
+        end
+      end
+      camera_display
+    else
+      "-"
+    end
     attributes.with_indifferent_access
     return attributes
   end

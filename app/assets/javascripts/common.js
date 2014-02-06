@@ -24,6 +24,7 @@ $(document).ready(function(){
 
 	//rails callbacks
     $("#login_form").bind("ajax:before", function(xhr, status, error) {
+    	$(this).children(".alert-error").remove();
 		$("#login_form .login-btn").after("<div id = 'loading_login' class='pull-right'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
     });
     

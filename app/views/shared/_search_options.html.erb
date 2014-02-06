@@ -76,7 +76,6 @@
 	</div>
 
 	<div class="advanced-search hide" id="price_range_wrapper">
-		<a href="#" class="close">&times;</a>
 		<div class="span11">
 			<div id="price-slider"></div>
 			<div class="row-fluid">
@@ -86,8 +85,9 @@
 					<span class="price-to-text">0</span>
 					<span>&nbsp;$</span>
 				</div>
-				<div class="pull-right">
-					<%= link_to "Potvrdi", "#", :class => "btn btn-mini", :id => "apply_prices", :title => I18n.t("search.apply_price_range") %>
+				<div class="pull-right" id="price_range_actions">
+					<%= link_to I18n.t("cancel"), "#", :class => "btn btn-mini", :id => "close_price_ranges", :title => I18n.t("cancel") %>
+					<%= link_to I18n.t("confirm"), "#", :class => "btn btn-mini", :id => "apply_prices", :title => I18n.t("search.apply_price_range") %>
 				</div>
 			</div>
 		</div>

@@ -73,7 +73,11 @@ $(document).ready(function(){
 	$("#advanced_search #cancel_advanced_search").live("click", function(){
 		$("#advanced_search").addClass("hide");
 	});
-	
+
+	$("#price_range_wrapper #close_price_ranges").live("click", function(){
+		$("#price_range_wrapper").addClass("hide");
+	});
+		
 	$(".show-all-phones").live("click", function(){
 		brand = "";
 		search_term = "";

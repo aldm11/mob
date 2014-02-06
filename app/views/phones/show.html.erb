@@ -25,10 +25,11 @@
 					<%= @phone.render_image("80") %>
 				</div>
 				
-				<div class="phone-attributes span7">
+				<div class="phone-attributes span8">
 					<ul class="nav nav-pills nav-stacked">
 						<% @phone.attributes_for_display.each do |attr, value| %>
-						<%= render :partial => "phones/phone_attribute_item", :locals => {:label => I18n.t("mongoid.attributes.phone."+attr), :value => value} %>
+						<% label = attr.to_s == "camera" ? "Kamera" : I18n.t("mongoid.attributes.phone.#{attr.to_s}") %>
+						<%= render :partial => "phones/phone_attribute_item", :locals => {:label => label, :value => value} %>
 						<% end %>
 					</ul>
 				</div>
