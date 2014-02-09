@@ -103,7 +103,8 @@ Mobis::Application.routes.draw do
     match "users" => "users#list_users"
     match "users/lock" => "users#lock_user", via: :post
     
-    resources :phones, :only => [:new, :edit, :create, :update]
+    resources :phones, :only => [:new, :edit, :create, :update, :destroy]
+    match "phones/add/:id" => "phones#add", via: :post, :as => "phone_add"
     match "phones" => "phones#list_phones", via: :get
     match "phones/attributes" => "phones#attributes", via: :get
     match "phones_add_attribute" => "phones#add_attribute", via: :post

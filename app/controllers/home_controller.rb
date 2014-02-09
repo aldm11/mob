@@ -8,7 +8,7 @@ class HomeController < ApplicationController
 
     @search_options = {
       :os => {"" => "Svi", "android" => "Android", "ios"=> "iOS", "windows_phone" => "Windows Phone"},
-      :weight => {"" => "Sve", 80 => "do 80 grama", 100=> "do 100 grama", 120 => "do 120 grama", 150 => "do 150 grama", "inf" => "preko 150 grama"},
+      :weight => {"" => "Sve", 80 => "do 80 grama", 100=> "do 100 grama", 120 => "do 120 grama", 150 => "do 150 grama", 1000 => "preko 150 grama"},
       :brand => {"" => "Svi"}.merge(@brands),
       :internal_memory => {"" => "/", 256 => "256 MB", 512 => "512 MB", 1000 => "1 GB", 2000 => "2 GB", 4000 => "4 GB"},
       :external_memory => {"" => "/", 1000 => "1 GB", 2000 => "2 GB", 4000 => "4 GB", 8000 => "8 GB", 16000 => "16 GB", 32000 => "32 GB00"},

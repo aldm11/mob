@@ -62,12 +62,12 @@ module Search
           s.filter :numeric_range, "external_memory" => criteria
         end
       end,
-      "weight" => lambda do |s, value|
+      "weight" => lambda do |s, value|        
         if s && value && (value["from"] || value["to"])
           criteria = {}
           criteria[:gte] = value["from"] if value["from"]
           criteria[:lte] = value["to"] if value["to"]
-          s.filter :numeric_range, "weight_memory" => criteria
+          s.filter :numeric_range, "weight" => criteria
         end
       end,
       "date_manufectured" => lambda do |s, value|
@@ -126,11 +126,13 @@ module Search
       s.filter :nested, :path => "catalogue_items", :query => {
         :filtered => {
           "query" => { "match_all" => {} }, 
-          "filter" => { 
+          "filter" => {
             "exists" => { "field" => "actual_price" }
-          } 
+          }
         } 
       }
+      
+      s.filter :term, "deleted" => false
 
       filters.each do |key, value|
         FILTERS_MAPPINGS[key.to_s].call(s, value) if FILTERS_MAPPINGS[key.to_s]

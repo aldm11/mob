@@ -37,6 +37,7 @@ class Phone
   field :average_review, :type => Float
   field :reviews_count, :type => Integer
   field :comments_count, :type => Integer
+  field :deleted, :type => Boolean, :default => false
   
   has_mongoid_attached_file :image
   has_mongoid_attached_file :amazon_image_small_full
@@ -44,7 +45,6 @@ class Phone
   
   validates :brand, :presence => true
   validates :model, :presence => true
-  validates :camera, :presence => true
   validates :weight, :presence => true
   validates :height, :presence => true
   validates :os, :presence => true
@@ -93,6 +93,7 @@ class Phone
       end
 
       indexes :catalogue_items, type: "nested"
+      indexes :deleted, type: "boolean"
     end
   end
   
@@ -119,6 +120,7 @@ class Phone
     phone.weight = phone.weight.gsub(",", ".").to_f if phone.weight && phone.weight.is_a?(String)
     phone.internal_memory = phone.internal_memory.gsub(",", ".").to_f if phone.internal_memory && phone.internal_memory.is_a?(String)
     phone.external_memory = phone.external_memory.gsub(",", ".").to_f if phone.external_memory && phone.external_memory.is_a?(String)
+    phone.os = "Java" if phone.os.blank?  
 
     phone.last_updated = Time.new.to_time.to_i
     phone.latest_prices_size = phone.latest_prices ? phone.latest_prices.length : 0
@@ -158,7 +160,9 @@ class Phone
     self.comments_count = self.comments.count
   end
   
-  PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", "internal_memory", "external_memory", "specifications", "latest_price", "latest_prices_size", "reviews_count", "average_review", "comments_count"]
+  PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", 
+    "internal_memory", "external_memory", "specifications", "latest_price", "latest_prices_size", 
+    "reviews_count", "average_review", "comments_count", "deleted"]
   def phone_to_document
     document = {}.with_indifferent_access
     self.attributes.each do |attr, value|
@@ -249,10 +253,6 @@ class Phone
     else
       from = active_catalogue_items.length >= NUMBER_OF_LATEST_PRICES ? active_catalogue_items.length - NUMBER_OF_LATEST_PRICES : 0
       to = active_catalogue_items.length - 1
-      
-      # active_catalogue_items[from..to].each do |ci| 
-        # self.latest_prices << { "catalogue_id" => ci.id, "price" => ci.actual_price, "created_at" => ci.date_from.to_time.to_i } 
-      # end
       
       active_catalogue_items[from..to].each do |ci| 
         add_price(ci.id, ci.actual_price, ci.date_from.to_time.to_i)

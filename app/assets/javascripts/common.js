@@ -77,4 +77,8 @@ $(document).ready(function(){
 	  };
 	})();
 	
+	// Window.prototype.confirm = function(message){
+// 		
+	// };
+	
 });

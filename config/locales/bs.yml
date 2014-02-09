@@ -88,7 +88,9 @@ bs:
     sort_by_date: "Datum"
     sort_by_price: "Cijena"
     save_phone: "Spasi"
-    
+ 
+    phone_deleted: "Mobitel markiran kao obrisan"
+    phone_undeleted: "Mobitel markiran kao NEobrisan"   
     internal:
       phone_added: "Mobitel dodan uspjesno"
       phone_updated: "Mobitel editovan"
@@ -96,6 +98,8 @@ bs:
       attribute_exists: "Atribut postoji"
       attribute_added: "Atribut dodan"
       attribute_invalid: "Atribut nije validan"
+      phone_exists_in_catalogue: "Mobitel postoji u katalogu"
+      phone_not_exists: "Mobitel ne postoji u katalogu"
  
   messages:
     new_message: "Nova poruka"

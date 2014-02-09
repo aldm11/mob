@@ -100,3 +100,18 @@ html[xmlns] .clearfix {
 .hide {
   display: none;
 }
+
+.link-button {
+  background: transparent;
+  border: none;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.inline-form {
+  padding: 0;
+  margin: 0;
+  display: inline;
+  width: auto;
+}

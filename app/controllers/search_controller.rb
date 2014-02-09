@@ -4,9 +4,9 @@ class SearchController < ApplicationController
   FILTERS = {
     :brand => {:name => "brand"},
     :operating_system => {:name => "os"},
-    :weight => {:name => "weight"},
-    :internal_memory => {:name => "internal_memory"},
-    :external_memory => {:name => "external_memory"},
+    :weight => {:name => "weight", :type => "numeric_range_until"},
+    :internal_memory => {:name => "internal_memory", :type => "numeric_range_from"},
+    :external_memory => {:name => "external_memory", :type => "numeric_range_from"},
     :camera_mpx => {:name => "camera.mpixels", :type => "numeric_range_until"},
     :camera_blic => {:name => "camera.blic", :type => "bool"},
     :camera_front => {:name => "camera.front", :type => "bool"},

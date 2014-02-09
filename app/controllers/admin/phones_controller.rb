@@ -44,6 +44,46 @@ class Admin::PhonesController < ApplicationController
     @phones = Managers::PhoneManager.get_phones
   end
   
+  def destroy
+    id = params[:id]
+    phone = Phone.find(id)
+    
+    error = nil
+    if phone
+      if phone.catalogue_items.empty?
+        phone.deleted = true
+        phone.save
+      else
+        error = I18n.t("phones.internal.phone_exists_in_catalogue")
+      end
+    else
+      error = I18n.t("phones.internal.phone_not_exists")
+    end
+    
+    error ? flash[:error] = error : flash[:success] = I18n.t("phones.phone_deleted")
+    redirect_to :action => "list_phones" 
+  end
+  
+  def add
+    id = params[:id]
+    phone = Phone.find(id)
+    
+    error = nil
+    if phone
+      if phone.catalogue_items.empty?
+        phone.deleted = false
+        phone.save
+      else
+        error = I18n.t("phones.internal.phone_exists_in_catalogue")
+      end
+    else
+      error = I18n.t("phones.internal.phone_not_exists")
+    end
+    
+    error ? flash[:error] = error : flash[:success] = I18n.t("phones.phone_undeleted")
+    redirect_to :action => "list_phones"   
+  end
+  
   def add_attribute
     result = Managers::PhoneManager.add_phone_attribute(params)
     
