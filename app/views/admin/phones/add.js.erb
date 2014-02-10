@@ -1,0 +1,17 @@
+<% if @error %>
+var message_html = $("<div></div>").addClass("'alert alert-error message").html("<%= @error %>");
+var message_container = $("<div></div>").addClass("message-container").append(message_html);
+<% else %>
+var message_html = $("<div></div>").addClass("'alert alert-success message").html("<%= @message %>");
+var message_container = $("<div></div>").addClass("message-container").append(message_html);
+<% end %>
+
+var cell = $("#<%= params[:id].to_s %>").find("form.add-remove-phone").parent();
+
+cell.find("form.add-remove-phone").remove();
+var form_html = $("<%= escape_javascript(render :partial => "admin/phones/add_remove_phone_item", :locals => {:phone => @phone}) %>)");
+cell.append(form_html);
+cell.append(message_container);
+setTimeout(function(){
+	$(".message-container").fadeOut(2000);
+}, 2000);

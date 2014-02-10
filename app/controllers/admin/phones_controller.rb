@@ -46,42 +46,43 @@ class Admin::PhonesController < ApplicationController
   
   def destroy
     id = params[:id]
-    phone = Phone.find(id)
+    @phone = Phone.find(id)
     
-    error = nil
-    if phone
-      if phone.catalogue_items.empty?
-        phone.deleted = true
-        phone.save
+    @error = nil
+    if @phone
+      if @phone.catalogue_items.empty?
+        @phone.deleted = true
+        
+        @message = @phone.save ? I18n.t("phones.phone_deleted") : I18n.t("phones.internal.phone_invalid")
       else
-        error = I18n.t("phones.internal.phone_exists_in_catalogue")
+        @error = I18n.t("phones.internal.phone_exists_in_catalogue")
       end
     else
-      error = I18n.t("phones.internal.phone_not_exists")
+      @error = I18n.t("phones.internal.phone_not_exists")
     end
-    
-    error ? flash[:error] = error : flash[:success] = I18n.t("phones.phone_deleted")
-    redirect_to :action => "list_phones" 
+        
+    respond_to { |format| format.js }
   end
   
   def add
     id = params[:id]
-    phone = Phone.find(id)
+    @phone = Phone.find(id)
     
-    error = nil
-    if phone
-      if phone.catalogue_items.empty?
-        phone.deleted = false
-        phone.save
+    @error = nil
+    if @phone
+      if @phone.catalogue_items.empty?
+        @phone.deleted = false
+        @phone.save
+        
+        @message = I18n.t("phones.phone_undeleted")
       else
-        error = I18n.t("phones.internal.phone_exists_in_catalogue")
+        @error = I18n.t("phones.internal.phone_exists_in_catalogue")
       end
     else
-      error = I18n.t("phones.internal.phone_not_exists")
+      @error = I18n.t("phones.internal.phone_not_exists")
     end
     
-    error ? flash[:error] = error : flash[:success] = I18n.t("phones.phone_undeleted")
-    redirect_to :action => "list_phones"   
+    respond_to { |format| format.js }  
   end
   
   def add_attribute

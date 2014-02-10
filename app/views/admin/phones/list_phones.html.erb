@@ -20,17 +20,8 @@
 			<td><%= created_by %></td>
 			<td>
 				<%= link_to "", url_for(:action => "edit", :id  => phone.id.to_s), :class => "icon-edit" %>
-				
-				
-				<% if phone.deleted %>
-				<%= form_tag admin_phone_add_path(:id => phone.id), :method => "post", :class => "inline-form" do %>
-				<%= button_tag raw('<i class="icon-plus"></i>'), :type => "submit", :class => "link-button", :onclick => "return confirm('Jeste li sigurni?')" %>	
-				<% end %>
-				<% else %>
-				<%= form_tag admin_phone_path(phone), :method => "delete", :class => "inline-form" do %>
-				<%= button_tag raw('<i class="icon-remove"></i>'), :type => "submit", :class => "link-button", :onclick => "return confirm('Jeste li sigurni?')" %>	
-				<% end %>
-				<% end %>
+						
+				<%= render :partial => "admin/phones/add_remove_phone_item", :locals => {:phone => phone} %>
 			</td>
 			<td>
 				<%= phone.latest_price.blank? ? raw("<i class='icon-remove'></i><input type='hidden' value='not_catalogue' />") : raw("<i class='icon-ok'></i><input type='hidden' value='catalogu' />") %>

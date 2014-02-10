@@ -45,10 +45,7 @@ class Phone
   
   validates :brand, :presence => true
   validates :model, :presence => true
-  validates :weight, :presence => true
-  validates :height, :presence => true
   validates :os, :presence => true
-  validates :display, :presence => true
   
   attr_accessible :brand, :model, :created, :camera, :weight, :height, :width, :internal_memory, :external_memory, :amazon_image_small, :amazon_image_medium, :os, :display, :specifications, :image, :account_id
   
@@ -120,7 +117,8 @@ class Phone
     phone.weight = phone.weight.gsub(",", ".").to_f if phone.weight && phone.weight.is_a?(String)
     phone.internal_memory = phone.internal_memory.gsub(",", ".").to_f if phone.internal_memory && phone.internal_memory.is_a?(String)
     phone.external_memory = phone.external_memory.gsub(",", ".").to_f if phone.external_memory && phone.external_memory.is_a?(String)
-    phone.os = "Java" if phone.os.blank?  
+    
+    phone.os = "Java" if phone.os.blank?
 
     phone.last_updated = Time.new.to_time.to_i
     phone.latest_prices_size = phone.latest_prices ? phone.latest_prices.length : 0
