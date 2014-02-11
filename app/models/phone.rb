@@ -34,8 +34,10 @@ class Phone
   field :latest_prices, :type => Array
   field :latest_prices_size, :type => Integer
   field :latest_price, :type => Hash
-  field :average_review, :type => Float
-  field :reviews_count, :type => Integer
+  
+  field :like_count, :type => Integer
+  field :unlike_count, :type => Integer
+  
   field :comments_count, :type => Integer
   field :deleted, :type => Boolean, :default => false
   
@@ -120,12 +122,14 @@ class Phone
     
     phone.os = "Java" if phone.os.blank?
 
+    phone.reviews = []
     phone.last_updated = Time.new.to_time.to_i
     phone.latest_prices_size = phone.latest_prices ? phone.latest_prices.length : 0
   end
   
   def save(options = {})
-    set_average_review 
+    sum_reviews
+    
     set_comments_count
     set_latest_prices
     
@@ -144,14 +148,16 @@ class Phone
     index = Tire::Index.new("phones")
     phones_to_import = Phone.where(:latest_prices.exists => true, :latest_prices.ne => [])
     puts "Importing #{phones_to_import.length.inspect} phones to index"
-    index.import(phones_to_import)
-    #phones_to_import.each { |phone| phone.save }
+    #index.import(phones_to_import)
+    
+    phones_to_import.each { |phone| phone.save }
+    
     index.refresh
   end
   
-  def set_average_review
-    self.reviews_count = self.reviews.length
-    self.average_review = self.reviews.empty? ? 0 : self.reviews.map {|review| review.review}.inject{ |sum, rev| sum + rev } / self.reviews.size
+  def sum_reviews
+    reviews_by_type = reviews.partition { |review| review.like }
+    self.like_count, self.unlike_count = reviews_by_type.first.length, reviews_by_type.last.length    
   end
   
   def set_comments_count
@@ -160,7 +166,7 @@ class Phone
   
   PHONE_ATTRIBUTES_INDEX = ["_id", "brand", "model", "camera", "os", "height", "width", "weight", "display", 
     "internal_memory", "external_memory", "specifications", "latest_price", "latest_prices_size", 
-    "reviews_count", "average_review", "comments_count", "deleted"]
+    "like_count", "unlike_count", "comments_count", "deleted"]
   def phone_to_document
     document = {}.with_indifferent_access
     self.attributes.each do |attr, value|
@@ -210,13 +216,13 @@ class Phone
     document
   end
   
-  def overall_review
-    count = reviews.empty? ? 0 : reviews.count
-    sum = reviews.empty? ? 0 : reviews.sum(:review)
-    average = reviews.empty? ? 0 : sum/count
-    
-    return {:average => average, :count => count}
-  end
+  # def overall_review
+    # count = reviews.empty? ? 0 : reviews.count
+    # sum = reviews.empty? ? 0 : reviews.sum(:review)
+    # average = reviews.empty? ? 0 : sum/count
+#     
+    # return {:average => average, :count => count}
+  # end
   
   def name
     [brand, model].join(" ")

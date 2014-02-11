@@ -3,13 +3,14 @@ class ReviewsController < ApplicationController
   def create_phone_review
     phone_id = params[:phone_id]
     
-    phone = Phone.find(phone_id)
-    review = phone.reviews.build(params)
+    @phone = Phone.find(phone_id)
+    review_props = {"like" => params[:like] ? true : false}
+    review = @phone.reviews.build(review_props)
+    
     review.account_id = current_account.id
     
     if review.save
-      phone.save
-      @phone = Phone.find(phone_id)
+      @phone.save
     else
       redirect_to(:controller => "application", :action => "show_error")
     end

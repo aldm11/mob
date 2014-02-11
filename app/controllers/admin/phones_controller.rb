@@ -127,9 +127,9 @@ class Admin::PhonesController < ApplicationController
   end
   
   def reindex
-    Phone.reindex_all
-    
+    Phone.reindex_all    
     flash[:success] = "Mobiteli uspjesno reindeksirani"
+    
     redirect_to :action => "list_phones"
   end
   

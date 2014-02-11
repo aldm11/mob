@@ -13,11 +13,9 @@
 			<%= [I18n.t("price", :price => prices.first), (I18n.t "price", :price => prices.last)].join(" - ") %>
 		</small>
 		
-		<div class="pull-left">
-			<%= render :partial => "reviews/phone_review", :locals => {:phone => phone} %>
-		</div>
+		<%= render :partial => "reviews/phone_review", :locals => {:phone => phone} %>
 					
-		<div class="pull-right">
+		<div class="pull-right comments">
 			<%= link_to "", "comments/new/#{phone.id}", :remote => true, :class => "icon-comment icon-orange add-comment-main", :rel => "tooltip", :title => "Add comment", "data-placement" => "bottom", "data-toggle" => "modal", "data-target" => "#addCommentPopup" %>
 			<a href="#"><small><%= "(" + phone.comments_count.to_s + ")" %></small></a>
 		</div>

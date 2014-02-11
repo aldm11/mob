@@ -1,2 +1,2 @@
-$("<%= escape_javascript(render('create_phone_review_confirm')) %>").appendTo($("body"));
-$("#reviewAdded").modal();
+$("#review-<%= params[:phone_id] %>").children(".like-container").children("small").html("<%= "(#{@phone.like_count})" %>");
+$("review-#<%= params[:phone_id] %>").children(".unlike-container").children("small").html("<%= "(#{@phone.unlike_count})" %>");

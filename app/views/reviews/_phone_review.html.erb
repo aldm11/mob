@@ -1,7 +1,11 @@
-<span class="text-success" rel="tooltip" title='<%= pluralize(phone.reviews_count, "review") %>'><%= phone.average_review.to_s %></span>
-
-<div title="Rate phone" class="reviewer" id="<%= phone.id %>">
-<% 5.times.each do |i| %>
-<span>&#9734;</span>
-<% end %>
+<div class="reviewer pull-left" id="review-<%= phone.id %>">
+	<div class="like-container">
+		<%= link_to raw("<i class='icon-thumbs-up'></i>"), "#", :class => "like-phone" %>
+		<small><%= "(#{phone.like_count})" %></small>
+	</div>
+	
+	<div class="unlike-container">
+		<%= link_to raw("<i class='icon-thumbs-down'></i>"), "#", :class => "unlike-phone" %>
+		<small><%= "(#{phone.unlike_count})" %></small>
+	</div>
 </div>

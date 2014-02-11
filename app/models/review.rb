@@ -5,17 +5,15 @@ class Review
   field :like, :type => Boolean 
   field :updated, :type => DateTime
   field :account_id, :type => String
-  
-  #field :review, :type => Integer
-  #field :active, :type => Boolean
-  #field :created_at, :type => DateTime
+  field :history, :type => Array
   
   embedded_in :phone
   
-  attr_accessible :review, :updated, :account_id
+  attr_accessible :like, :updated, :account_id
   
   before_save do |review|
     review.updated = Time.new.to_time.to_i
-    # review.created_at = Time.new.to_time.to_i
+    review.history = [] if review.history.nil?
+    review.history << { :like => like, :added => updated.to_time.to_i }
   end
 end
