@@ -49,11 +49,13 @@ class Phone
   validates :model, :presence => true
   validates :os, :presence => true
   
-  attr_accessible :brand, :model, :created, :camera, :weight, :height, :width, :internal_memory, :external_memory, :amazon_image_small, :amazon_image_medium, :os, :display, :specifications, :image, :account_id
+  attr_accessible :brand, :model, :created, :camera, :weight, :height, :width, 
+  :internal_memory, :external_memory, :amazon_image_small, :amazon_image_medium, :os, :display, 
+  :specifications, :image, :account_id, :reviews
   
   belongs_to :account
   has_many :comments, as: :context
-  embeds_many :reviews
+  embeds_many :reviews, class_name: "Review"
   has_and_belongs_to_many :accounts_following, class_name: 'Account'
   
   has_many :catalogue_items
@@ -122,7 +124,6 @@ class Phone
     
     phone.os = "Java" if phone.os.blank?
 
-    phone.reviews = []
     phone.last_updated = Time.new.to_time.to_i
     phone.latest_prices_size = phone.latest_prices ? phone.latest_prices.length : 0
   end

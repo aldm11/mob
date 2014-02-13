@@ -4,11 +4,9 @@ class ReviewsController < ApplicationController
     phone_id = params[:phone_id]
     
     @phone = Phone.find(phone_id)
-    review_props = {"like" => params[:like] ? true : false}
+    review_props = {:like => params[:like] ? true : false, :account_id => current_account.id}
     review = @phone.reviews.build(review_props)
-    
-    review.account_id = current_account.id
-    
+        
     if review.save
       @phone.save
     else

@@ -1,2 +1,2 @@
-$("#review-<%= params[:phone_id] %>").children(".like-container").children("small").html("<%= "(#{@phone.like_count})" %>");
-$("review-#<%= params[:phone_id] %>").children(".unlike-container").children("small").html("<%= "(#{@phone.unlike_count})" %>");
+var review_html = "<%= escape_javascript(render :partial => "reviews/phone_review", :locals => {:phone => @phone}) %>";
+$("#review-<%= params[:phone_id] %>").html(review_html);
