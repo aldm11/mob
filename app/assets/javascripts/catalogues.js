@@ -67,4 +67,22 @@ $(document).ready(function(){
 		return true;
 	});
 	
+	$("#catalogue_search_term").live("keydown", function(event){
+		var term = $(this).val().toLowerCase();
+		var terms = term.split(" ");
+		
+		$(".catalogue-item-main").each(function(){
+			var phone_name = $(this).find(".catalogue-phone-title").html().toLowerCase();
+			var show = false;
+			for(var i = 0; i < terms.length; i++){
+				if(phone_name.indexOf(terms[i]) !== -1){
+					show = true;
+					break;
+				}
+			}
+			if(show) $(this).show();
+			else $(this).hide();
+		});
+	});
+	
 });

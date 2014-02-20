@@ -4,6 +4,10 @@
 	</div>
 	
 	<div class="span9 catalogue-items">
+		<div class="row-fluid catalogue-options">
+			<%= text_field_tag "catalogue_search_term", "", :class => "pull-right", :placeholder => I18n.t("catalogues.search_catalogue") %>	
+		</div>
+		
 		<% if @catalogue_phones.empty? %>
 		<p class="muted catalogue-empty">
 			<%= I18n.t("catalogues.catalogue_empty") %>

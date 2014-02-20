@@ -48,6 +48,7 @@ bs:
     catalogue_empty: "Nema telefona u katalogu. "
     updating_price: "Promjena cijene za %{phone_name}"
     adding_phone: "Dodavanje telefona u katalog"
+    search_catalogue: "Pretraga kataloga ..."
     internal:
       invalid_phone: "Telefon ne postoji"
       parameters_invalid: "Niste unijeli telefon ili cijenu"
