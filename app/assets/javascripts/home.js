@@ -139,60 +139,26 @@ $(document).ready(function(){
 	
 	
 	$(window).scroll(function(){
-		//if(window.location.toString() === "http://localhost:3000/"){
-			var has_more_elements = $(".no-more-phones").length === 0;
-			if($(window).scrollTop() + $(window).height() == $(document).height() && has_more_elements){
-				from += size;
-				search("phones", get_params());
-			}
-		//}
+		var has_more_elements = $(".no-more-phones").length === 0;
+		if($(window).scrollTop() + $(window).height() == $(document).height() && has_more_elements){
+			from += size;
+			search("phones", get_params());
+		}
 	});
 	
 	search("phones", get_params());
-
-	//reviewer
-    // $(".reviewer > span").live("mouseover", function () {
-        // $(this).css({ cursor: "pointer" });
-// 
-        // $(this).parent().children().each(function () {
-            // $(this).css({ color: "#000" });
-        // });
-// 
-        // $(this).prevAll().each(function () {
-            // $(this).css({ color:"orange" });
-        // });
-        // $(this).css({ color: "orange"});
-// 
-    // });
-
-    // $(".reviewer").live("mouseleave", function () {
-        // $(this).children().each(function () {
-            // $(this).css({ color: "#000" });
-        // });
-    // });
-//     
-    // $(".reviewer span").live("click", function(){
-    	// var feedback = ($(this).prevAll().length + 1).toString();
-    	// var id = $(this).parent().attr("id");
-//     	
-    	// var wrapper = $(this).parent().parent();
-//     	
-    	// $.ajax({
-            // url: '/reviews/create_phone_review',
-            // type: 'POST',
-            // data: { phone_id : id, review : feedback },
-            // success: function (data, textStatus, xhr) {},
-            // error: function (xhr, textStatus, errorThrown) { console.log(errorThrown.toString()) },
-            // complete: function (xhr, textStatus) {}
-        // });
-    // });
     
+    // reviews
     $(".like-phone").live("click", function(event){
-    	var id = $(this).parent().parent().attr("id").split("-")[1];
+    	var review_container = $(this).parent().parent();
+    	var id = review_container.attr("id").split("-")[1];
     	$.ajax({
             url: '/reviews/create_phone_review',
             type: 'POST',
             data: { phone_id : id, like : true },
+            beforeSend: function(xhr){
+            	review_container.html("<img src='/loading.gif' width='16px' height='16px' />");
+            },
             success: function (data, textStatus, xhr) {},
             error: function (xhr, textStatus, errorThrown) { console.log(errorThrown.toString()) },
             complete: function (xhr, textStatus) {}
@@ -200,11 +166,15 @@ $(document).ready(function(){
     });
     
     $(".unlike-phone").live("click", function(event){
-    	var id = $(this).parent().parent().attr("id").split("-")[1];
+    	var review_container = $(this).parent().parent();
+    	var id = review_container.attr("id").split("-")[1];
     	$.ajax({
             url: '/reviews/create_phone_review',
             type: 'POST',
             data: { phone_id : id, unlike : true },
+            beforeSend: function(xhr){
+            	review_container.html("<img src='/loading.gif' style='width: 16px; height: 16px; clear: both;' />");            	
+            },
             success: function (data, textStatus, xhr) {},
             error: function (xhr, textStatus, errorThrown) { console.log(errorThrown.toString()) },
             complete: function (xhr, textStatus) {}

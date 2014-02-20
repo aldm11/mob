@@ -131,6 +131,13 @@ bs:
       access_denied: "Pristup zabranjen"
       account_invalid: "Korisnicki racun ne postoji"
       
+  reviews:
+    parameters_invalid: "Pogresni parametri"
+    phone_not_found: "Mobitel ne postoji"
+    account_not_found: "Korisnicki racun ne postoji"
+    review_saved: "Review spasen"
+    review_invalid: "Pogresan format reviewa"
+      
   admin:
     search: "Pretraga..."
     all_phones: "Svi mobiteli"

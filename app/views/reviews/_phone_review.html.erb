@@ -1,34 +1,34 @@
-<div class="reviewer pull-left" id="review-<%= phone.id %>">
-	<div class="like-container">
-		<% user_reviews = Phone.find(phone.id.to_s).reviews.select { |review| review.account_id.to_s == current_account.id.to_s } %>
-		<% if user_reviews.empty? %>
-		<% user_liked, user_unliked = false, false %>
-		<% else %>
-		<% user_liked, user_unliked = user_reviews.first.like, !user_reviews.first.like %>
-		<% end %>
-		
-		<% if user_liked %>
-		<% css_class = "fa fa-thumbs-o-up active" %>
-		<% else %>
-		<% css_class = "fa fa-thumbs-o-up inactive" %>
-		<% end %>
-		
-		<%= link_to "#", :class => "like-phone" do %>
-		<i class="<%= css_class %>"></i>
-		<% end %>
-		<small><%= "(#{phone.like_count})" %></small>
-	</div>
+<div class="like-container">
+	<% user_reviews = account_signed_in? ? Phone.find(phone.id.to_s).reviews.select { |review| review.account_id.to_s == current_account.id.to_s } : [] %>
+	<% if user_reviews.empty? %>
+	<% user_liked, user_unliked = false, false %>
+	<% else %>
+	<% user_liked, user_unliked = user_reviews.first.like, !user_reviews.first.like %>
+	<% end %>
 	
-	<div class="unlike-container">
-		<% if user_unliked %>
-		<% css_class = "fa fa-thumbs-o-down active" %>
-		<% else %>
-		<% css_class = "fa fa-thumbs-o-down inactive" %>
-		<% end %>
-				
-		<%= link_to "#", :class => "unlike-phone" do %>
-		<i class="<%= css_class %>"></i>
-		<% end %>		
-		<small><%= "(#{phone.unlike_count})" %></small>
-	</div>
+	<% if user_liked %>
+	<% css_class = "fa fa-thumbs-o-up active disabled" %>
+	<% else %>
+	<% css_class = "fa fa-thumbs-o-up inactive" %>
+	<% css_class = [css_class, "disabled"].join(" ") unless account_signed_in? %>
+	<% end %>
+	
+	<%= link_to "#", :class => "like-phone" do %>
+	<i class="<%= css_class %>"></i>
+	<% end %>
+	<small><%= "(#{phone.like_count})" %></small>
+</div>
+
+<div class="unlike-container">
+	<% if user_unliked %>
+	<% css_class = "fa fa-thumbs-o-down active disabled" %>
+	<% else %>
+	<% css_class = "fa fa-thumbs-o-down inactive" %>
+	<% css_class = [css_class, "disabled"].join(" ") unless account_signed_in? %>
+	<% end %>
+			
+	<%= link_to "#", :class => "unlike-phone" do %>
+	<i class="<%= css_class %>"></i>
+	<% end %>		
+	<small><%= "(#{phone.unlike_count})" %></small>
 </div>

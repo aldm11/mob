@@ -15,6 +15,5 @@ class Review
     review.updated = Time.new.to_time.to_i
     review.history = [] if review.history.nil?
     review.history << { :like => like, :added => updated.to_time.to_i }
-    puts "==== prije save review"
   end
 end

@@ -242,5 +242,28 @@ module Managers
       result
     end
     
+    def self.add_review(account_ref, phone_ref, like)
+      return {:message => I18n.t("reviews.internal.parameters_invalid"), :status => false} if account_ref.blank? || phone_ref.blank? || !like.is_a?(Boolean)
+      account = account_ref.is_a?(Account) ? account_ref : Account.find(account_ref.to_s)
+      return {:message => I18n.t("reviews.internal.account_not_found"), :status => false} if account.nil?
+      phone = phone_ref.is_a?(Phone) ? phone_ref : Phone.find(phone_ref.to_s)
+      return {:message => I18n.t("reviews.internal.phone_not_found"), :status => false} if phone.nil?
+     
+      existing_reviews = phone.reviews.where(account_id: account.id).to_a
+      if existing_reviews.empty?
+        review_props = { :like => like, :account_id => account.id }
+        review = phone.reviews.build(review_props)
+      else
+        review = existing_reviews.first
+        review.like = like
+      end
+            
+      if review.save && phone.save
+        { :message => I18n.t("reviews.internal.review_saved"), :status => true, :review => review }
+      else
+        { :message => I18n.t("reviews.internal.review_invalid"), :status => false, :review => review }
+      end
+    end
+    
   end
 end
