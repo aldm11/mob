@@ -1,4 +1,8 @@
-<% if @saved %>
+if($("#loading_add_comment").length > 0) $("#loading_add_comment").remove();
+
+<% if @result[:status] %>
+if($(".comment-error-message").length > 0) $(".comment-error-message").remove();
+
 if($(".no-comments").length > 0){
 	$(".no-comments").remove();
 	var comments_count = $("<%= escape_javascript(render(:partial => "comments/comment_count", :locals => {:comment_count => @all_comments_count})) %>");
@@ -9,7 +13,7 @@ if($(".no-comments").length > 0){
 
 $(".comment-count").html("<%= pluralize(@all_comments_count, "comment") %>");
 
-var comment_html = $("<%= escape_javascript(render(:partial => 'phones/comment_item', :locals => {:comment => @comment})) %>");
+var comment_html = $("<%= escape_javascript(render(:partial => 'phones/comment_item', :locals => {:comment => @result[:comment]})) %>");
 comment_html.css({border : "2px solid green"});
 $(".comments").prepend(comment_html);
 $(".comments").children(":first").animate({
@@ -22,5 +26,6 @@ $(".comments").children(":first").animate({
 }, 2000, function(){});
 $(".comment-text").val("");
 <% else %>
-$("#comment_text").css({"border" : "1px solid red"});
+if($(".comment-error-message").length > 0) $(".comment-error-message").remove();
+$("form.new_comment").append("<div class='text-error comment-error-message'><%= @result[:message] %></div>");
 <% end %>

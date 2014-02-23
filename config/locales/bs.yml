@@ -7,6 +7,8 @@ bs:
   sort_by_date: "Sortiraj po datumu"
   select_all: "Oznaci sve"
   delete: "Brisi"
+  phone: "Mobitel"
+  phone_comments: "Komentari"
   
   price: "%{price} KM"
   registration:
@@ -101,6 +103,15 @@ bs:
       attribute_invalid: "Atribut nije validan"
       phone_exists_in_catalogue: "Mobitel postoji u katalogu"
       phone_not_exists: "Mobitel ne postoji u katalogu"
+ 
+  comments:
+    parameters_invalid: "Komentar mora imati bar 10 znakova"
+    account_not_found: "Korisnicko racun ne postoji"
+    phone_not_found: "Mobitel ne postoji"
+    max_one_with_same_text_5_mins: "Ne mozete tako brzo dodati dva komentara sa istim tekstom"
+    max_one_in_1_min: "Ne mozete tako brzo dodati 2 komentara"
+    comment_saved: "Komentar dodan"
+    error_while_adding: "Doslo je do greske. Molimo pokusajte kasnije"
  
   messages:
     new_message: "Nova poruka"

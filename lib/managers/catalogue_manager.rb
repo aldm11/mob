@@ -125,7 +125,7 @@ module Managers
           {
             "provider_id" => ci.provider.id, 
             "provider_name" => ci.provider.name, 
-            "provider_address" => ci.provider.address, 
+            "provider_address" => ci.provider.respond_to?("address") ? ci.provider.address : "", 
             "provider_website" => ci.provider.respond_to?("website") ? ci.provider.website : "", 
             "price" => ci.actual_price
           }

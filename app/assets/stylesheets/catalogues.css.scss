@@ -32,14 +32,16 @@
     .attribute-catalogue {
       font-size: 8pt;
       border-bottom: 1px solid #CCC;
-    }
-    dt {
-      width: 100px;
-      text-align: left;
-    }
-    dd {
-      margin-left: 100px;
-      text-align: left;
+      
+      span {
+        display: inline-block;
+      }
+      span.attr-name {
+        width: 100px;
+      }
+      span.attr-value {
+        
+      }
     }
   }
 }

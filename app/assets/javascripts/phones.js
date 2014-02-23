@@ -15,6 +15,10 @@ $(document).ready(function(){
 	    }
 	});
 	
+	$("form#new_comment").submit(function(){
+		$(this).append("<img src='/loading.gif' style='width: 16px; height: 16px; clear: both;' id='loading_add_comment' />");
+	});
+	
 	$("#comment_text").tooltip({trigger: ["focus", "hover"]});
 	
 	var COMMENTS_PER_PAGE = 10;

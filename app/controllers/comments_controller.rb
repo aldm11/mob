@@ -7,19 +7,11 @@ class CommentsController < ApplicationController
     end
   end
   
-  def create
-    if params[:comment][:text].blank?
-      @saved = false
-    else
-      @comment = current_account.comments.build(params[:comment])
-      phone = Phone.find(params[:phone_id])
-      @comment.context = phone
-      
-      @saved = @comment.save
-      phone.save
-      @all_comments_count = phone.comments.select {|comm| comm.active}.length unless phone.comments.empty?
-    end
- 
+  def create 
+    phone = Phone.find(params[:phone_id])
+    @result = Managers::CommentManager.create(current_account, params[:comment][:text], :phone => phone)
+    @all_comments_count = phone.comments.select {|comm| comm.active}.length unless phone.comments.empty?
+    
     respond_to do |format|
       format.js
     end
