@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :only_signed_in_users, :only => ["new", "create"]
+  before_filter :only_signed_in_users, :only => ["create"]
   def new
     @phone_data = PhoneData.new(current_account, params[:phone_id])
     respond_to do |format|
@@ -12,8 +12,10 @@ class CommentsController < ApplicationController
     @result = Managers::CommentManager.create(current_account, params[:comment][:text], :phone => phone)
     @all_comments_count = phone.comments.select {|comm| comm.active}.length unless phone.comments.empty?
     
-    respond_to do |format|
-      format.js
+    if params[:phone_popup] == "1"
+      render "create_from_popup"
+    else
+      render "create"
     end
   end
   

@@ -1,14 +1,14 @@
 <div id="notAuthorizedPopup" class="modal hide fade">
   <div class="modal-body">
   	<p>
-  		You're not authorized to access this page.
-  		Please&nbsp;
-  		<%= link_to("login", new_account_session_path) %>
-  		&nbsp;or&nbsp;
-  		<%= link_to("register", new_account_registration_path) %>
+  		<%= I18n.t("unauthorized_access") %>
+  		Molimo da se&nbsp;
+  		<%= link_to(I18n.t("please_login"), new_account_session_path) %>
+  		&nbsp;ili&nbsp;
+  		<%= link_to(I18n.t("please_register"), register_path) %>
   	</p>
   </div>
   <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><%= I18n.t("ok") %></button>
   </div>
 </div>

@@ -118,8 +118,8 @@ module Managers
       phones = [phones].flatten
       phones_ids = phones.map { |phone| phone.is_a?(Phone) ? phone.id.to_s : phone }
       
-      catalogue_items = Phone.asc.in(_id: phones_ids).to_a
-      catalogue_items = catalogue_items.map { |phone| [
+      target_phones = Phone.asc.in(_id: phones_ids).to_a
+      catalogue_items = target_phones.map { |phone| [
         phone.id, 
         phone.catalogue_items.select {|ci| ci.deleted_date.nil? && ci.provider.id != provider.id }.map { |ci| 
           {

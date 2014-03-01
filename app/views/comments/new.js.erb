@@ -1,3 +1,9 @@
-$("<%= escape_javascript(render('phones/phone')) %>").appendTo($("body"));
+if($("#addCommentPopup").length > 0) $("#addCommentPopup").remove();
+$("<%= escape_javascript(render(:partial => 'phones/phone', :locals => {:phone_data => @phone_data})) %>").appendTo($("body"));
 $("#addCommentPopup").modal();
+$("#comment_text").tooltip({trigger: ["focus", "hover"]});
 $("a[href=#phoneComments]").tab("show");
+
+$("form#new_comment").submit(function(){
+	$(this).append("<img src='/loading.gif' style='width: 16px; height: 16px; clear: both;' id='loading_add_comment' />");
+});

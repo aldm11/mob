@@ -1,0 +1,14 @@
+if($("#loading_add_comment").length > 0) $("#loading_add_comment").remove();
+
+<% if @result[:status] %>
+if($(".comment-error-message").length > 0) $(".comment-error-message").remove();
+
+var comment_html = $("<%= escape_javascript(render(:partial => 'comments/comment_item', :locals => {:comment => @result[:comment]})) %>");
+$(".comments-list").append(comment_html);
+$(".comments-list").scrollTop($(".comments-list")[0].scrollHeight);
+
+$("#comment_text").val("");
+<% else %>
+if($(".comment-error-message").length > 0) $(".comment-error-message").remove();
+$("form.new_comment").append("<div class='text-error comment-error-message'><%= @result[:message] %></div>");
+<% end %>

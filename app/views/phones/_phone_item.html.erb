@@ -19,7 +19,7 @@
 			</div>
 						
 			<div class="pull-right comments">
-				<%= link_to "", "comments/new/#{phone.id}", :remote => true, :class => "icon-comment icon-orange add-comment-main", :rel => "tooltip", "data-placement" => "bottom", "data-toggle" => "modal", "data-target" => "#addCommentPopup" %>
+				<%= link_to "", "comments/new/#{phone.id}", :remote => true, :class => "icon-comment icon-orange add-comment-main" %>
 				<small><%= "(" + phone.comments_count.to_s + ")" %></small>
 			</div>
 		</div>

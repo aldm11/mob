@@ -5,7 +5,7 @@ var search = function(){
 				from : 0,
 				size : 16
 			},
-			url : "/search/search_phones",
+			url : "search/search_phones",
 			before_send : function(parameters){
 				if(parameters["from"] === this.paging["from"] && parameters["size"] === this.paging["size"]){
 					$(".phones-grid").html("<div id = 'loading_big'><img src = '/loading.gif' width = '32px' height = '32px' /></div>");

@@ -170,5 +170,5 @@ Mobis::Application.routes.draw do
  
   match "/:brand" => "home#index", :as => "brand", :via => "get"
   
-  mount Heartbeat::Application, :at => "/heartbeat"
+  mount Heartbeat::Application, :at => "/heartbeat"  
 end

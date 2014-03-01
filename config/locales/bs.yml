@@ -4,11 +4,15 @@ bs:
   save: "Spasi"
   cancel: "Odustani"
   date: "Datum"
+  ok: "U redu"
   sort_by_date: "Sortiraj po datumu"
   select_all: "Oznaci sve"
   delete: "Brisi"
   phone: "Mobitel"
   phone_comments: "Komentari"
+  unauthorized_access: "Ne mozete pristupiti ovoj stranici dok se ne prijavite."
+  please_login: "prijavite"
+  please_register: "registrujete"
   
   price: "%{price} KM"
   registration:

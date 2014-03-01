@@ -3,4 +3,7 @@
   		<div class="controls"><%= f.text_area :text, :placeholder => I18n.t("phones.add_comment_text"), :class => "comment-text", "data-toggle" => "tooltip", "title" => I18n.t("phones.new_line_shortcut") %></div>
   	</div> 
 	<%= hidden_field_tag :phone_id, phone.id.to_s %>
+	<% if defined?(type) && type == "phone_popup" %>
+	<%= hidden_field_tag :phone_popup, "1" %>
+	<% end %>
 <% end %>
