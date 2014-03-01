@@ -66,17 +66,17 @@ Mobis::Application.routes.draw do
   
   match "set_js_vars" => "application#set_js_vars", :as => "set_js_vars", :via => :post
   match "get_js_var" => "application#get_js_var", :as => "get_js_var", :via => :post 
-  match ":username/katalog" => "catalogues#index", :as => "catalogue"  
+  match ":username/catalogue" => "catalogues#index", :as => "catalogue"  
   match "unauthorized_access" => "application#unauthorized_access"
   match "show_error" => "application#show_error"
-  match "poruke" => "messages#index", :as => "messages"
+  match "messages" => "messages#index"
   
   #TODO: check this
   devise_scope :account do    
-    match "registracija" => "accounts/registrations#index", :as => "register"
-    match "registracija_korisnika" => "accounts/registrations#new", :account => { :type => "user" }, :as => "register_user"
-    match "registracija_prodavnice" => "accounts/registrations#new", :account => { :type => "store" }, :as => "register_store"
-    match "register" => "accounts/registrations#create", :as => "register", :method => :post  
+    match "registration" => "accounts/registrations#index", :as => "register"
+    match "register_user" => "accounts/registrations#new", :account => { :type => "user" }, :as => "register_user"
+    match "register_store" => "accounts/registrations#new", :account => { :type => "store" }, :as => "register_store"
+    match "register" => "accounts/registrations#create", :as => "registration", :method => :post  
   
     # match "reset_password" => "devise/passwords#new", :as => "new_unlock", :method => :get
     # match "reset_password" => "devise/passwords#create", :as => "create_unlock", :method => :post
@@ -87,31 +87,31 @@ Mobis::Application.routes.draw do
     :passwords => "devise/passwords"
   },
   :path => "",
-  :path_names => {:sign_in => "prijava", :sign_out => "odjava", :new_unlock => "promijeni_sifru"}
+  :path_names => {:sign_in => "login", :sign_out => "logout", :new_unlock => "reset_password"}
   
   namespace :api do
     namespace :v1 do      
       match "chat/config" => "chat#get_conf", via: :get
       
-      mount Api::V1::Phones, :at => "/mobiteli"
-      mount Api::V1::Messages, :at => "/poruke"
-      mount Api::V1::Catalogue, :at => "/katalog"
+      mount Api::V1::Phones, :at => "/phones"
+      mount Api::V1::Messages, :at => "/messages"
+      mount Api::V1::Catalogue, :at => "/catalogue"
     end
   end
   
   namespace :admin do
-    match "korisnici" => "users#list_users", :as => "users"
+    match "users" => "users#list_users"
     match "users/lock" => "users#lock_user", via: :post
     
     resources :phones, :only => [:new, :edit, :create, :update, :destroy]
     match "phones/add/:id" => "phones#add", via: :post, :as => "phone_add"
-    match "mobiteli" => "phones#list_phones", via: :get, :as => "phones"
-    match "mobiteli/atributi" => "phones#attributes", via: :get, :as => "phones_attributes"
+    match "phones" => "phones#list_phones", via: :get
+    match "phones/attributes" => "phones#attributes", via: :get
     match "phones_add_attribute" => "phones#add_attribute", via: :post
-    match "mobiteli/import" => "phones#import_phones", via: :get
-    match "phones/import" => "phones#import", via: :post, :as => "phones_import_phones"
+    match "phones/import_phones" => "phones#import_phones", via: :get
+    match "phones/import" => "phones#import", via: :post
     match "phones/import_images" => "phones#import_images", via: :post
-    match "mobiteli/reindex" => "phones#reindex", via: :get, :as => "phones_reindex"
+    match "phones/reindex" => "phones#reindex", via: :get
     
     resource :phones, :only => [:create, :new] 
   end
@@ -161,7 +161,7 @@ Mobis::Application.routes.draw do
     end
   end
     
-  match "/postavke" => "accounts#show", :as => "settings", :via => "get"
+  match "/settings" => "accounts#show", :as => "settings", :via => "get"
   match "/remove_settings" => "accounts#remove", :as => "settings_remove", :via => :delete
   match "/add_settings" => "accounts#add", :as => "settings_add", :via => :put
   match "/change_password" => "accounts#change_password", :as => "change_password", :via => :post
