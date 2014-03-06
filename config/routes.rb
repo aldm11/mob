@@ -73,10 +73,10 @@ Mobis::Application.routes.draw do
   
   #TODO: check this
   devise_scope :account do    
-    match "registracija" => "accounts/registrations#index", :as => "register"
+    match "registracija" => "accounts/registrations#index", :as => "register", :via => :get
     match "registracija_korisnika" => "accounts/registrations#new", :account => { :type => "user" }, :as => "register_user"
     match "registracija_prodavnice" => "accounts/registrations#new", :account => { :type => "store" }, :as => "register_store"
-    match "register" => "accounts/registrations#create", :as => "register", :method => :post  
+    match "registracija" => "accounts/registrations#create", :as => "registration", :method => :post  
   
     # match "reset_password" => "devise/passwords#new", :as => "new_unlock", :method => :get
     # match "reset_password" => "devise/passwords#create", :as => "create_unlock", :method => :post

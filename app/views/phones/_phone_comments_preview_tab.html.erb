@@ -1,6 +1,6 @@
 <div class="comments-list">
 	<% if phone_data.comments.empty? %>
-	<p class="muted">There are no comments for this phone</p>
+	<p class="muted"><%= I18n.t("comments.no_comments_for_phone") %></p>
 	<% else %>
 	<% phone_data.comments.each do |comment| %>
 	<%= render :partial => 'comments/comment_item', :locals => {:comment => comment} %>

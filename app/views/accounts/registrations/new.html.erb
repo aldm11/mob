@@ -2,7 +2,7 @@
 <div class="container registration-container">
 	<div class="row-fluid">
 		<h2><%= I18n.t("registration.reg_#{params[:account][:type]}") %></h2>
-		
+
 		<%= form_for(resource, :as => resource_name, :url => registration_path, :html => {:class => "register-form"}) do |f| %>
 		
 		  <div>

@@ -52,6 +52,13 @@ module Search
           criteria[:gte] = value["from"] if value["from"]
           criteria[:lte] = value["to"] if value["to"]
           s.filter :numeric_range, "internal_memory" => criteria
+          
+          # code below for or filtering to take care of missing internal memory values
+          # s.filter :bool, {:should => [
+            # {"numeric_range" => {"internal_memory" => criteria}},
+            # {"missing" => {"field" => "internal_memory"}}
+          # ]}
+          
         end
       end,
       "external_memory" => lambda do |s, value|
@@ -96,7 +103,7 @@ module Search
     
     #TODO: support for choosing fields in response(performance issue, response should not be to long)
     #TODO: additional optional parameter for response format - array of hashes or array of models
-    def self.search(options = nil)
+    def self.search(options = nil)      
       options = options.with_indifferent_access if options && options.is_a?(Hash)
       term = options && options[:search_term] ? options[:search_term] : search_term
       filters = options && options[:search_filters] ? options[:search_filters] : search_filters
@@ -117,6 +124,8 @@ module Search
             should { prefix "model.original", term }
             should { term "os.original", term }
             should { prefix "os.analyzed", term }
+            should { prefix "brand.ngram_analyzed", term }
+            should { prefix "model.ngram_analyzed", term }
           end
         end
       else

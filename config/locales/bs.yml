@@ -116,6 +116,7 @@ bs:
     max_one_in_1_min: "Ne mozete tako brzo dodati 2 komentara"
     comment_saved: "Komentar dodan"
     error_while_adding: "Doslo je do greske. Molimo pokusajte kasnije"
+    no_comments_for_phone: "Nema komentara za ovaj mobitel"
  
   messages:
     new_message: "Nova poruka"
