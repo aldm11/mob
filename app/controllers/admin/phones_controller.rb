@@ -50,7 +50,8 @@ class Admin::PhonesController < ApplicationController
     
     @error = nil
     if @phone
-      if @phone.catalogue_items.empty?
+      active_catalogue_items = @phone.catalogue_items.where(:deleted_date => nil).to_a
+      if active_catalogue_items.empty?
         @phone.deleted = true
         
         @message = @phone.save ? I18n.t("phones.phone_deleted") : I18n.t("phones.internal.phone_invalid")

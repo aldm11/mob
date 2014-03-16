@@ -1,17 +1,17 @@
 $(document).ready(function(){
 	
-	var DEFAULT_PAGING = {"from" : 0, "size" : 3};
+	var DEFAULT_PAGING = {"from" : 0, "size" : 6};
 	var messages = {
 		"received" : {
 			"from" : 0,
-			"size" : 3,
+			"size" : 8,
 			"sort_by" : "date",
 			"search_term" : null,
 			"selected" : []
 		},
 		"sent" : {
 			"from" : 0,
-			"size" : 3,
+			"size" : 8,
 			"sort_by" : "date",
 			"search_term" : null,
 			"selected" : []
@@ -132,6 +132,10 @@ $(document).ready(function(){
     
     $("a.read-message").live("click", function(){
     	$(".messages-center").html("<div id = 'loading_big' class='loading center'><img src = '/loading.gif' width = '24px' height = '24px' /></div>");
+    });
+    
+    $("form.send-message").live("submit", function(){
+    	if($("#send_message_loading").length === 0) $(this).append("<img src='/loading.gif' id='send_message_loading' width='16px' height='16px' />")
     });
     
     // example of using js_data

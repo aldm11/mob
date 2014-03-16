@@ -24,7 +24,7 @@
 				<%= render :partial => "admin/phones/add_remove_phone_item", :locals => {:phone => phone} %>
 			</td>
 			<td>
-				<%= phone.latest_price.blank? ? raw("<i class='icon-remove'></i><input type='hidden' value='not_catalogue' />") : raw("<i class='icon-ok'></i><input type='hidden' value='catalogu' />") %>
+				<%= phone.latest_price.blank? ? raw("<i class='icon-remove'></i><input type='hidden' value='not_catalogue' />") : raw("<i class='icon-ok'></i><input type='hidden' value='catalogue' />") %>
 			</td>
 		</tr>
 		<% end %>

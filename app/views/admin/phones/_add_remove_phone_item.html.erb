@@ -1,9 +1,9 @@
 <% if phone.deleted %>
 <%= form_tag admin_phone_add_path(:id => phone.id), :method => "post", :class => "inline-form add-remove-phone", :remote => true do %>
-<%= button_tag raw('<i class="icon-plus"></i>'), :type => "submit", :class => "link-button", :onclick => "return confirm('Jeste li sigurni?')" %>	
+<%= button_tag raw('<i class="icon-plus"></i>'), :type => "submit", :class => "mark-add-phone link-button" %>	
 <% end %>
 <% else %>
 <%= form_tag admin_phone_path(phone), :method => "delete", :class => "inline-form add-remove-phone", :remote => true do %>
-<%= button_tag raw('<i class="icon-remove"></i>'), :type => "submit", :class => "link-button", :onclick => "return confirm('Jeste li sigurni?')" %>	
+<%= button_tag raw('<i class="icon-remove"></i>'), :type => "submit", :class => "mark-remove-phone link-button" %>	
 <% end %>
 <% end %>

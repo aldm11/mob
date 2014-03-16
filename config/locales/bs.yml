@@ -135,7 +135,7 @@ bs:
     sent: "Poslane"
     conversation_empty: "Nema poruka u konverzaciji"
     errors:
-      invalid_fields: "Nije unesen tekst poruke ili primatelj"
+      invalid_fields: "Nije unesen validan tekst poruke ili primatelj"
       common_error: "Doslo je do pogreske. Molimo pokusajte kasnije."
     internal:
       parameters_invalid: "Primatelj ili poruka neispravni"

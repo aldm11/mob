@@ -1,4 +1,5 @@
-<% resource.rolable = params[:account][:type].downcase.camelize.constantize.new %>
+<% resource.rolable = params[:account][:type].downcase.camelize.constantize.new unless params[:action].to_s == "create" %>
+
 <div class="container registration-container">
 	<div class="row-fluid">
 		<h2><%= I18n.t("registration.reg_#{params[:account][:type]}") %></h2>
@@ -27,7 +28,7 @@
 		  </div>
 	
 		  <%= fields_for resource.rolable do |rf| %>
-		  <%= render :partial => "accounts/registrations/" + ["new", params[:account][:type], "fields"].join("_"), :locals => {:f => rf} %>
+			<%= render :partial => "accounts/registrations/" + ["new", params[:account][:type], "fields"].join("_"), :locals => {:f => rf} %>
 		  <% end %>
 		  
 		  <div class="text-success required-fields">

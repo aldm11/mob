@@ -1,12 +1,34 @@
-<div class="row-fluid">
-	<div class="span2 brands-left-sidebar">	
+<div class="carousel slide" id="home_page_carousel">	
+	<div class="carousel-inner">
+		<div class="active item">
+			<img src="/carousel1.jpg" />
+			<div class="container">
+				<div class="carousel-caption ">
+					<h1>Pronađite mobitel za vas</h1>
+					<p class="lead">
+						Ponuda od preko 2000 modela mobilnih telefona.<br/>
+						Svaki dan 100 novih ponuda u katalozima.</br>
+						Novi i polovni mobitela svih generacija, od Nokie 3310 do Samsung Galaxy S4.					
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="item">
+			<img src="/carousel2.jpg" />
+			<div class="container">
+				<div class="carousel-caption">
+					<h1>Prodajte polovan ili nov mobitel.</h1>
+					<p class="lead">
+						Napravite svoj profil ili profil radnje koju vodite.<br/>
+						Svaki dan prodajite nove ili polovne mobitele u svoj katalog.</br>
+						Jednostavno. Ucinkovito. Besplatno.					
+					</p>
+				</div>
+			</div>
+		</div>
 	</div>
 	
-	<div class="span9 main-container">
-		<%= render :partial => "shared/search_options" %>
-		
-		<div class="phones-grid">			
-		</div>		
-	</div>
+	<a class="carousel-control left" href="#home_page_carousel" data-slide="prev">&lsaquo;</a>
+  	<a class="carousel-control right" href="#home_page_carousel" data-slide="next">&rsaquo;</a>
 </div>
-

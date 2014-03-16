@@ -115,3 +115,25 @@ html[xmlns] .clearfix {
   display: inline;
   width: auto;
 }
+
+.reviewer {
+  div {
+    display: inline-block;
+    padding-right: 8px;
+    
+  }
+  
+  .fa-thumbs-o-up.active {
+    color: blue;
+  }  
+  .fa-thumbs-o-down.active {
+    color: blue;
+  }
+  
+  .fa-thumbs-o-up.inactive {
+    color: #666;
+  }  
+  .fa-thumbs-o-down.inactive {
+    color: #666;
+  }
+}

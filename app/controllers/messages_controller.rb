@@ -63,7 +63,7 @@ class MessagesController < ApplicationController
     type = params[:type]
     search_term = params[:search_term] || nil
     from = params[:from] ? params[:from].to_i : 0
-    size = params[:size] ? params[:size].to_i : 3
+    size = params[:size] ? params[:size].to_i : 8
     to = from + size - 1
     sort_by = params[:sort_by] || "date"
     

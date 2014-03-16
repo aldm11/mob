@@ -13,7 +13,7 @@
 	<% css_class = [css_class, "disabled"].join(" ") unless account_signed_in? %>
 	<% end %>
 	
-	<%= link_to "#", :class => "like-phone" do %>
+	<%= link_to "#", :class => "like-phone", "data-phone-id" => phone.id.to_s do %>
 	<i class="<%= css_class %>"></i>
 	<% end %>
 	<small><%= "(#{phone.like_count})" %></small>
@@ -27,7 +27,7 @@
 	<% css_class = [css_class, "disabled"].join(" ") unless account_signed_in? %>
 	<% end %>
 			
-	<%= link_to "#", :class => "unlike-phone" do %>
+	<%= link_to "#", :class => "unlike-phone", "data-phone-id" => phone.id.to_s do %>
 	<i class="<%= css_class %>"></i>
 	<% end %>		
 	<small><%= "(#{phone.unlike_count})" %></small>

@@ -6,7 +6,11 @@
 	
 	<div class="span6 phone show">
 		<div class="well phone-details">
-			<h3><%= @phone.name %></h3>
+			<h3 class="pull-left"><%= @phone.name %></h3>
+			<div class="reviewer phone-view-reviewer pull-right" id="review-<%= @phone.id.to_s %>">
+				<%= render :partial => "reviews/phone_review", :locals => {:phone => @phone} %>
+			</div>
+			
 			<%= hidden_field_tag("phone_id", @phone.id) %>
 			<div class = "row-fluid phone-info">
 				<div class="pull-left">

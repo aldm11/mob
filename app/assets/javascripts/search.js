@@ -53,7 +53,7 @@ var search = function(){
 			url : "/message/show_next_page",
 			paging : {
 				from : 0,
-				size : 3
+				size : 8
 			},
 			before_send: function(parameters){
 				var type = parameters["type"];

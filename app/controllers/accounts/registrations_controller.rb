@@ -6,7 +6,10 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
   
   def create
     build_resource
-    params[params[:account][:type].to_sym][:phone] = params[params[:account][:type].to_sym][:phone] ? [params[params[:account][:type].to_sym][:phone]] : []
+    account_type = params[:account][:type].to_sym
+    params[params[:account][:type].to_sym][:phone] = params[account_type][:phone] ? [params[account_type][:phone]] : []
+    params[params[:account][:type].to_sym][:address] = params[account_type][:address] ? [params[account_type][:address]] : []
+
     rolable = params[:account][:type].downcase.camelize.constantize.new(params[params[:account][:type].to_sym])
     resource.rolable = rolable
     resource.username = form_username(resource.email) unless resource.email.blank?
@@ -32,6 +35,11 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
         respond_with resource, :location => after_inactive_sign_up_path_for(resource)
       end
     else
+      address = resource.rolable.address.select { |addr| !addr.blank? }.compact
+      resource.rolable.address = address.blank? ? nil : address
+      phone = resource.rolable.phone.select { |pho| !pho.blank? }.compact
+      resource.rolable.phone = phone.blank? ? nil : phone
+      
       clean_up_passwords resource
       respond_with resource
     end

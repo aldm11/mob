@@ -23,7 +23,7 @@ $(document).ready(function(){
 		
 		}, 100);	
 	});
-	
+		
 	$(".phones-catalogue-filter a").live("click", function(event){
 		var clicked_link = $(this);
 		var phones_type = $(this).attr("data-type");
@@ -37,6 +37,7 @@ $(document).ready(function(){
 		$("table.phones-list-admin tr").each(function(){
 			
 			var last_children = $(this).children(":last");
+						
 			if(last_children.is("td")){
 				var content = null;
 				if(filter_options.search_term !== null) content = $(this).children(":first").html().toLowerCase();
@@ -46,4 +47,11 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	
+	$(".add-remove-phone").live("submit", function(event){
+		alert("remove");
+		return confirm("Jeste li sigurni?");
+	});
+	
 });

@@ -1,3 +1,5 @@
+if($("#send_message_loading").length > 0) $("#send_message_loading").remove();
+
 <% if @receiver_id.blank? || @text.blank? %>
 $("form.send-message").append($('<div class="text-error message"><small><%= I18n.t("messages.errors.invalid_fields") %></small></div>'));
 <% else %>

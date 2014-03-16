@@ -47,8 +47,8 @@ Mobis::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
-  config.assets.precompile += %w(home.js phones.js messages.js catalogues.js admin.js load_page_script_and_style.js 
-                                 home.css phones.css messages.css catalogues.css admin.css )
+  config.assets.precompile += %w(home.js home.css phones.js phones.css messages.js messages.css admin.js admin.css 
+  load_page_script_and_style.js catalogues.js catalogues.css accounts.js accounts.css )
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 

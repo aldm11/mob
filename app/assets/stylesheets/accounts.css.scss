@@ -75,5 +75,16 @@ form.change-password {
     display: none;
   }
 }
+
+.register-form {
+  label {
+    display: inline-block;
+    width: 150px;
+  }
+  
+  input[type=text] {
+    display: inline-block;
+  }
+}
   
 

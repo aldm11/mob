@@ -1,3 +1,130 @@
+// phones#show
+.brands-left-sidebar {
+  background-color: #FFF; 
+}
+
+.main-container {
+  position: relative;  
+}
+
+.options-box {
+  background-color: #FFF;
+  padding: 5px;
+  margin-bottom: 20px;
+  
+  .show-price-range:hover {
+    cursor: pointer;
+  }
+  
+  .show-advanced-search {
+    margin-left: 10px;
+  }
+  
+  .advanced-search {
+    width: 100%;
+    min-height: 50px;
+    z-index: 20;
+    position: static;
+    background: #FFF;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    padding: 5px;
+    
+    .criteria-group {
+      margin-bottom: 3px;  
+      padding: 8px;
+      min-height: 0;
+    }
+    
+    .criteria {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    select, input, button, label {
+      display: inline-block;
+      width: auto;
+      height: auto;
+      margin-bottom: 0;
+    }
+  }
+  
+  #price_range_wrapper {
+    padding: 8px;
+    #price_range_actions {
+      margin-top: 8px;
+    }
+  }
+ 
+  .show-all-phones {
+    i {
+      margin-right: 2px;
+    }
+  }
+  
+  //slider
+  .ui-widget {
+    font-size: .6em;
+  }
+  
+  .ui-widget-header {
+    background: #CCC;
+  }
+}
+
+#loading_big {
+  clear: both;
+  display: block;
+  margin-top: 30%;
+  margin-left: 50%;
+}
+
+.no-more-phones {
+  clear: both;
+  display: block;
+  text-align: center;
+}
+
+/*TODO: wnen remove commenting from home page remove this*/
+.comments-list {
+  max-height: 190px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+  .comment-item {
+    background: #EEE;
+    margin-bottom: 2px;
+    padding: 3px;
+    .comment-metas {
+      border-right: 1px solid #CCC;
+    }
+  }
+}
+
+.comment-text {
+  width: 95%;
+  height: 70px;
+}
+
+.reviews-comments-wrapper {
+  margin-top: 10px;
+}
+
+// phones#show
 .phone.show {
   padding-top: 0;
   .phone-details {
@@ -103,4 +230,8 @@
   .advanced-search {
     margin-left: 10px;
   }
+}
+
+.phone-view-reviewer {
+  margin-top: 15px;
 }
