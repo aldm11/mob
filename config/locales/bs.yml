@@ -69,6 +69,7 @@ bs:
     no_more_phones: "Nema vise telefona"
     apply_price_range: "Filtriraj"
     advanced_search: "Napredna pretraga"
+    search: "Trazi"
     
   header:
     catalogue: "Katalog"
@@ -160,6 +161,11 @@ bs:
     all_phones: "Svi mobiteli"
     phones_in_catalogue: "Mobiteli u katalogu"
     phones_not_in_catalogue: "Mobiteli van kataloga"
+  
+  home:
+    register_user: "Registruj se"
+    register_store: "Registruj prodavnicu"
+    search_placeholder: "Pretrazite mobitele u katalogu"
     
   ##############
   mongoid: 

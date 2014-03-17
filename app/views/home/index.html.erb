@@ -3,13 +3,28 @@
 		<div class="active item">
 			<img src="/carousel1.jpg" />
 			<div class="container">
-				<div class="carousel-caption ">
+				
+				<div class="homepage-search">
+					<%= form_tag(phones_path) do %>
+					<div class="input-append">
+					<%= text_field_tag "search_term", "", :placeholder => I18n.t("home.search_placeholder") %>
+					<%= button_tag I18n.t("search.search"), :type => "submit", :class => "btn" %>
+					</div>
+					<% end %>
+				</div>
+				
+				<div class="carousel-caption">
 					<h1>Pronađite mobitel za vas</h1>
 					<p class="lead">
 						Ponuda od preko 2000 modela mobilnih telefona.<br/>
 						Svaki dan 100 novih ponuda u katalozima.</br>
-						Novi i polovni mobitela svih generacija, od Nokie 3310 do Samsung Galaxy S4.					
+						Novi i polovni mobitela svih generacija.					
 					</p>
+				</div>
+				
+				<div class="homepage-actions">
+					<%= link_to I18n.t("home.register_user"), register_user_path, :class => "btn btn-large btn-primary" %>
+					<%= link_to I18n.t("home.register_store"), register_store_path, :class => "btn btn-large btn-success" %>
 				</div>
 			</div>
 		</div>

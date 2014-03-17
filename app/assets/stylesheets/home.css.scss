@@ -1,12 +1,67 @@
+header {
+  display: none;
+}
+
+.container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  
+  .content {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+}
+ 
 .carousel {
   img {
-    height: 600px;
+    width: 100%;
+    background-repeat: repeat-x;
+    height: 700px;
   }
+  
+  .homepage-search {
+    position: absolute;
+    top: 100px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    
+    // input {
+      // display: inline-block;
+      // width: auto;
+    // }
+//     
+    input[type=text] {
+      width: 350px;
+      height: 30px;
+    }
+    
+    button[type=submit] {
+      height: 40px;
+    }
+  }
+  
   .carousel-caption {
     background: transparent;
     bottom: auto;
-    top: 160px;
+    top: 210px;
     left: 60px;
     color: white;
+    display: inline-block;
+    width: auto;
+    right: auto;
   } 
+  
+  .homepage-actions {
+    position: absolute;
+    top: 230px;
+    right: 240px; 
+    
+    a {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
 }
