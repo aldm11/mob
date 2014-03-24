@@ -166,6 +166,7 @@ bs:
     register_user: "Registruj se"
     register_store: "Registruj prodavnicu"
     search_placeholder: "Pretrazite mobitele u katalogu"
+    list_all_phones: "Prikazi sve mobitele"
     
   ##############
   mongoid: 

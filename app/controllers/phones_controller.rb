@@ -39,7 +39,8 @@ class PhonesController < ApplicationController
         :front => {"" => "/", 1 => "DA", 0 => "NE"}
       }
     }
-    @brand = params[:brand] || nil
+    @brand = params[:brand]
+    @search_term = params[:search_term]
   end
   
 end

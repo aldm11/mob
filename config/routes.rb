@@ -170,7 +170,7 @@ Mobis::Application.routes.draw do
   match "settings/change_avatar" => "accounts#change_avatar", :as => "change_avatar", :via => :post
  
   # match "/:brand" => "home#index", :as => "brand", :via => "get"
-  match "/:brand" => "phones#index", :as => "brand", :via => "get"
+  match "mobiteli/:brand" => "phones#index", :as => "brand", :via => "get"
   
   mount Heartbeat::Application, :at => "/heartbeat"  
 end

@@ -39,5 +39,11 @@ module DeviseHelper
     html.html_safe
   end
   
+  def after_sign_in_path_for(resource_or_scope)
+    # scope = Devise::Mapping.find_scope!(resource_or_scope)
+    # home_path = "#{scope}_phones_path"
+    # respond_to?(home_path, true) ? send(home_path) : phones_path
+  end
+  
 end
 

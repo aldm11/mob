@@ -3,7 +3,7 @@ $(document).ready(function(){
 	var min_price = 50,
 	    max_price = 1000;
 	
-	var search_term = "", 
+	var search_term = $("#search_term").val() || "", 
 	    brand = $("#brand_param").val() || "", 
 	    sort_by = $(".sort-phones-by a:nth-child(1)").attr("id"),
 	    from = 0,
