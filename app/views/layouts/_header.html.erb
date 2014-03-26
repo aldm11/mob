@@ -1,15 +1,23 @@
 <header class="navbar navbar-inverse">
 	<div class="navbar-inner">
 		<div class="container-fluid header-content">
-			<%= link_to "Mobis", root_path, :class => "brand logo" %>
-	
+			<%= link_to "Mobis", root_path, :class => "brand logo" %>	
 			<nav>
 				<ul class="nav pull-right main-nav">
 					<li>
+						<%= link_to phones_path do %>
+						<i class="fa fa-mobile"></i><%= I18n.t("header.phones") %>
+						<% end %>
+					</li>
+					<li>
 					<% unless account_signed_in? %>
-					<%= link_to "Registracija", register_path %>
+					<%= link_to register_path do %>
+					<i class="fa fa-user"></i><%= I18n.t("header.register") %>
+					<% end %>
 					<li class="dropdown">
-						<%= link_to I18n.t("login.sign_in"), "#", :class => "dropdown-toggle", "data-toggle" => "dropdown" %>
+						<%= link_to "#", :class => "dropdown-toggle", "data-toggle" => "dropdown" do %>
+						<i class="fa fa-sign-in"></i><%= I18n.t("login.sign_in") %>
+						<% end %>
 						<div class="dropdown-menu" style="padding: 10px;">
 							<%= render :partial => "shared/login", :locals => { :resource  => Account.new, :resource_name => :account } %>
 						</div>

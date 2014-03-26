@@ -33,7 +33,7 @@ $(document).ready(function(){
     });
 
     $("#login_form").bind("ajax:success", function(xhr, status, error) {
-		window.location = "/";
+		window.location = "/mobiteli";
     });
     
     $("#login_form").bind("ajax:error", function(xhr, status, error) {
@@ -51,7 +51,7 @@ $(document).ready(function(){
     			if(string_rest[0] === left_border){
     				var right_border_index = string_rest.indexOf("}");
     				var var_name = string_rest.substring(1, right_border_index);
-    	if(var_name[0] === "'"){
+    				if(var_name[0] === "'"){
     					var_name = var_name.substring(1);
     				}
     				if(var_name[var_name.length-1] === "'"){

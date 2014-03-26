@@ -1,11 +1,22 @@
 <div>
 	<img src="/carousel1.jpg" />
-		
-	<%= form_tag(account_session_path, :class => "form-inline login-form") do %>
-	<%= text_field_tag "account[email]", "", :placeholder => "Email", :class => "input" %>
-	<%= password_field_tag "account[password]", "", :placeholder => "Password", :class => "input" %>
-	<%= button_tag "Login", :type => "submit", :class => "btn" %>
-	<% end %>
+	
+	<div class="logo">
+		<h2>Mobis</h2>
+	</div>
+	
+	<div class="login-account-info">
+		<%  if account_signed_in? %>
+		<%= link_to "Logged in as #{current_account.username} [Logout]", destroy_account_session_path, :method => :delete %>
+		<%= link_to "Katalog mobitela", phones_path %>
+		<% else %>
+		<%= form_tag(account_session_path, :class => "form-inline login-form") do %>
+		<%= text_field_tag "account[email]", "", :placeholder => "Email", :class => "input" %>
+		<%= password_field_tag "account[password]", "", :placeholder => "Password", :class => "input" %>
+		<%= button_tag "Login", :type => "submit", :class => "btn" %>
+		<% end %>
+		<% end %>
+	</div>
 	
 	<div class="homepage-search">
 		<form action="<%= phones_path %>" method="GET">
@@ -21,35 +32,6 @@
 		<%= link_to I18n.t("home.register_user"), register_user_path, :class => "btn btn-large btn-primary" %>
 		<%= link_to I18n.t("home.register_store"), register_store_path, :class => "btn btn-large btn-success" %>
 	</div>
-	
-<!-- 	<div class="carousel slide" id="home_page_carousel">	
-		<div class="carousel-inner">
-			<div class="active item">
-				<div class="carousel-caption">
-					<h1>Pronađite mobitel za vas</h1>
-					<p class="lead">
-						Ponuda od preko 2000 modela mobilnih telefona.<br/>
-						Svaki dan 100 novih ponuda u katalozima.</br>
-						Novi i polovni mobitela svih generacija.					
-					</p>
-				</div>
-			</div>
-			
-			<div class="item">
-				<div class="carousel-caption">
-					<h1>Prodajte polovan ili nov mobitel.</h1>
-					<p class="lead">
-						Napravite svoj profil ili profil radnje koju vodite.<br/>
-						Svaki dan prodajite nove ili polovne mobitele u svoj katalog.</br>
-						Jednostavno. Ucinkovito. Besplatno.					
-					</p>
-				</div>
-			</div>
-		</div>
-		
-		<a class="carousel-control left" href="#home_page_carousel" data-slide="prev">&lsaquo;</a>
-	  	<a class="carousel-control right" href="#home_page_carousel" data-slide="next">&rsaquo;</a>
-	</div> -->
 	
 	<div class="slider">
 		<div class="slider-content">

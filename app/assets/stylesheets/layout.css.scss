@@ -17,6 +17,11 @@
 	    margin-right: 3px;
 	  }
 	}
+	
+	.fa-mobile, .fa-sign-in, .fa-user {
+	  color: white;
+	  font-size: 15px;
+	}
 }
 
 .content {
@@ -28,5 +33,8 @@ footer {
   text-align: center;
   margin-top: 70px;
   padding: 30px;
+  
+  background: #666;
+  border-top: 2px solid #CCC;
 }
 

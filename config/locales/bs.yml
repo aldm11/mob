@@ -78,6 +78,7 @@ bs:
     logout: "Odjava"
     users: "Korisnici"
     phones: "Mobiteli"
+    register: "Registracija"
     
   footer:
     all_rights_reserved: "Sva prava pridrzana"
