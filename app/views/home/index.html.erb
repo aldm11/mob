@@ -7,13 +7,13 @@
 	
 	<div class="login-account-info">
 		<%  if account_signed_in? %>
-		<%= link_to "Logged in as #{current_account.username} [Logout]", destroy_account_session_path, :method => :delete %>
-		<%= link_to "Katalog mobitela", phones_path %>
+		<%= link_to "Katalog mobitela", phones_path, :class => "btn" %>
+		<%= link_to "#{current_account.username} [Logout]", destroy_account_session_path, :method => :delete, :class => "btn" %>
 		<% else %>
 		<%= form_tag(account_session_path, :class => "form-inline login-form") do %>
 		<%= text_field_tag "account[email]", "", :placeholder => "Email", :class => "input" %>
 		<%= password_field_tag "account[password]", "", :placeholder => "Password", :class => "input" %>
-		<%= button_tag "Login", :type => "submit", :class => "btn" %>
+		<%= button_tag "Login", :type => "submit", :class => "btn btn-info" %>
 		<% end %>
 		<% end %>
 	</div>

@@ -14,17 +14,17 @@ bs:
 
   devise:
     failure:
-      already_authenticated: 'You are already signed in.'
-      unauthenticated: 'You need to sign in or sign up before continuing.'
-      unconfirmed: 'You have to confirm your account before continuing.'
-      locked: 'Your account is locked.'
-      invalid: 'Invalid email or password.'
-      invalid_token: 'Invalid authentication token.'
-      timeout: 'Your session expired, please sign in again to continue.'
-      inactive: 'Your account was not activated yet.'
+      already_authenticated: 'Vec ste logovani.'
+      unauthenticated: 'Morate se registrovati.'
+      unconfirmed: 'Morate potvrditi identitet.'
+      locked: 'Korisnicki racun zakljucan.'
+      invalid: 'Pogresan email ili sifra.'
+      invalid_token: 'Pogresan token.'
+      timeout: 'Sesija istekla. Logujte se.'
+      inactive: 'Vas korisnicki radun nije aktiviran.'
     sessions:
-      signed_in: 'Signed in successfully.'
-      signed_out: 'Signed out successfully.'
+      signed_in: 'Prijava uspjesna.'
+      signed_out: 'Odjava uspjesna.'
     passwords:
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
       updated: 'Your password was changed successfully. You are now signed in.'
