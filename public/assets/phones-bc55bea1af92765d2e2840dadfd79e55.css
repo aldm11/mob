@@ -1,0 +1,247 @@
+/* line 2, ../../app/assets/stylesheets/phones.css.scss */
+.brands-left-sidebar {
+  background-color: #FFF;
+}
+
+/* line 6, ../../app/assets/stylesheets/phones.css.scss */
+.main-container {
+  position: relative;
+}
+
+/* line 10, ../../app/assets/stylesheets/phones.css.scss */
+.options-box {
+  background-color: #FFF;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+/* line 15, ../../app/assets/stylesheets/phones.css.scss */
+.options-box .show-price-range:hover {
+  cursor: pointer;
+}
+/* line 19, ../../app/assets/stylesheets/phones.css.scss */
+.options-box .show-advanced-search {
+  margin-left: 10px;
+}
+/* line 23, ../../app/assets/stylesheets/phones.css.scss */
+.options-box .advanced-search {
+  width: 100%;
+  min-height: 50px;
+  z-index: 20;
+  position: static;
+  background: #FFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 5px;
+}
+/* line 47, ../../app/assets/stylesheets/phones.css.scss */
+.options-box .advanced-search .criteria-group {
+  margin-bottom: 3px;
+  padding: 8px;
+  min-height: 0;
+}
+/* line 53, ../../app/assets/stylesheets/phones.css.scss */
+.options-box .advanced-search .criteria {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 58, ../../app/assets/stylesheets/phones.css.scss */
+.options-box .advanced-search select, .options-box .advanced-search input, .options-box .advanced-search button, .options-box .advanced-search label {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  margin-bottom: 0;
+}
+/* line 66, ../../app/assets/stylesheets/phones.css.scss */
+.options-box #price_range_wrapper {
+  padding: 8px;
+}
+/* line 68, ../../app/assets/stylesheets/phones.css.scss */
+.options-box #price_range_wrapper #price_range_actions {
+  margin-top: 8px;
+}
+/* line 74, ../../app/assets/stylesheets/phones.css.scss */
+.options-box .show-all-phones i {
+  margin-right: 2px;
+}
+/* line 80, ../../app/assets/stylesheets/phones.css.scss */
+.options-box .ui-widget {
+  font-size: .6em;
+}
+/* line 84, ../../app/assets/stylesheets/phones.css.scss */
+.options-box .ui-widget-header {
+  background: #CCC;
+}
+
+/* line 89, ../../app/assets/stylesheets/phones.css.scss */
+#loading_big {
+  clear: both;
+  display: block;
+  margin-top: 30%;
+  margin-left: 50%;
+}
+
+/* line 96, ../../app/assets/stylesheets/phones.css.scss */
+.no-more-phones {
+  clear: both;
+  display: block;
+  text-align: center;
+}
+
+/*TODO: wnen remove commenting from home page remove this*/
+/* line 103, ../../app/assets/stylesheets/phones.css.scss */
+.comments-list {
+  max-height: 190px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+}
+/* line 108, ../../app/assets/stylesheets/phones.css.scss */
+.comments-list .comment-item {
+  background: #EEE;
+  margin-bottom: 2px;
+  padding: 3px;
+}
+/* line 112, ../../app/assets/stylesheets/phones.css.scss */
+.comments-list .comment-item .comment-metas {
+  border-right: 1px solid #CCC;
+}
+
+/* line 118, ../../app/assets/stylesheets/phones.css.scss */
+.comment-text {
+  width: 95%;
+  height: 70px;
+}
+
+/* line 123, ../../app/assets/stylesheets/phones.css.scss */
+.reviews-comments-wrapper {
+  margin-top: 10px;
+}
+
+/* line 128, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show {
+  padding-top: 0;
+}
+/* line 130, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-details {
+  margin-top: 0;
+  padding-top: 0;
+}
+/* line 133, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-details .phone-info {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #CCC;
+  padding-bottom: 2px;
+}
+/* line 138, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-details .phone-info .last-phone-offer:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+/* line 143, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-details .phone-info .last-offer small {
+  font-size: 9pt;
+}
+/* line 148, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-details .phone-image img {
+  vertical-align: text-top;
+  min-width: 80px;
+  min-height: 80px;
+}
+/* line 156, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-details .phone-attributes .phone-attribute {
+  padding: 2px 0 2px 0;
+  border-bottom: 1px solid #CCC;
+}
+/* line 159, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-details .phone-attributes .phone-attribute span {
+  min-height: 0;
+}
+/* line 163, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-details .phone-attributes .phone-attribute:hover {
+  background: #EEE;
+}
+/* line 170, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-comments .comment-count {
+  display: block;
+  margin-bottom: 10px;
+}
+/* line 174, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-comments .added-comment {
+  border: "2px solid green";
+}
+/* line 177, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-comments .comment-text {
+  width: 96%;
+  height: 50px;
+  font-size: 9pt;
+}
+/* line 183, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-comments .comment-item {
+  border-bottom: 1px solid #CCC;
+}
+/* line 186, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-comments .comment-item .comment-meta img {
+  vertical-align: text-top;
+}
+/* line 190, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-comments .comment-item .comment-message {
+  padding-left: 10px;
+  background: #EEE;
+  min-height: 40px;
+}
+/* line 196, ../../app/assets/stylesheets/phones.css.scss */
+.phone.show .phone-comments .comment-item:nth-child(1) {
+  border-top: 1px solid #CCC;
+}
+
+/* line 203, ../../app/assets/stylesheets/phones.css.scss */
+.phone-right-sidebar .offer-count {
+  display: block;
+  margin-bottom: 10px;
+}
+/* line 208, ../../app/assets/stylesheets/phones.css.scss */
+.phone-right-sidebar .offers {
+  display: block;
+  clear: both;
+}
+/* line 211, ../../app/assets/stylesheets/phones.css.scss */
+.phone-right-sidebar .offers .offer-item {
+  display: block;
+  height: 36px;
+  margin-bottom: 5px;
+}
+/* line 215, ../../app/assets/stylesheets/phones.css.scss */
+.phone-right-sidebar .offers .offer-item img {
+  vertical-align: text-top;
+}
+/* line 218, ../../app/assets/stylesheets/phones.css.scss */
+.phone-right-sidebar .offers .offer-item .show-offer-details {
+  display: block;
+  clear: both;
+  text-align: right;
+  font-size: 9pt;
+}
+/* line 226, ../../app/assets/stylesheets/phones.css.scss */
+.phone-right-sidebar .offer-item:hover {
+  background: #f5f5f5;
+}
+/* line 230, ../../app/assets/stylesheets/phones.css.scss */
+.phone-right-sidebar .advanced-search {
+  margin-left: 10px;
+}
+
+/* line 235, ../../app/assets/stylesheets/phones.css.scss */
+.phone-view-reviewer {
+  margin-top: 15px;
+}

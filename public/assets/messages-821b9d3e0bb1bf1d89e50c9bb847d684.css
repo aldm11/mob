@@ -1,0 +1,152 @@
+/* line 1, ../../app/assets/stylesheets/messages.css.scss */
+.loading.center {
+  position: relative;
+  top: 40px;
+  left: 25%;
+}
+
+/* line 8, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .search-sort {
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #EEE;
+}
+/* line 11, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .search-sort .search-query {
+  height: 16px;
+  width: 120px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  padding: 3px 5px 3px 5px;
+  margin-right: 5px;
+}
+/* line 22, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .select-delete {
+  padding: 10px 0 10px 0;
+  border-bottom: 1px solid #EEE;
+}
+/* line 25, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .select-delete .delete-messages {
+  margin-right: 5px;
+}
+/* line 30, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .nav-tabs > li > a {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  line-height: 15px;
+}
+/* line 36, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .no-messages {
+  padding: 10px;
+}
+/* line 40, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .pagination div {
+  margin-right: 10px;
+}
+/* line 45, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item {
+  font-size: 9pt;
+  border-bottom: 1px solid #CCC;
+}
+/* line 48, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item img {
+  vertical-align: text-top;
+}
+/* line 52, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item .text a {
+  color: #333;
+}
+/* line 55, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item .text a:hover {
+  color: #333;
+  text-decoration: none;
+}
+/* line 60, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item .message-options {
+  float: right;
+}
+/* line 62, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item .message-options .remove-message {
+  display: inline;
+}
+/* line 67, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item .message-options .icon-remove {
+  border: none;
+  margin: 3px 0 0 5px;
+}
+/* line 74, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item.unread .text {
+  font-weight: bold;
+}
+/* line 78, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item.active {
+  border-right: none;
+  background: #F2F2F2;
+}
+/* line 82, ../../app/assets/stylesheets/messages.css.scss */
+.messages-container .messages .message-item:hover {
+  background: #dff0d8;
+}
+
+/* line 89, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center {
+  margin-left: 0;
+}
+/* line 92, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation {
+  background: #F2F2F2;
+  padding: 10px;
+}
+/* line 95, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item {
+  background: #FFF;
+  font-size: 9pt;
+  margin-bottom: 10px;
+}
+/* line 98, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item .sender-avatar {
+  vertical-align: text-top;
+}
+/* line 101, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item .text {
+  display: inline;
+}
+/* line 104, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item .date-sent {
+  font-size: 8pt;
+}
+/* line 111, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item.my .sender-avatar {
+  float: left;
+  margin-right: 5px;
+}
+/* line 115, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item.my .date-sent {
+  text-align: left;
+}
+/* line 121, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item.other .sender-avatar {
+  float: right;
+  margin-left: 5px;
+}
+/* line 125, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item.other .sender-name {
+  float: right;
+}
+/* line 128, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item.other .text {
+  float: right;
+  text-align: right;
+}
+/* line 132, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center .conversation .conversation-item.other .date-sent {
+  text-align: right;
+}
+/* line 140, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center form.send-message textarea {
+  min-width: 360px;
+}
+/* line 144, ../../app/assets/stylesheets/messages.css.scss */
+.messages-center form.send-message .message-to {
+  width: 360px;
+}

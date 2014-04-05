@@ -1,0 +1,179 @@
+/* line 1, ../../app/assets/stylesheets/home.css.scss */
+header {
+  display: none;
+}
+
+/* line 5, ../../app/assets/stylesheets/home.css.scss */
+.container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+/* line 9, ../../app/assets/stylesheets/home.css.scss */
+.container .content {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+/* line 14, ../../app/assets/stylesheets/home.css.scss */
+.container .content img {
+  width: 100%;
+  background-repeat: repeat-x;
+  height: 700px;
+  position: absolute;
+  z-index: -1;
+}
+/* line 22, ../../app/assets/stylesheets/home.css.scss */
+.container .content .logo {
+  position: absolute;
+  top: 40px;
+  left: 80px;
+  color: white;
+}
+/* line 28, ../../app/assets/stylesheets/home.css.scss */
+.container .content .logo h2 {
+  margin-top: 0;
+  padding-top: 0;
+}
+/* line 34, ../../app/assets/stylesheets/home.css.scss */
+.container .content .login-account-info {
+  position: absolute;
+  top: 40px;
+  right: 100px;
+}
+/* line 39, ../../app/assets/stylesheets/home.css.scss */
+.container .content .login-account-info input {
+  width: 150px;
+}
+/* line 43, ../../app/assets/stylesheets/home.css.scss */
+.container .content .login-account-info a {
+  margin-right: 10px;
+}
+/* line 49, ../../app/assets/stylesheets/home.css.scss */
+.container .content .homepage-search {
+  position: absolute;
+  top: 240px;
+  right: 100px;
+  height: auto;
+  text-align: right;
+}
+/* line 56, ../../app/assets/stylesheets/home.css.scss */
+.container .content .homepage-search form {
+  margin-bottom: 0;
+}
+/* line 58, ../../app/assets/stylesheets/home.css.scss */
+.container .content .homepage-search form .input-append {
+  border: 3px solid #CCC;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+}
+/* line 65, ../../app/assets/stylesheets/home.css.scss */
+.container .content .homepage-search form input[type=text] {
+  width: 350px;
+  height: 30px;
+}
+/* line 70, ../../app/assets/stylesheets/home.css.scss */
+.container .content .homepage-search form button[type=submit] {
+  height: 40px;
+}
+/* line 75, ../../app/assets/stylesheets/home.css.scss */
+.container .content .homepage-search a.list-all-phones {
+  color: white;
+}
+/* line 80, ../../app/assets/stylesheets/home.css.scss */
+.container .content .carousel {
+  position: absolute;
+  z-index: 30;
+  top: 205px;
+  left: 80px;
+  color: white;
+  background: transparent;
+  width: 540px;
+  height: 100px;
+  padding-left: 60px;
+  padding-right: 30px;
+}
+/* line 92, ../../app/assets/stylesheets/home.css.scss */
+.container .content .carousel .carousel-inner {
+  position: static;
+  display: inline-block;
+  background: transparent;
+}
+/* line 96, ../../app/assets/stylesheets/home.css.scss */
+.container .content .carousel .carousel-inner .carousel-caption {
+  background: transparent;
+  position: static;
+  display: inline-block;
+  padding-top: 0;
+}
+/* line 106, ../../app/assets/stylesheets/home.css.scss */
+.container .content .homepage-actions {
+  position: absolute;
+  top: 370px;
+  left: 80px;
+}
+/* line 111, ../../app/assets/stylesheets/home.css.scss */
+.container .content .homepage-actions a {
+  margin-right: 10px;
+}
+/* line 116, ../../app/assets/stylesheets/home.css.scss */
+.container .content .slider {
+  position: absolute;
+  top: 205px;
+  left: 70px;
+  background: transparent;
+  display: inline-block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  display: inline-block;
+}
+/* line 126, ../../app/assets/stylesheets/home.css.scss */
+.container .content .slider .slider-content {
+  position: relative;
+  width: 500px;
+}
+/* line 129, ../../app/assets/stylesheets/home.css.scss */
+.container .content .slider .slider-content .slider-item {
+  display: none;
+  color: white;
+  background: transparent;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+/* line 136, ../../app/assets/stylesheets/home.css.scss */
+.container .content .slider .slider-content .slider-item.active {
+  display: inline-block;
+}
+/* line 140, ../../app/assets/stylesheets/home.css.scss */
+.container .content .slider .slider-content .slider-navigation {
+  position: absolute;
+  top: 30%;
+  width: 40px;
+  height: 40px;
+  font-size: 60px;
+  font-weight: 100;
+  line-height: 30px;
+  color: #FFF;
+  text-align: center;
+  background: #222222;
+  border: 3px solid #ffffff;
+  -webkit-border-radius: 23px;
+  -moz-border-radius: 23px;
+  border-radius: 23px;
+  opacity: 0.5;
+}
+/* line 157, ../../app/assets/stylesheets/home.css.scss */
+.container .content .slider .slider-content .slider-navigation.left {
+  right: 102%;
+}
+/* line 160, ../../app/assets/stylesheets/home.css.scss */
+.container .content .slider .slider-content .slider-navigation.right {
+  left: 102%;
+}
+/* line 163, ../../app/assets/stylesheets/home.css.scss */
+.container .content .slider .slider-content .slider-navigation:hover {
+  color: #FFF;
+  text-decoration: none;
+  opacity: 0.9;
+}

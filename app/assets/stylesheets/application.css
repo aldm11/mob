@@ -12,7 +12,7 @@
  *= require jquery-ui-1.10.2.custom
  *= require jquery.fileupload
  *= require_tree ./bootstrap
- *= require font-awesome-4.0.3/css/font-awesome.min
+ *= require font-awesome-4.0.3/css/font-awesome
  *= require layout
  *= require chat
  *= require jquery.flickrimg

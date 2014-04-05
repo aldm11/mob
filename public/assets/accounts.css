@@ -1,0 +1,79 @@
+/* line 1, ../../app/assets/stylesheets/accounts.css.scss */
+form.remove-property {
+  display: none;
+  margin: 0;
+}
+
+/* line 6, ../../app/assets/stylesheets/accounts.css.scss */
+form.add-property {
+  margin: 0;
+}
+
+/* line 11, ../../app/assets/stylesheets/accounts.css.scss */
+.account-attributes td.update-attribute {
+  width: 25%;
+}
+/* line 15, ../../app/assets/stylesheets/accounts.css.scss */
+.account-attributes td.attribute-name {
+  width: 25%;
+}
+
+/* line 20, ../../app/assets/stylesheets/accounts.css.scss */
+.hidden {
+  visibility: hidden;
+}
+
+/* line 24, ../../app/assets/stylesheets/accounts.css.scss */
+.value-wrapper {
+  margin-right: 10px;
+}
+
+/* line 28, ../../app/assets/stylesheets/accounts.css.scss */
+form.change-password {
+  margin: 10px 0 10px 10px;
+  display: inline-block;
+  width: auto;
+}
+/* line 32, ../../app/assets/stylesheets/accounts.css.scss */
+form.change-password label {
+  display: inline-block;
+  width: 150px;
+}
+/* line 37, ../../app/assets/stylesheets/accounts.css.scss */
+form.change-password input {
+  display: inline-block;
+}
+
+/* line 43, ../../app/assets/stylesheets/accounts.css.scss */
+.settings-avatar-container .avatar-wrapper {
+  position: relative;
+}
+/* line 46, ../../app/assets/stylesheets/accounts.css.scss */
+.settings-avatar-container .avatar-wrapper img.account-settings-avatar {
+  width: 128px;
+}
+/* line 50, ../../app/assets/stylesheets/accounts.css.scss */
+.settings-avatar-container .avatar-wrapper .change-avatar {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  display: none;
+}
+/* line 70, ../../app/assets/stylesheets/accounts.css.scss */
+.settings-avatar-container form.change-avatar-form {
+  display: none;
+}
+/* line 74, ../../app/assets/stylesheets/accounts.css.scss */
+.settings-avatar-container #avatar {
+  display: none;
+}
+
+/* line 80, ../../app/assets/stylesheets/accounts.css.scss */
+.register-form label {
+  display: inline-block;
+  width: 150px;
+}
+/* line 85, ../../app/assets/stylesheets/accounts.css.scss */
+.register-form input[type=text] {
+  display: inline-block;
+}

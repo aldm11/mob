@@ -1,0 +1,42 @@
+/* line 2, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main .remove-item {
+  border: none;
+  float: right;
+}
+/* line 8, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main .show-on-hover {
+  visibility: hidden;
+}
+/* line 12, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main ul.prices-history-content > li {
+  font-size: 8pt;
+}
+/* line 16, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main .catalogue-price {
+  margin-left: 10px;
+}
+/* line 20, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main .catalogue-options {
+  margin-right: 10px;
+}
+/* line 24, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main .catalogue-phone-title {
+  height: 40px;
+}
+/* line 26, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main .catalogue-phone-title:hover {
+  cursor: pointer;
+}
+/* line 32, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main .attributes-catalogue .attribute-catalogue {
+  font-size: 8pt;
+  border-bottom: 1px solid #CCC;
+}
+/* line 36, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main .attributes-catalogue .attribute-catalogue span {
+  display: inline-block;
+}
+/* line 39, ../../app/assets/stylesheets/catalogues.css.scss */
+.catalogue-item-main .attributes-catalogue .attribute-catalogue span.attr-name {
+  width: 100px;
+}
