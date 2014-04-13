@@ -97,6 +97,7 @@ bs:
     sort_by_date: "Datum"
     sort_by_price: "Cijena"
     save_phone: "Spasi"
+    no_more_phones: "Nema vise mobitela ..."
  
     phone_deleted: "Mobitel markiran kao obrisan"
     phone_undeleted: "Mobitel markiran kao NEobrisan"   

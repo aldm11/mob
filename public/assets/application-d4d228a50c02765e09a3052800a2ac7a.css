@@ -9413,8 +9413,8 @@ a.badge:hover {
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url('font-awesome-4.0.3/fonts/fontawesome-webfont.eot?v=4.0.3');
-  src: url('font-awesome-4.0.3/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font-awesome-4.0.3/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font-awesome-4.0.3/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font-awesome-4.0.3/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+  src: url('/assets/font-awesome-4.0.3/fonts/fontawesome-webfont.eot?v=4.0.3');
+  src: url('/assets/font-awesome-4.0.3/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('/assets/font-awesome-4.0.3/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('/assets/font-awesome-4.0.3/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('/assets/font-awesome-4.0.3/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -10776,6 +10776,11 @@ footer {
   padding: 30px;
   background: #666;
   border-top: 2px solid #CCC;
+}
+
+/* line 41, ../../app/assets/stylesheets/layout.css.scss */
+.fa-users {
+  font-size: 10pt;
 }
 /* line 1, ../../app/assets/stylesheets/chat.css.scss */
 .chat {

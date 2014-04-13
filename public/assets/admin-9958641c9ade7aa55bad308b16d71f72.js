@@ -50,7 +50,6 @@ $(document).ready(function(){
 	
 	
 	$(".add-remove-phone").live("submit", function(event){
-		alert("remove");
 		return confirm("Jeste li sigurni?");
 	});
 	

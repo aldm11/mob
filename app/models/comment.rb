@@ -17,7 +17,7 @@ class Comment
   end
   
   before_save do |comment|
-    comment.created_at = Time.new.to_time.to_i
+    comment.created_at = Time.new.utc.to_i
     comment.active = true
   end
 end

@@ -4,7 +4,7 @@ $(".brands-left-sidebar").html(brands);
 $("#loading_big").remove();
 $(".no-more-phones").remove();
 <% if @phones.length === 0 %>
-$(".phones-grid").append("<div class='no-more-phones'>No more phones ...</div>");
+$(".phones-grid").append("<div class='no-more-phones'><%= I18n.t("phones.no_more_phones") %></div>");
 <% else %>
 var phones_grid_html = $("<%= escape_javascript(render(:partial => 'phones/phones_grid')) %>");
 $(".phones-grid").css({"text-align" : "left", "padding-top" : 0});

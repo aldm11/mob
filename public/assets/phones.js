@@ -188,20 +188,6 @@ $(document).ready(function(){
 	    $(this).tab('show');
 	});
 
-	//TODO: when remove commenting from home page remove this
-	var KEY_ENTER = 13;
-	$('#comment_text').live("keydown", function (event) {
-    	if (event.keyCode === KEY_ENTER){
-	    	if (event.ctrlKey){
-				$(this).val($(this).val()+"\n");
-	    	}
-	    	else{
-				event.preventDefault();
-	    		$("form#new_comment").submit();	
-	    	}
-	    }
-	});
-	
 	// phones#show
 	$(".last-phone-offer").popover({html: true, delay: 500, trigger: "hover"});
 	$(".provider-details").popover({html: true, delay: 500, trigger: "hover"});
